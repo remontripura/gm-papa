@@ -14,7 +14,7 @@ import { handleLogout } from "@/lib/logout/logout";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import { useCategoryStore } from "@/lib/store/allProductStore/allProductStore";
-import { IProduct } from "@/types/procutsDataType/procutsDataType";
+import { IProduct } from "@/types/productsDataType/productsDataType";
 
 export default function MobileMenu({
   setOpen,
@@ -150,6 +150,12 @@ export default function MobileMenu({
                 className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
               >
                 <TbShoppingCartCheck /> My-Order
+              </Link>
+              <Link
+                href="/wallet-balance"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+              >
+                <IoWalletOutline /> Add Wallet 
               </Link>
               <Link
                 href="/wallet-history"

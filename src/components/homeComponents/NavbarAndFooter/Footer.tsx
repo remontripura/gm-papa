@@ -26,7 +26,7 @@ const Footer = () => {
 
         <div className="md:col-span-3 col-span-12">
           <h6 className="font-semibold text-18">Hot Selling</h6>
-          {Array.from({ length: 5 }, (_, index) => index).map((item) => (
+          {Array.from({ length: 1 }, (_, index) => index).map((item) => (
             <h6 className=" text-14 mt-3 border border-primary_text rounded-full p-2 w-fit px-6 cursor-pointer hover:text-white text-primary_text hover:border-white">
               GMPAPA impact top-up
             </h6>

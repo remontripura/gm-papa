@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { playerAddressSchema } from "@/schema/palyerAddressSchema/playerAddressSchema";
 import { z } from "zod";
 import Cookies from "js-cookie";
 import { TextField } from "@/components/Form/fields/TextField";
@@ -33,6 +32,8 @@ import {
 import { showErrorAlert } from "@/components/shared/toast/ToastModal";
 import { useRouter } from "next/navigation";
 import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
+import { playerAddressSchema } from "@/schema/playerAddressSchema/playerAddressSchema";
+import { Profile } from "@/types/profile/profile";
 
 export default function CheckoutComponent() {
   const token = Cookies.get("GM_T");
@@ -40,6 +41,9 @@ export default function CheckoutComponent() {
     ["paymentMethod"],
     `/payment-method`
   );
+    const { data: profileData, refetch } = useGetData<Profile>(["profile"], `/my-profile`);
+
+  
   const filteredPaymentMethods = !token
     ? paymentMethod?.data.filter((item) => item.method !== "Wallet")
     : paymentMethod?.data;
@@ -147,7 +151,7 @@ export default function CheckoutComponent() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (profile?.user?.phone === null) {
+    if (profileData?.user?.phone === null) {
       setWarningModal(true);
     }
   }, [profile]);
@@ -175,6 +179,7 @@ export default function CheckoutComponent() {
         <PhoneNumberUpdateModal
           isOpen={phoneNumberModal}
           onClose={() => setPhoneNumberModal(false)}
+          refetch={refetch}
         />
       )}
       <LoginModal isOpen={open} onClose={() => setOpen(false)} />

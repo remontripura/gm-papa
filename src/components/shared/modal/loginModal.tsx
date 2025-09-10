@@ -1,6 +1,6 @@
 "use client";
 
-// import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
+import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";

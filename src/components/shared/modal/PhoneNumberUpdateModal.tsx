@@ -5,13 +5,13 @@ import { RxCross2 } from "react-icons/rx";
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
 import { z } from "zod";
 import { TextField } from "@/components/Form/fields/TextField";
-import { LoadingButton } from "../submitButton/submitButton";
 import { couponSchema } from "@/schema/searchSchema/searchSchema";
 import { cn } from "@/lib/utils";
-import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios/AxiosInstance";
 import { AxiosError } from "axios";
+import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
+import { LoadingButton } from "../submitButton/submitButton";
 import { showErrorAlert, showSuccessAlert } from "../toast/ToastModal";
 
 type response = {
@@ -23,7 +23,7 @@ const initialValues: FormType = {
   mobile: "",
 };
 
-export default function PhoneNumberUpdateModal({ isOpen, onClose }) {
+export default function PhoneNumberUpdateModal({ isOpen, onClose, refetch }) {
   const formRef = useRef<GenericFormRef<FormType>>(null);
   useScrollLock(isOpen);
   if (!isOpen) return null;
@@ -41,6 +41,7 @@ export default function PhoneNumberUpdateModal({ isOpen, onClose }) {
         showErrorAlert(data.message);
       } else {
         showSuccessAlert(data.message);
+        refetch();
         onClose();
       }
     },
@@ -89,7 +90,7 @@ export default function PhoneNumberUpdateModal({ isOpen, onClose }) {
                   name="mobile"
                   type="number"
                   placeholder="Enter your phone number"
-                  inputClass="form-input w-full"
+                  inputClass="form-input w-full !text-gray-800"
                 />
                 <LoadingButton
                   className={cn("button-color", "w-full mt-0")}

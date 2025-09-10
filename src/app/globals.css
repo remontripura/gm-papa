@@ -130,7 +130,7 @@
 
 /* --------------------------------form style */
 .form-input {
-  @apply px-3 bg-transparent border border-gray-400 focus-visible:border-ring focus-visible:ring-[#565bb557] focus-visible:ring-[1px];
+  @apply px-3 bg-transparent border border-gray-400 focus-visible:border-ring focus-visible:ring-[#565bb557] focus-visible:ring-[1px] text-gray-100;
 }
 .button-color {
   @apply bg-gradient-to-r from-[#E377FF] to-[#9477FF] hover:to-[#846ae3];

@@ -36,11 +36,11 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                 <p className="md:flex hidden gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
                   <span className="flex items-center gap-0.5">
                     {" "}
-                    0.0 <FaStar className="text-yellow-500 inline" />
+                    4.5 <FaStar className="text-yellow-500 inline" />
                   </span>
                   <span className="text-gray-400 font-semibold">
                     {" "}
-                    {(0).toLocaleString()} reviews
+                    {(item.reviews_count).toLocaleString()} reviews
                   </span>
                 </p>
                 <p className="md:hidden flex flex-col items-start md:text-[14px] text-[12px] py-1 px-2">

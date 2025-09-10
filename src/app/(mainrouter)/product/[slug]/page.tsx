@@ -2,12 +2,13 @@
 import { Suspense } from "react";
 import { getData } from "@/lib/fetch/getData";
 import MainContainer from "@/components/container/MainContainer";
-import SingleProductComponents from "@/components/pagesComponent/checkout/SingleProductComponents";
-import ProductHeader from "@/components/pagesComponent/checkout/ProductHeader";
-import PriceAction from "@/components/pagesComponent/checkout/PriceAction";
-import ProductDescription from "@/components/pagesComponent/checkout/ProductDescription";
+import SingleProductComponents from "@/components/pagesComponents/checkout/SingleProductComponents";
+import ProductHeader from "@/components/pagesComponents/checkout/ProductHeader";
+import PriceAction from "@/components/pagesComponents/checkout/PriceAction";
+import ProductDescription from "@/components/pagesComponents/checkout/ProductDescription";
 import CustomSkeleton from "@/components/shared/skelton/Skelton";
 import { Metadata } from "next";
+import { IGameRes } from "@/types/productsDataType/SingleProductType";
 
 // Dynamic metadata
 export async function generateMetadata({
@@ -15,7 +16,9 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const { data: singleProduct } = await getData(`/product/${params.slug}`);
+  const { data: singleProduct } = await getData<IGameRes>(
+    `/product/${params.slug}`
+  );
 
   return {
     title: singleProduct?.name || "Product",
@@ -40,7 +43,9 @@ export default async function ProductSlug({
 }: {
   params: { slug: string };
 }) {
-  const { data: singleProduct } = await getData(`/product/${params.slug}`);
+  const { data: singleProduct } = await getData<IGameRes>(
+    `/product/${params.slug}`
+  );
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import MyOrderComponents from "@/components/pagesComponent/myOrder/MyOrderComponents";
+import MyOrderComponents from "@/components/pagesComponents/myOrder/MyOrderComponents";
 import { Metadata } from "next";
 import "react-loading-skeleton/dist/skeleton.css";
 

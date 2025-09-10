@@ -42,10 +42,12 @@ export default function ThankyouModal({ isOpen, onClose, OrderData }: any) {
             <span>{order?.product?.name}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="font-medium">Transaction ID</span>
-            <span className="font-mono">{order?.transaction_id}</span>
-          </div>
+          {order?.transaction_id && (
+            <div className="flex justify-between">
+              <span className="font-medium">Transaction ID</span>
+              <span className="font-mono">{order?.transaction_id}</span>
+            </div>
+          )}
 
           <div className="flex justify-between">
             <span className="font-medium">Quantity</span>

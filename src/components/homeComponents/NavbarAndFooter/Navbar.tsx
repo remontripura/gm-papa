@@ -16,7 +16,6 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import { IoIosArrowDown } from "react-icons/io";
-import Search from "../search/Search";
 import LoginModal from "@/components/shared/modal/loginModal";
 import Cookies from "js-cookie";
 import { useUserStore } from "@/lib/store/authStore/authStore";
@@ -24,9 +23,9 @@ import MobileMenu from "./MobileMenu";
 import { handleLogout } from "@/lib/logout/logout";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { useCategoryStore } from "@/lib/store/allProductStore/allProductStore";
-import { IProduct } from "@/types/procutsDataType/procutsDataType";
 import { IoWalletOutline } from "react-icons/io5";
-
+import { IProduct } from "@/types/productsDataType/productsDataType";
+import Search from "../search/Search";
 
 type NavItem = {
   id: number;
@@ -226,6 +225,12 @@ const Navbar = () => {
                     className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
                   >
                     <TbShoppingCartCheck /> My-Order
+                  </Link>
+                  <Link
+                    href="/wallet-balance"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                  >
+                    <IoWalletOutline /> Add Wallet 
                   </Link>
                   <Link
                     href="/wallet-history"

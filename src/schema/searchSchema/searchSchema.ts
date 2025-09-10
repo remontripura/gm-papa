@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const searchSchema = z.object({
-  search: z.string().min(3, "Input must be at least 3 characters"),
+  search: z.string().optional(),
 });
 export const subscribeSchema = z.object({
   email: z.string().email(),

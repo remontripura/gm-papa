@@ -68,7 +68,7 @@ const Search = ({
             type="text"
             placeholder="Search here"
             onChange={handleChange}
-            inputClass="pl-10 py-1 bg-primary1 input-class"
+            inputClass="pl-10 py-1 bg-primary1 input-class text-gray-50"
           />
         </div>
       </GenericForm>
