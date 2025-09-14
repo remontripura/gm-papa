@@ -20,7 +20,7 @@ type PhoneNumberFieldProps<T extends FieldValues> = {
   inputClass?: string;
   disabled?: boolean;
   readOnly?: boolean;
-  onChange?: (value: { countryCode: any }) => void;
+  onChange?: (value: { countryCode: unknown }) => void;
 };
 
 export const PhoneNumberField = <T extends FieldValues>({

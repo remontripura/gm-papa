@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { FaHome } from "react-icons/fa";
-import { FaResearchgate } from "react-icons/fa6";
 import { RotateCcw } from "lucide-react";
 
 interface ErrorPageProps {

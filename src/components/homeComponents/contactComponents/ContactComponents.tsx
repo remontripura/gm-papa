@@ -1,6 +1,5 @@
 import MainContainer from "@/components/container/MainContainer";
-import { FaFacebookF, FaMessage } from "react-icons/fa6";
-import { FaYoutube, FaWhatsapp } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
 import { MdCall } from "react-icons/md";
 import { IoMail } from "react-icons/io5";
 import { IoIosCheckmark } from "react-icons/io";
@@ -20,7 +19,7 @@ const ConactComponents = ({ helpline }: { helpline: SocialLink[] }) => {
             <div className="flex items-center gap-2 mt-3">
               {helpline.map((item, index) => {
                 const isPhone = /^[0-9+]+$/.test(item.url);
-                const isTelegram = item.url.includes("t.me");
+                // const isTelegram = item.url.includes("t.me");
                 const href = isPhone ? `tel:${item.url}` : item.url;
                 return (
                   <a

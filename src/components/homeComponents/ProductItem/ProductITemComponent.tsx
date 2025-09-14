@@ -40,7 +40,7 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                   </span>
                   <span className="text-gray-400 font-semibold">
                     {" "}
-                    {(item.reviews_count).toLocaleString()} reviews
+                    {item.reviews_count.toLocaleString()} reviews
                   </span>
                 </p>
                 <p className="md:hidden flex flex-col items-start md:text-[14px] text-[12px] py-1 px-2">
@@ -69,16 +69,12 @@ import React, { useEffect } from "react";
 import { useCategoryStore } from "@/lib/store/allProductStore/allProductStore";
 import { ICategory } from "@/types/productsDataType/productsDataType";
 
-export default function ProductITemComponents({
-  data,
-}: {
-  data: ICategory[];
-}) {
+export default function ProductITemComponents({ data }: { data: ICategory[] }) {
   const { setCategoryData } = useCategoryStore();
 
   useEffect(() => {
     setCategoryData({ categories: data });
-  }, [data]);
+  }, [data, setCategoryData]);
   return (
     <>
       {data.map((item, index) => (

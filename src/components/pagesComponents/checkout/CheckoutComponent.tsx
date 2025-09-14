@@ -41,9 +41,11 @@ export default function CheckoutComponent() {
     ["paymentMethod"],
     `/payment-method`
   );
-    const { data: profileData, refetch } = useGetData<Profile>(["profile"], `/my-profile`);
+  const { data: profileData, refetch } = useGetData<Profile>(
+    ["profile"],
+    `/my-profile`
+  );
 
-  
   const filteredPaymentMethods = !token
     ? paymentMethod?.data.filter((item) => item.method !== "Wallet")
     : paymentMethod?.data;
@@ -180,6 +182,7 @@ export default function CheckoutComponent() {
           isOpen={phoneNumberModal}
           onClose={() => setPhoneNumberModal(false)}
           refetch={refetch}
+          setWarningModal={setWarningModal}
         />
       )}
       <LoginModal isOpen={open} onClose={() => setOpen(false)} />
@@ -290,19 +293,26 @@ export default function CheckoutComponent() {
                     </div>
 
                     {method?.method !== "Wallet" && (
-                      <p className="text-sm font-semibold flex items-center gap-3">
-                        Number: {method?.number}{" "}
-                        <span
-                          onClick={() => copy(`${method?.number}`)}
-                          className="px-3 py-1 cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
-                        >
-                          {copied ? (
-                            <LuCheckCheck className="size-5" />
-                          ) : (
-                            <FaRegCopy className="size-5" />
-                          )}
-                        </span>
-                      </p>
+                      <>
+                        <p className="text-sm font-semibold flex items-center gap-3">
+                          Number: {method?.number}{" "}
+                          <span
+                            onClick={() => copy(`${method?.number}`)}
+                            className="px-3 py-1 cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
+                          >
+                            {copied ? (
+                              <LuCheckCheck className="size-5" />
+                            ) : (
+                              <FaRegCopy className="size-5" />
+                            )}
+                          </span>
+                        </p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: method?.description || "",
+                          }}
+                        />
+                      </>
                     )}
                     {method?.method !== "Wallet" && <PaymentForm />}
                   </div>

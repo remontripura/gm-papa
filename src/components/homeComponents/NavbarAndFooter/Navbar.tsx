@@ -128,7 +128,7 @@ const Navbar = () => {
                         </h6>
                         <div className="grid grid-cols-2 gap-4 mt-5">
                           {allProducts.map((item) => (
-                            <Link href={`/product/${item.slug}`}>
+                            <Link key={item.id} href={`/product/${item.slug}`}>
                               <div
                                 key={item.id}
                                 className="flex gap-3 items-center hover:bg-[#51535d] p-3 rounded transition-colors duration-200"

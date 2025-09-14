@@ -5,7 +5,6 @@ import { Images } from "@/lib/store/images";
 import { useSocialLinksStore } from "@/lib/store/socialStore/socialStore";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -26,8 +25,11 @@ const Footer = () => {
 
         <div className="md:col-span-3 col-span-12">
           <h6 className="font-semibold text-18">Hot Selling</h6>
-          {Array.from({ length: 1 }, (_, index) => index).map((item) => (
-            <h6 className=" text-14 mt-3 border border-primary_text rounded-full p-2 w-fit px-6 cursor-pointer hover:text-white text-primary_text hover:border-white">
+          {Array.from({ length: 1 }, (_, index) => index).map((_, index) => (
+            <h6
+              key={index}
+              className=" text-14 mt-3 border border-primary_text rounded-full p-2 w-fit px-6 cursor-pointer hover:text-white text-primary_text hover:border-white"
+            >
               GMPAPA impact top-up
             </h6>
           ))}
@@ -40,8 +42,9 @@ const Footer = () => {
                 { name: "About Us", path: "/about-us" },
                 { name: "Contact Us", path: "/contact-us" },
                 { name: "Faq", path: "/faq" },
-              ].map((item) => (
+              ].map((item, index) => (
                 <Link
+                key={index}
                   href={item.path}
                   className="text-14 w-fit font-medium cursor-pointer hover:text-white text-primary_text"
                 >
@@ -55,7 +58,7 @@ const Footer = () => {
             <div className="mt-3">
               <Image
                 className="w-[120px]"
-                src={Images.playStore}
+                src="/footer/play-store.png"
                 alt="img"
                 width={300}
                 height={300}
@@ -72,6 +75,7 @@ const Footer = () => {
                 { name: "FunPass", path: "/funpass" },
               ].map((item) => (
                 <Link
+                key={item.name}
                   href={item.path}
                   className="text-14 w-fit font-medium cursor-pointer hover:text-white text-primary_text"
                 >
@@ -85,7 +89,7 @@ const Footer = () => {
             <div className="mt-3 flex items-center text-[24px] gap-3">
               {socialLinks.map((item, index) => {
                 const isPhone = /^[0-9+]+$/.test(item.url);
-                const isTelegram = item.url.includes("t.me");
+                // const isTelegram = item.url.includes("t.me");
                 const href = isPhone ? `tel:${item.url}` : item.url;
 
                 return (

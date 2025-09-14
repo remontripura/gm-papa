@@ -65,7 +65,7 @@ const CheckoutComponentaa = ({
   /* ---------- mutation ---------- */
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType): Promise<IOrderResponse> => {
-      const { name, phone, email, number, method_id, transaction_id } = data;
+      const { name, email, number, method_id, transaction_id } = data;
       const [customer_data, others] = Object.values(formData);
 
       const finalData = {
@@ -290,7 +290,7 @@ const Shopping = () => (
     <div className="text-center space-y-2">
       <h2 className="text-2xl font-bold">No Item Selected</h2>
       <p className="text-base text-gray-400">
-        Looks like you haven't added any item yet.
+        Looks like you {`haven't`} added any item yet.
       </p>
     </div>
     <Button asChild className="px-6 py-3 text-base">

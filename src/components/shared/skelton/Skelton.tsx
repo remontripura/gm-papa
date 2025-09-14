@@ -17,7 +17,6 @@ const CustomSkeleton: React.FC<CustomSkeletonProps> = ({
   color = "",
   highlightColor = ""
 }) => {
-  const skeletonItems = Array.from({ length: count });
 
   return (
     <MainContainer>

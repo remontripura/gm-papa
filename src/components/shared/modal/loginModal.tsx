@@ -4,7 +4,6 @@ import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
 import { RxCross2 } from "react-icons/rx";
 
 export default function LoginModal({ isOpen, onClose }) {
@@ -53,7 +52,7 @@ export default function LoginModal({ isOpen, onClose }) {
             </button>
           </div>
           <p className="text-[14px] text-center mt-6">
-            By payment, you're agreeing to{" "}
+            By payment, {`you're`} agreeing to{" "}
             <Link href="/privacy-policy" className="text-blue-600 underline">
               Privacy Policy
             </Link>{" "}

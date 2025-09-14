@@ -122,7 +122,7 @@ export default function OrderSuccessModal({
           {/* Success Message */}
           <div className="bg-green-100 border border-green-300 rounded-lg p-4 text-center">
             <p className="text-green-800 text-sm">
-              🎉 Your order is being processed and you'll receive a confirmation
+              🎉 Your order is being processed and {`you'll`} receive a confirmation
               shortly.
             </p>
           </div>

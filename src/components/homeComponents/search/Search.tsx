@@ -12,7 +12,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { IProduct } from "@/types/productsDataType/productsDataType";
 
 const Search = ({
@@ -85,7 +84,7 @@ const Search = ({
               <CardContent className="px-0">
                 {results.length > 0 ? (
                   results.map((product: IProduct, index: number) => (
-                    <Link href={`product/${product.slug}`}>
+                    <Link key={index} href={`product/${product.slug}`}>
                       <div
                         key={index}
                         className="p-2 text-sm rounded cursor-pointer flex items-center gap-3 hover:text-primary"

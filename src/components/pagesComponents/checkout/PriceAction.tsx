@@ -3,11 +3,13 @@
 import { useSelectedItemStore } from "@/lib/store/productSelectStore/activeItemSelected";
 import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
 import { cn } from "@/lib/utils";
-import { IItem } from "@/types/procutsDataType/SingleProductType";
-import React, { useState } from "react";
+import { IGameData, IItem } from "@/types/productsDataType/SingleProductType";
 
-export default function PriceAction({ singleProduct }: any) {
-  const [hoverAction, setHoverAction] = useState(0);
+export default function PriceAction({
+  singleProduct,
+}: {
+  singleProduct: IGameData;
+}) {
   const { active, setActive, setSelectedItem } = useProductSelectionStore();
   const { setSelected } = useSelectedItemStore();
   const handleSelectItem = (item: IItem) => {

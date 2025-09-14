@@ -1,8 +1,6 @@
 "use client";
 
-import { usePurchaseStore } from "@/lib/store/checkoutStore/checkoutStore";
 import React from "react";
-import { RxCross2 } from "react-icons/rx";
 
 export default function SectionTwo({ setOpen }) {
   return (

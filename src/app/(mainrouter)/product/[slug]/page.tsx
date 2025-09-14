@@ -10,12 +10,15 @@ import CustomSkeleton from "@/components/shared/skelton/Skelton";
 import { Metadata } from "next";
 import { IGameRes } from "@/types/productsDataType/SingleProductType";
 
+interface PageProps {
+  params: { slug: string };
+  searchParams: Promise<{ page?: string }>;
+}
+
 // Dynamic metadata
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
   );
@@ -38,14 +41,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductSlug({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProductSlug({ params, searchParams }: PageProps) {
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
   );
+  const { page } = (await searchParams) ?? { page: "1" };
 
   return (
     <div>
@@ -100,7 +100,7 @@ export default async function ProductSlug({
             />
           }
         >
-          <ProductDescription slug={params.slug} />
+          <ProductDescription slug={params.slug} pageNumber={page} />
         </Suspense>
       </MainContainer>
     </div>

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -45,7 +44,7 @@ const FaqComponents = () => {
     <section className="w-full py-5 px-3 text-white">
       <MainContainer>
         <div className="md:w-3/5 w-full mx-auto">
-          <h6 className="text-center text-[24px]">Faq's</h6>
+          <h6 className="text-center text-[24px]">{`Faq's`}</h6>
           <div className="mx-auto grid divide-y divide-gray-200 mt-10">
             {faqs.map((faq, index) => (
               <AccordionItem

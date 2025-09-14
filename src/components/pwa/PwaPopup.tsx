@@ -7,14 +7,25 @@ export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   useEffect(() => {
+    // already installed check
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as any).standalone === true;
+
+    if (isStandalone) {
+      console.log("PWA already installed ✅");
+      return; // never show again
+    }
+
     const isMobile =
       /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
         navigator.userAgent
       );
 
-    const alreadyHandled = localStorage.getItem("pwaInstallDismissed");
+    const nextShow = localStorage.getItem("pwaInstallNextShow");
+    const shouldShow = !nextShow || Date.now() > parseInt(nextShow, 10);
 
-    if (isMobile && !alreadyHandled) {
+    if (isMobile && shouldShow) {
       const handler = (e: Event) => {
         e.preventDefault();
         setDeferredPrompt(e);
@@ -35,15 +46,23 @@ export default function InstallPrompt() {
     const choiceResult = await deferredPrompt.userChoice;
     console.log("User choice:", choiceResult.outcome);
 
-    localStorage.setItem("pwaInstallDismissed", "true");
+    if (choiceResult.outcome === "accepted") {
+      // permanently block since installed
+      localStorage.setItem("pwaInstalled", "true");
+    } else {
+      // if dismissed by rejecting the prompt → 6 hour block
+      const nextShow = Date.now() + 6 * 60 * 60 * 1000;
+      localStorage.setItem("pwaInstallNextShow", nextShow.toString());
+    }
 
     setDeferredPrompt(null);
     setShowPrompt(false);
   };
 
   const handleDismiss = () => {
-    localStorage.setItem("pwaInstallDismissed", "true");
-
+    // user clicked "Maybe Later" → 6 hour block
+    const nextShow = Date.now() + 6 * 60 * 60 * 1000;
+    localStorage.setItem("pwaInstallNextShow", nextShow.toString());
     setShowPrompt(false);
   };
 

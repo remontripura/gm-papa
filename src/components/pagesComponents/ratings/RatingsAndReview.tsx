@@ -23,6 +23,7 @@ import {
   showSuccessAlert,
 } from "@/components/shared/toast/ToastModal";
 import Cookies from "js-cookie";
+import Pagination from "@/components/shared/Pagination/Pagination";
 
 type FormType = z.infer<typeof reviewSchema>;
 
@@ -30,17 +31,23 @@ const initialValues: FormType = {
   review: "",
 };
 
-const RatingAndReview = ({ slug }: { slug: string }) => {
+const RatingAndReview = ({
+  slug,
+  pageNumber,
+}: {
+  slug: string;
+  pageNumber: string | undefined;
+}) => {
   const decodedSlug = decodeURIComponent(slug);
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const token = Cookies.get("GM_T");
-
+console.log(pageNumber)
   const { data: review, refetch } = useGetData<ReviewResponse>(
-    ["review"],
-    `/review/${decodedSlug}`
+    ["review", pageNumber],
+    `/review/${decodedSlug}?page=${pageNumber}`
   );
-
+  console.log(review);
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
       const finalData = {
@@ -72,6 +79,10 @@ const RatingAndReview = ({ slug }: { slug: string }) => {
       showErrorAlert(err.message.message || "Something went wrong!");
     },
   });
+  const totalReviews = Object.values(review?.rating_breakdown ?? {}).reduce(
+    (sum, val) => sum + val,
+    0
+  );
 
   const handleSubmit = (data: FormType | React.FormEvent<HTMLFormElement>) => {
     if (selectedRating === 0) {
@@ -137,18 +148,30 @@ const RatingAndReview = ({ slug }: { slug: string }) => {
         <h6 className="text-2xl mb-2 font-semibold">Reviews</h6>
         <div className="flex md:flex-row flex-col items-start gap-4">
           <div className="flex md:flex-col flex-row items-center justify-center md:gap-0 gap-5">
-            <h6 className="text-[44px] font-semibold">{4.5}</h6>
+            <h6 className="text-[44px] font-semibold">
+              {review?.average_rating}
+            </h6>
             <div className="flex flex-col justify-center items-center">
-              <RatingsLine ratingsNumber={4.5} />
-              <p>{review?.reviews.total} Ratings</p>
+              <RatingsLine ratingsNumber={review?.average_rating ?? 0} />
+              <p>{review?.total_reviews} Ratings</p>
             </div>
           </div>
           <div>
-            <ReviewLine rate={0} number={5} people="0" />
-            <ReviewLine rate={0} number={4} people="0" />
-            <ReviewLine rate={0} number={3} people="0" />
-            <ReviewLine rate={0} number={2} people="0" />
-            <ReviewLine rate={0} number={1} people="0" />
+            <div>
+              {([5, 4, 3, 2, 1] as const).map((num) => (
+                <ReviewLine
+                  key={num}
+                  rate={
+                    totalReviews > 0
+                      ? ((review?.rating_breakdown[num] ?? 0) / totalReviews) *
+                        100
+                      : 0
+                  }
+                  number={num}
+                  people={(review?.rating_breakdown[num] ?? 0).toString()}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -160,7 +183,7 @@ const RatingAndReview = ({ slug }: { slug: string }) => {
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                {item.image ? (
+                {item.user.image ? (
                   <Image
                     src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
                     alt="profile"
@@ -175,7 +198,7 @@ const RatingAndReview = ({ slug }: { slug: string }) => {
                 )}
 
                 <div>
-                  <h6 className="font-semibold">{item.id}</h6>
+                  <h6 className="font-semibold">{item.user.name}</h6>
                   <p className="text-sm">{timeAgo(item.created_at)}</p>
                 </div>
               </div>
@@ -184,10 +207,21 @@ const RatingAndReview = ({ slug }: { slug: string }) => {
                 <StarRating rating={item.rating} />
               </div>
             </div>
-            <p className="mt-3 leading-relaxed">{item?.review}</p>
+            <p className="mt-3 leading-relaxed font-light text-[12px]">
+              {item?.review}
+            </p>
           </div>
         ))}
       </div>
+
+      {review && Number(review.reviews.total) > 19 && (
+        <Pagination
+          route={`/product/${slug}`}
+          total={Number(review.reviews.total)}
+          perPage={Number(review.reviews.per_page)}
+          currentPage={parseInt(pageNumber || "1")}
+        />
+      )}
     </>
   );
 };

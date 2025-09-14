@@ -37,10 +37,12 @@ export default function ProductHeader({
       <div className="w-full p-3 rounded-lg bg-mainlight ">
         <div className="w-full flex items-center md:items-center gap-4">
           <div className="flex-shrink-0">
-            <img
+            <Image
               className="w-24 h-24 md:w-32 md:h-32 rounded-lg object-cover"
               src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`}
               alt="Product image"
+              width={300}
+              height={300}
             />
           </div>
 

@@ -16,12 +16,13 @@ const ReviewLine = ({
           className={cn(`h-full bg-[#A46BFF] rounded-md`)}
           style={{ width: `${rate}%` }}
         />
-      </div>{" "}
+      </div>
       <p className="flex items-center gap-7">
-        <span>{number} </span>
+        <span>{number}</span>
         <span>{people} Reviews</span>
       </p>
     </div>
   );
 };
+
 export default ReviewLine;

@@ -28,7 +28,6 @@ export default function GoogleLoginHandler({
         const response = await axiosInstance.post<LoginResponse>(`/login`, {
           token: session.id_token,
         });
-        console.log(response);
         if (response.data.token) {
           setUser(response.data.user);
           Cookies.set("GM_T", response.data.token ?? "", {
@@ -38,12 +37,11 @@ export default function GoogleLoginHandler({
           router.push("/");
         }
       } catch (error) {
-        console.error("Login with Google failed:", error);
+        console.log(error);
       } finally {
         onProcessingChange(false);
       }
     };
-
     loginWithGoogle();
   }, [session?.id_token, status, isProcessing, router, onProcessingChange]);
 

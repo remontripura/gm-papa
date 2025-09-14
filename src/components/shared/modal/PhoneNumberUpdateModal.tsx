@@ -23,7 +23,12 @@ const initialValues: FormType = {
   mobile: "",
 };
 
-export default function PhoneNumberUpdateModal({ isOpen, onClose, refetch }) {
+export default function PhoneNumberUpdateModal({
+  isOpen,
+  onClose,
+  refetch,
+  setWarningModal,
+}) {
   const formRef = useRef<GenericFormRef<FormType>>(null);
   useScrollLock(isOpen);
   if (!isOpen) return null;
@@ -42,6 +47,7 @@ export default function PhoneNumberUpdateModal({ isOpen, onClose, refetch }) {
       } else {
         showSuccessAlert(data.message);
         refetch();
+        setWarningModal(false);
         onClose();
       }
     },
