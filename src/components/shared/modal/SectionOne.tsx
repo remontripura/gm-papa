@@ -16,19 +16,19 @@ export default function SectionOne() {
         <span className="text-orange-500 font-normal">(Please confirm)</span>{" "}
       </h6>
       <div className="bg-mainlight rounded-lg p-4 mt-3">
-        <div className="flex items-center justify-between ">
-          <p className="flex items-center gap-2">
+        <div className="flex items-start justify-between ">
+          <p className="flex items-center gap-2 flex-1">
             Product ({count} <RxCross2 className="size-3" /> {balance})
           </p>
-          <p className="">{name}</p>
+          <p className="flex-1">{name}</p>
         </div>
         <div className="flex items-center justify-between ">
-          <p>Selected Amount</p>
-          <p className="">{(balance * count).toLocaleString()}৳</p>
+          <p className="flex-1">Selected Amount</p>
+          <p className="flex-1">{(balance * count).toLocaleString()}৳</p>
         </div>
         <div className="flex items-center justify-between ">
-          <p>Player Id</p>
-          <p className="">{playerId}</p>
+          <p className="flex-1">Player Id</p>
+          <p className="flex-1">{playerId}</p>
         </div>
       </div>
     </>

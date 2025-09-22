@@ -1,4 +1,4 @@
-import FaqComponents from "@/components/pagesComponent/faq/FaqComponents";
+import FaqComponents from "@/components/pagesComponents/faq/FaqComponents";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

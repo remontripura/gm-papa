@@ -1,6 +1,6 @@
-import ProductITemComponents from "@/components/homeComponents/ProductItem/ProductITemComponents";
+import ProductITemComponents from "@/components/homeComponents/ProductItem/ProductITemComponent";
 import { getData } from "@/lib/fetch/getData";
-import { ICategory } from "@/types/procutsDataType/procutsDataType";
+import { ICategory } from "@/types/productsDataType/productsDataType";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -5,11 +5,11 @@ import { RxCross2 } from "react-icons/rx";
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
 import { z } from "zod";
 import { TextField } from "@/components/Form/fields/TextField";
-import { LoadingButton } from "../submitButton/submitButton";
 import { couponSchema } from "@/schema/searchSchema/searchSchema";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
+import { LoadingButton } from "../submitButton/submitButton";
 
 export default function CouponModal({ isOpen, onClose, setCoupon, coupon }) {
   type FormType = z.infer<typeof couponSchema>;

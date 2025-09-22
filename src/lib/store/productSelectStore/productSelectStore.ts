@@ -1,6 +1,6 @@
 // /lib/store/productSelectionStore.ts
+import { IItem } from "@/types/productsDataType/SingleProductType";
 import { create } from "zustand";
-import { IItem } from "@/types/procutsDataType/SingleProductType";
 
 interface ProductSelectionState {
   active: string;

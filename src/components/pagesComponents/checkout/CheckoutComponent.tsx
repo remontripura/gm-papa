@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { playerAddressSchema } from "@/schema/palyerAddressSchema/playerAddressSchema";
 import { z } from "zod";
 import Cookies from "js-cookie";
 import { TextField } from "@/components/Form/fields/TextField";
@@ -20,7 +19,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { usePurchaseStore } from "@/lib/store/checkoutStore/checkoutStore";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios/AxiosInstance";
-import { Order } from "@/types/orderDataType/orderDataType";
+import { IOrderResponse, Order } from "@/types/orderDataType/orderDataType";
 import { AxiosError } from "axios";
 import { getProfile } from "@/lib/fetch/profile";
 import { cn } from "@/lib/utils";
@@ -33,6 +32,10 @@ import {
 import { showErrorAlert } from "@/components/shared/toast/ToastModal";
 import { useRouter } from "next/navigation";
 import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
+import { playerAddressSchema } from "@/schema/playerAddressSchema/playerAddressSchema";
+import { Profile } from "@/types/profile/profile";
+import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
+import { IModalData } from "@/types/modalData/modalData";
 
 export default function CheckoutComponent() {
   const token = Cookies.get("GM_T");
@@ -40,21 +43,30 @@ export default function CheckoutComponent() {
     ["paymentMethod"],
     `/payment-method`
   );
+  const { data: profileData, refetch } = useGetData<Profile>(
+    ["profile"],
+    `/my-profile`
+  );
+
   const filteredPaymentMethods = !token
     ? paymentMethod?.data.filter((item) => item.method !== "Wallet")
     : paymentMethod?.data;
 
   type FormType = z.infer<ReturnType<typeof playerAddressSchema>>;
-
   const loggedIn = !!token && token !== "undefined";
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [method, setMethod] = useState<PaymentMethod>();
   const [wallet, setWallet] = useState<boolean>(false);
   useEffect(() => {
-    if (filteredPaymentMethods?.length) {
-      setMethod(filteredPaymentMethods[0]);
+    if (filteredPaymentMethods?.length && !method) {
+      const defaultMethod = token
+        ? filteredPaymentMethods[0]
+        : filteredPaymentMethods.find(m => m.method !== "Wallet") ?? filteredPaymentMethods[0];
+
+      setMethod(defaultMethod);
     }
-  }, [filteredPaymentMethods]);
+  }, [filteredPaymentMethods, method, token]);
+
   useEffect(() => {
     if (method?.method === "Wallet") {
       setWallet(true);
@@ -68,10 +80,11 @@ export default function CheckoutComponent() {
     }
   }, [method]);
   const { copy, copied } = CopyToClipboard();
-  const { count, formData, product_id, items_id, reset } = usePurchaseStore();
+  const { selectedItem } = useProductSelectionStore();
+  const { count, formData, product_id, items_id, reset, name } = usePurchaseStore();
   const formValue = Object.values(formData)[0];
   const { data: profile } = getProfile(loggedIn);
-  const [orderData, setOrderData] = useState<Order>();
+  const [orderData, setOrderData] = useState<IOrderResponse>();
 
   const router = useRouter();
 
@@ -96,6 +109,12 @@ export default function CheckoutComponent() {
     }
   }, [profile, method]);
   const [modal, setModal] = useState(false);
+  const [modalData, setModalData] = useState<IModalData>({
+    item_name: "",
+    product_name: "",
+    method: ""
+  })
+  console.log(modalData)
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
       const cleanedData = Object.fromEntries(
@@ -113,18 +132,20 @@ export default function CheckoutComponent() {
         customer_data: formValue,
         items_id: items_id,
       };
-      const response = await axiosInstance.post<Order>(`/add-order`, finalData);
+      setModalData({ item_name: selectedItem?.name, product_name: name, method: method?.method })
+      const response = await axiosInstance.post<IOrderResponse>(`/add-order`, finalData);
       return response.data;
     },
-    onSuccess: (data: Order) => {
+
+    onSuccess: (data: IOrderResponse) => {
       if (data.status === false) {
         showErrorAlert(data.message);
       } else {
         setOrderData(data);
         setModal(true);
-        setTimeout(() => {
-          formRef.current?.reset();
-        }, 100);
+        // setTimeout(() => {
+        //   formRef.current?.reset();
+        // }, 100);
       }
     },
     onError: (
@@ -147,7 +168,7 @@ export default function CheckoutComponent() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (profile?.user?.phone === null) {
+    if (profileData?.user?.phone === null) {
       setWarningModal(true);
     }
   }, [profile]);
@@ -158,10 +179,13 @@ export default function CheckoutComponent() {
 
   return (
     <>
+      {/* setModal(false), router.push("/"), reset(); */}
+
       <ThankyouModal
+        modalData={modalData}
         isOpen={modal}
         onClose={() => {
-          setModal(false), router.push("/"), reset();
+          setModal(false)
         }}
         OrderData={orderData}
       />
@@ -175,6 +199,8 @@ export default function CheckoutComponent() {
         <PhoneNumberUpdateModal
           isOpen={phoneNumberModal}
           onClose={() => setPhoneNumberModal(false)}
+          // refetch={refetch}
+          setWarningModal={setWarningModal}
         />
       )}
       <LoginModal isOpen={open} onClose={() => setOpen(false)} />
@@ -267,11 +293,10 @@ export default function CheckoutComponent() {
                             e.stopPropagation();
                             setMethod(item);
                           }}
-                          className={`p-2 rounded-lg cursor-pointer border-2 transition-all bg-white duration-200 ${
-                            method?.id.toString() === item.id.toString()
-                              ? "border-purple-500"
-                              : "border-gray-300 hover:border-gray-400"
-                          }`}
+                          className={`p-2 rounded-lg cursor-pointer border-2 transition-all duration-200 ${method?.id.toString() === item.id.toString()
+                            ? "border-purple-500 shadow-md shadow-purple-300 bg-purple-200"
+                            : "border-gray-300 hover:border-gray-400  bg-white"
+                            }`}
                         >
                           <Image
                             src={item.icon}
@@ -284,19 +309,32 @@ export default function CheckoutComponent() {
                       ))}
                     </div>
 
-                    {method?.method !== "Wallet" && (
+                    {method?.method !== "Wallet" ? (
+                      <>
+                        <div className="text-green-600"
+                          dangerouslySetInnerHTML={{
+                            __html: method?.description || "",
+                          }}
+                        />
+                        <p className="text-sm font-semibold flex items-center gap-3 p-4 bg-mainDark rounded-xl">
+                          {method?.number}{" "}
+                          <span
+                            onClick={() => copy(`${method?.number}`)}
+                            className="px-3 py-1 cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
+                          >
+                            {copied ? (
+                              "Copied"
+                            ) : (
+                              "Copy"
+                            )}
+                          </span>
+                        </p>
+
+                      </>
+                    ) : (
                       <p className="text-sm font-semibold flex items-center gap-3">
-                        Number: {method?.number}{" "}
-                        <span
-                          onClick={() => copy(`${method?.number}`)}
-                          className="px-3 py-1 cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
-                        >
-                          {copied ? (
-                            <LuCheckCheck className="size-5" />
-                          ) : (
-                            <FaRegCopy className="size-5" />
-                          )}
-                        </span>
+                        Wallet Balance:{" "}
+                        {profileData?.user?.wallet?.toLocaleString()} Tk
                       </p>
                     )}
                     {method?.method !== "Wallet" && <PaymentForm />}

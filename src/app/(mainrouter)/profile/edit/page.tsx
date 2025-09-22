@@ -1,4 +1,4 @@
-import ProfileEdit from "@/components/pagesComponent/profile/ProfileEditComponents";
+import ProfileEdit from "@/components/pagesComponents/profile/ProfileEditComponents";
 import { Metadata } from "next";
 
 

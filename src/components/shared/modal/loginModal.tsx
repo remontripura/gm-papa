@@ -1,13 +1,14 @@
 "use client";
 
-// import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
+import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
 export default function LoginModal({ isOpen, onClose }) {
+  const [loading, setLoading] = useState(false);
   useScrollLock(isOpen);
   if (!isOpen) return null;
 
@@ -37,9 +38,10 @@ export default function LoginModal({ isOpen, onClose }) {
           </h6>
           <div className="flex w-full justify-center mt-8">
             <button
-              onClick={() =>
-                signIn("google", { callbackUrl: "/verify-account" })
-              }
+              onClick={() => {
+                setLoading(true);
+                signIn("google", { callbackUrl: "/verify-account" });
+              }}
               className="flex cursor-pointer items-center justify-center space-x-3 text-white font-semibold px-6 py-3 rounded-md shadow-md transition bg-gray-800"
             >
               <Image
@@ -49,11 +51,11 @@ export default function LoginModal({ isOpen, onClose }) {
                 width={300}
                 height={300}
               />
-              <span>Sign in with Google</span>
+              <span> {loading ? "Processing..." : "Sign in with Google"}</span>
             </button>
           </div>
           <p className="text-[14px] text-center mt-6">
-            By payment, you're agreeing to{" "}
+            By payment, {`you're`} agreeing to{" "}
             <Link href="/privacy-policy" className="text-blue-600 underline">
               Privacy Policy
             </Link>{" "}

@@ -10,13 +10,15 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { useOrderStore } from "@/lib/store/orderStore/orderStore";
-import Image from "next/image";
 import { usePurchaseStore } from "@/lib/store/checkoutStore/checkoutStore";
 import { useEffect } from "react";
 
 export default function ThankYouPage() {
   const { reset } = usePurchaseStore();
   const order = useOrderStore((state) => state.order);
+  useEffect(() => {
+    reset();
+  }, [reset]);
   if (!order) {
     return (
       <div className="flex min-h-screen items-center justify-center text-white">
@@ -24,7 +26,6 @@ export default function ThankYouPage() {
       </div>
     );
   }
-
   const {
     name,
     phone,
@@ -38,9 +39,7 @@ export default function ThankYouPage() {
     id,
     customer_data,
   } = order;
-  useEffect(() => {
-    reset();
-  }, []);
+
   return (
     <div className="flex items-center justify-center bg-gray-950 px-3 pt-5 pb-3 text-white">
       <Card className="w-full max-w-2xl text-center shadow-2xl">

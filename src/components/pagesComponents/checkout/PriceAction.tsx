@@ -3,25 +3,57 @@
 import { useSelectedItemStore } from "@/lib/store/productSelectStore/activeItemSelected";
 import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
 import { cn } from "@/lib/utils";
-import { IItem } from "@/types/procutsDataType/SingleProductType";
-import React, { useState } from "react";
+import { IGameData, IItem } from "@/types/productsDataType/SingleProductType";
 
-export default function PriceAction({ singleProduct }: any) {
-  const [hoverAction, setHoverAction] = useState(0);
+export default function PriceAction({
+  singleProduct,
+}: {
+  singleProduct: IGameData;
+}) {
   const { active, setActive, setSelectedItem } = useProductSelectionStore();
   const { setSelected } = useSelectedItemStore();
-  const handleSelectItem = (item: IItem) => {
-    setSelected(true);
-    setActive(item.name);
-    setSelectedItem(item);
-    setTimeout(() => {
-      const formElement = document.getElementById("form-section");
-      formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 0);
+  const isMobile = () => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth <= 768;
+    }
+    return false;
   };
+  // const handleSelectItem = (item: IItem) => {
+  //   setSelected(true);
+  //   setActive(item.name);
+  //   setSelectedItem(item);
+
+  //   if (isMobile()) {
+  //     setTimeout(() => {
+  //       const formElement = document.getElementById("form-section");
+  //       formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+  //     }, 0);
+  //   }
+  // };
+const handleSelectItem = (item: IItem) => {
+  setSelected(true);
+  setActive(item.name);
+  setSelectedItem(item);
+
+  if (isMobile()) {
+    requestAnimationFrame(() => {
+      const formElement = document.getElementById("form-section");
+      if (formElement) {
+        const yOffset = -80; 
+        const y =
+          formElement.getBoundingClientRect().top + window.scrollY + yOffset;
+
+        // আমাদের custom smooth scroll
+        smoothScrollTo(y, 2000); // 700ms duration
+      }
+    });
+  }
+};
+
+
 
   return (
-    <div className="grid md:grid-cols-4 grid-cols-2 gap-4 mt-8 bg-mainlight p-2 rounded-lg">
+    <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2 mt-8 bg-mainlight p-2 rounded-lg">
       {singleProduct.items.map((item, idx) => {
         const isLast = idx === singleProduct.items.length - 1;
         const isOdd = singleProduct.items.length % 2 === 1;
@@ -41,19 +73,13 @@ export default function PriceAction({ singleProduct }: any) {
             onTouchEnd={() => {
               if (isIOS) handleSelectItem(item);
             }}
-            // onMouseEnter={() => {
-            //   if (window.innerWidth >= 768) setHoverAction(item.id);
-            // }}
-            // onMouseLeave={() => {
-            //   if (window.innerWidth >= 768) setHoverAction(0);
-            // }}
             className={cn(
-              "relative rounded-lg border border-transparent p-2 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ease-out",
+              "relative rounded-lg border border-transparent p-2 py-3 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ease-out",
               "bg-mainDark text-white shadow-sm hover:shadow-md",
               "hover:border-[var(--custom-orange)] hover:scale-[1.02]",
               isActive && "border-[var(--custom-orange)] shadow-lg",
               lastOdd &&
-                "col-span-2 md:col-span-1 justify-self-center md:justify-self-auto"
+              "col-span-2 md:col-span-1 justify-self-center md:justify-self-auto"
             )}
           >
             <p className="text-[10px] md:text-sm font-medium text-center">

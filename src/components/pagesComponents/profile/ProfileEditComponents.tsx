@@ -95,18 +95,18 @@ export default function ProfileEdit() {
                   name="name"
                   type="text"
                   placeholder="Enter your Name"
-                  inputClass="w-full rounded-xl bg-neutral-800 border border-neutral-700 focus:border-purple-400 focus:ring-2 focus:ring-purple-500/50 transition-all px-4 py-2"
+                  inputClass="w-full rounded-xl bg-neutral-800 border border-neutral-700 focus:border-purple-400 focus:ring-2 focus:ring-purple-500/50 transition-all px-4 py-2 !text-gray-50"
                 />
                 <TextField
                   label="Phone Number"
                   name="phone"
                   type="number"
                   placeholder="Enter your mobile number"
-                  inputClass="w-full rounded-xl bg-neutral-800 border border-neutral-700 focus:border-pink-400 focus:ring-2 focus:ring-pink-500/50 transition-all px-4 py-2"
+                  inputClass="w-full rounded-xl bg-neutral-800 border border-neutral-700 focus:border-pink-400 focus:ring-2 focus:ring-pink-500/50 transition-all px-4 py-2 !text-gray-50"
                 />
 
                 <LoadingButton
-                  className="button-color w-full mt-3"
+                  className="button-color w-full mt-3 rounded-xl"
                   type="submit"
                 >
                   {isPending ? "Processing" : "Save Changes"}

@@ -3,12 +3,22 @@
 import { RxCross2 } from "react-icons/rx";
 import { CheckCircle2 } from "lucide-react";
 import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
+import { IModalData } from "@/types/modalData/modalData";
+import { Order } from "@/types/myOrderHistory/myOrderHistory";
+import { IOrderResponse } from "@/types/orderDataType/orderDataType";
 
-export default function ThankyouModal({ isOpen, onClose, OrderData }: any) {
+type ThankyouModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  modalData: IModalData;
+  OrderData: IOrderResponse | undefined;
+};
+export default function ThankyouModal({ isOpen, onClose, OrderData, modalData }: ThankyouModalProps) {
   useScrollLock(isOpen);
   if (!isOpen) return null;
 
   const order = OrderData?.order;
+  console.log(modalData.item_name)
 
   return (
     <div
@@ -39,13 +49,23 @@ export default function ThankyouModal({ isOpen, onClose, OrderData }: any) {
         <div className="mt-6 space-y-3 text-sm text-gray-700">
           <div className="flex justify-between">
             <span className="font-medium">Product</span>
-            <span>{order?.product?.name}</span>
+            <span>{order?.product?.name || modalData.product_name}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-medium">Items</span>
+            <span>{modalData.item_name}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-medium">Payment Method</span>
+            <span>{modalData.method}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="font-medium">Transaction ID</span>
-            <span className="font-mono">{order?.transaction_id}</span>
-          </div>
+          {order?.transaction_id && (
+            <div className="flex justify-between">
+              <span className="font-medium">Transaction ID</span>
+              <span className="font-mono">{order?.transaction_id}</span>
+            </div>
+          )}
 
           <div className="flex justify-between">
             <span className="font-medium">Quantity</span>
@@ -53,9 +73,9 @@ export default function ThankyouModal({ isOpen, onClose, OrderData }: any) {
           </div>
 
           <div className="flex justify-between">
-            <span className="font-medium">Total</span>
+            <span className="font-medium">Total {`(${order?.quantity} * ${order?.total})`}</span>
             <span className="text-green-600 font-semibold">
-              Tk {order?.total?.toFixed(2)}
+              Tk {(Number(order?.total) * Number(order?.quantity)).toFixed(2)}
             </span>
           </div>
         </div>

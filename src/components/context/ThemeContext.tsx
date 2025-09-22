@@ -35,7 +35,7 @@ export const ThemeProvider = ({
 
   useEffect(() => {
     setSocialLinks(helpLine);
-  }, [helpLine]);
+  }, [helpLine, setSocialLinks]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -58,7 +58,7 @@ export const ThemeProvider = ({
         >
           {helpLine.map((item, index) => {
             const isPhone = /^[0-9+]+$/.test(item.url);
-            const isTelegram = item.url.includes("t.me");
+            // const isTelegram = item.url.includes("t.me");
             const href = isPhone ? `tel:${item.url}` : item.url;
 
             return (

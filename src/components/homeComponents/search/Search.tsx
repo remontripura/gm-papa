@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { z } from "zod";
 import { searchSchema } from "@/schema/searchSchema/searchSchema";
@@ -12,8 +12,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { IProduct } from "@/types/productsDataType/productsDataType";
+import { usePathname } from "next/navigation";
 
 const Search = ({
   className,
@@ -28,9 +28,17 @@ const Search = ({
   const initialValues: FormType = {
     search: "",
   };
+  const pathname = usePathname();
 
   const [results, setResults] = useState<any[]>([]);
   const [showResults, setShowResults] = useState(false);
+  useEffect(() => {
+    if (pathname) {
+      formRef.current?.reset();
+      setResults([]);
+      setShowResults(false);
+    }
+  }, [pathname]);
 
   const handleSubmit = (data: FormType | React.FormEvent<HTMLFormElement>) => {
     // optional form submit handling
@@ -68,7 +76,7 @@ const Search = ({
             type="text"
             placeholder="Search here"
             onChange={handleChange}
-            inputClass="pl-10 py-1 bg-primary1 input-class"
+            inputClass="pl-10 py-1 bg-primary1 input-class text-gray-50"
           />
         </div>
       </GenericForm>
@@ -85,7 +93,7 @@ const Search = ({
               <CardContent className="px-0">
                 {results.length > 0 ? (
                   results.map((product: IProduct, index: number) => (
-                    <Link href={`product/${product.slug}`}>
+                    <Link key={index} href={`product/${product.slug}`}>
                       <div
                         key={index}
                         className="p-2 text-sm rounded cursor-pointer flex items-center gap-3 hover:text-primary"
@@ -97,10 +105,12 @@ const Search = ({
                           width={500}
                           height={500}
                         />
-                       <div>
-                       <p className="font-semibold"> {product.name}</p>
-                       <h1 className="bg-yellow-500 text-white px-3 py-1 rounded-2xl text-[10px] font-semibold">Popular</h1>
-                       </div>
+                        <div>
+                          <p className="font-semibold"> {product.name}</p>
+                          <h1 className="bg-yellow-500 text-white px-3 py-1 rounded-2xl text-[10px] font-semibold">
+                            Popular
+                          </h1>
+                        </div>
                       </div>
                     </Link>
                   ))

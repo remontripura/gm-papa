@@ -16,7 +16,6 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import { IoIosArrowDown } from "react-icons/io";
-import Search from "../search/Search";
 import LoginModal from "@/components/shared/modal/loginModal";
 import Cookies from "js-cookie";
 import { useUserStore } from "@/lib/store/authStore/authStore";
@@ -24,9 +23,10 @@ import MobileMenu from "./MobileMenu";
 import { handleLogout } from "@/lib/logout/logout";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { useCategoryStore } from "@/lib/store/allProductStore/allProductStore";
-import { IProduct } from "@/types/procutsDataType/procutsDataType";
 import { IoWalletOutline } from "react-icons/io5";
-
+import { IProduct } from "@/types/productsDataType/productsDataType";
+import { Profile } from "@/types/profile/profile";
+import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
 
 type NavItem = {
   id: number;
@@ -51,7 +51,8 @@ export const navItems: NavItem[] = [
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ profileData }: { profileData: Profile | null }) => {
+  console.log(profileData);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [open, setOpen] = useState(false);
@@ -62,6 +63,13 @@ const Navbar = () => {
   const allProducts: IProduct[] = categories.flatMap(
     (category) => category.products
   );
+  const [warningModal, setWarningModal] = useState(false);
+
+  useEffect(() => {
+    if (profileData?.user?.phone === null) {
+      setWarningModal(true);
+    }
+  }, [profileData]);
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleScroll = () => {
@@ -72,64 +80,96 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-500 text-primary_text",
-        isScrolled ? "bg-[#040B2D] shadow-md py-3" : "bg-[#040B2D] py-3"
+    <>
+      {warningModal === true && (
+        <PhoneNumberUpdateModal
+          isOpen={warningModal}
+          onClose={() => setWarningModal(false)}
+          setWarningModal={setWarningModal}
+        />
       )}
-    >
-      <LoginModal isOpen={open} onClose={() => setOpen(false)} />
-      <MainContainer className="px-2">
-        {/* ---------- PC Navbar ---------- */}
-        <nav className="hidden md:flex justify-between items-center relative h-10">
-          {/* Left Menu */}
-          <div className="flex items-center gap-12">
-            <Link
-              href="/"
-              className={cn(
-                "text-[18px] text-white",
-                // Active link: bottom border instead of color change
-                typeof window !== "undefined" &&
-                  window.location.pathname === "/"
-                  ? ""
-                  : ""
-              )}
-            >
-              GMPAPA
-            </Link>
-            <div className="flex items-center gap-6">
-              {navItems.map((item) =>
-                item.label === "Game" ? (
-                  <div
-                    key={item.id}
-                    className="relative group"
-                    onMouseEnter={() => setIsGameOpen(true)}
-                    onMouseLeave={() => setIsGameOpen(false)}
-                  >
-                    <button className="flex items-center gap-1 text-white hover:text-blue-500">
-                      {item.label}
-                      <IoIosArrowDown
-                        className={`transition-transform duration-300 ${
-                          isGameOpen ? "rotate-180" : ""
-                        }`}
-                        size={16}
-                      />
-                    </button>
-                    {/* Dropdown - made bigger */}
+      <header
+        className={cn(
+          "fixed top-0 z-50 w-full transition-all duration-500 text-primary_text",
+          isScrolled ? "bg-[#040B2D] shadow-md py-3" : "bg-[#040B2D] py-3"
+        )}
+      >
+        <LoginModal isOpen={open} onClose={() => setOpen(false)} />
+        <MainContainer className="px-2">
+          {/* ---------- PC Navbar ---------- */}
+          <nav className="hidden md:flex justify-between items-center relative h-10">
+            {/* Left Menu */}
+            <div className="flex items-center gap-12">
+              <Link
+                href="/"
+                className={cn(
+                  "text-[18px] text-white",
+                  // Active link: bottom border instead of color change
+                  typeof window !== "undefined" &&
+                    window.location.pathname === "/"
+                    ? ""
+                    : ""
+                )}
+              >
+                GMPAPA
+              </Link>
+              <div className="flex items-center gap-6">
+                {navItems.map((item) =>
+                  item.label === "Game" ? (
                     <div
-                      className={`absolute left-0 top-10 mt- bg-[#1c223e] w-[1000px] grid grid-cols-3 shadow-lg transition-all duration-300 overflow-hidden ${
-                        isGameOpen
-                          ? "opacity-100 visible translate-y-0"
-                          : "opacity-0 invisible -translate-y-2"
-                      }`}
+                      key={item.id}
+                      className="relative group"
+                      onMouseEnter={() => setIsGameOpen(true)}
+                      onMouseLeave={() => setIsGameOpen(false)}
                     >
-                      <div className="col-span-2 px-4 p-6">
-                        <h6 className="flex items-center gap-3 font-semibold">
-                          <FaFire className="text-red-500" /> Popular game
-                        </h6>
-                        <div className="grid grid-cols-2 gap-4 mt-5">
-                          {allProducts.map((item) => (
-                            <Link href={`/product/${item.slug}`}>
+                      <button className="flex items-center gap-1 text-white hover:text-blue-500">
+                        {item.label}
+                        <IoIosArrowDown
+                          className={`transition-transform duration-300 ${isGameOpen ? "rotate-180" : ""
+                            }`}
+                          size={16}
+                        />
+                      </button>
+                      {/* Dropdown - made bigger */}
+                      <div
+                        className={`absolute left-0 top-10 mt- bg-[#1c223e] w-[1000px] grid grid-cols-3 shadow-lg transition-all duration-300 overflow-hidden ${isGameOpen
+                            ? "opacity-100 visible translate-y-0"
+                            : "opacity-0 invisible -translate-y-2"
+                          }`}
+                      >
+                        <div className="col-span-2 px-4 p-6">
+                          <h6 className="flex items-center gap-3 font-semibold">
+                            <FaFire className="text-red-500" /> Popular game
+                          </h6>
+                          <div className="grid grid-cols-2 gap-4 mt-5">
+                            {allProducts.map((item) => (
+                              <Link
+                                key={item.id}
+                                href={`/product/${item.slug}`}
+                              >
+                                <div
+                                  key={item.id}
+                                  className="flex gap-3 items-center hover:bg-[#51535d] p-3 rounded transition-colors duration-200"
+                                >
+                                  <Image
+                                    className="size-8 rounded-md"
+                                    src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${item.image}`}
+                                    alt="img"
+                                    width={30}
+                                    height={30}
+                                  />
+                                  <h6 className="font-semibold">{item.name}</h6>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="col-span-1 bg-[#13182f] px-4 p-6">
+                          <h6 className="flex items-center gap-3 font-semibold">
+                            <FaFire className="text-red-500" /> All Games
+                          </h6>
+                          <div className="mt-5 space-y-3">
+                            {allProducts.slice(0, 5).map((item) => (
                               <div
                                 key={item.id}
                                 className="flex gap-3 items-center hover:bg-[#51535d] p-3 rounded transition-colors duration-200"
@@ -143,119 +183,105 @@ const Navbar = () => {
                                 />
                                 <h6 className="font-semibold">{item.name}</h6>
                               </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="col-span-1 bg-[#13182f] px-4 p-6">
-                        <h6 className="flex items-center gap-3 font-semibold">
-                          <FaFire className="text-red-500" /> All Games
-                        </h6>
-                        <div className="mt-5 space-y-3">
-                          {allProducts.slice(0, 5).map((item) => (
-                            <div
-                              key={item.id}
-                              className="flex gap-3 items-center hover:bg-[#51535d] p-3 rounded transition-colors duration-200"
-                            >
-                              <Image
-                                className="size-8 rounded-md"
-                                src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${item.image}`}
-                                alt="img"
-                                width={30}
-                                height={30}
-                              />
-                              <h6 className="font-semibold">{item.name}</h6>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <Link
-                    key={item.id}
-                    href={item.pathName}
-                    className={cn(
-                      "text-white hover:text-blue-500 duration-200",
-                      typeof window !== "undefined" &&
-                        window.location.pathname === item.pathName
-                        ? "border-b-2 border-[#9377FF]"
-                        : ""
-                    )}
+                  ) : (
+                    <Link
+                      key={item.id}
+                      href={item.pathName}
+                      className={cn(
+                        "text-white hover:text-blue-500 duration-200",
+                        typeof window !== "undefined" &&
+                          window.location.pathname === item.pathName
+                          ? "border-b-2 border-[#9377FF]"
+                          : ""
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Right Menu */}
+            <div className="flex items-center gap-4 relative">
+              {token ? (
+                <div
+                  className="relative group"
+                  onMouseEnter={() => setUserMenuOpen(true)}
+                  onMouseLeave={() => setUserMenuOpen(false)}
+                >
+                  <button className="flex items-center gap-1">
+                    <Image
+                      className="size-8 rounded-full"
+                      src={profileData?.user?.image ?? ""}
+                      alt="img"
+                      width={30}
+                      height={30}
+                    />
+                    <span className="text-white font-medium">{user?.name}</span>
+                    <GoChevronDown className="size-5 text-white" />
+                  </button>
+
+                  {/* User Dropdown */}
+                  <div
+                    className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${userMenuOpen
+                        ? "opacity-100 visible translate-y-0"
+                        : "opacity-0 invisible -translate-y-2"
+                      }`}
                   >
-                    {item.label}
-                  </Link>
-                )
+                    <Link
+                      href="/profile"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                    >
+                      <FaUser /> Profile
+                    </Link>
+                    <Link
+                      href="/my-order"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                    >
+                      <TbShoppingCartCheck /> My-Order
+                    </Link>
+                    <Link
+                      href="/wallet-balance"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                    >
+                      <IoWalletOutline /> Add Wallet
+                    </Link>
+                    <Link
+                      href="/wallet-history"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                    >
+                      <IoWalletOutline /> Wallet History
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex w-full text-left items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-red-400"
+                    >
+                      <FaSignOutAlt /> Logout
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => setOpen(true)}
+                  className="bg-gradient-to-l cursor-pointer to-[#E685FF] from-[#9F85FF] px-10 rounded text-white py-2 h-auto hover:opacity-90 transition-opacity"
+                >
+                  Login
+                </Button>
               )}
             </div>
-          </div>
+          </nav>
 
-          {/* Right Menu */}
-          <div className="flex items-center gap-4 relative">
-            <Search className="w-[300px]" resultClass="w-[350px]" />
-            <GoMail className="size-6 text-primary_text hover:text-white transition-colors duration-200" />
-
-            {token ? (
-              <div
-                className="relative group"
-                onMouseEnter={() => setUserMenuOpen(true)}
-                onMouseLeave={() => setUserMenuOpen(false)}
-              >
-                <button className="flex items-center gap-1">
-                  <FaRegUserCircle className="size-8 text-white" />
-                  <span className="text-white font-medium">{user?.name}</span>
-                  <GoChevronDown className="size-5 text-white" />
-                </button>
-
-                {/* User Dropdown */}
-                <div
-                  className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${
-                    userMenuOpen
-                      ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-2"
-                  }`}
-                >
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                  >
-                    <FaUser /> Profile
-                  </Link>
-                  <Link
-                    href="/my-order"
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                  >
-                    <TbShoppingCartCheck /> My-Order
-                  </Link>
-                  <Link
-                    href="/wallet-history"
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                  >
-                    <IoWalletOutline /> Wallet History
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="flex w-full text-left items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-red-400"
-                  >
-                    <FaSignOutAlt /> Logout
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <Button
-                onClick={() => setOpen(true)}
-                className="bg-gradient-to-l cursor-pointer to-[#E685FF] from-[#9F85FF] px-10 rounded text-white py-2 h-auto hover:opacity-90 transition-opacity"
-              >
-                Login
-              </Button>
-            )}
-          </div>
-        </nav>
-
-        {/* ---------- Mobile Navbar ---------- */}
-        <MobileMenu setOpen={setOpen} />
-      </MainContainer>
-    </header>
+          {/* ---------- Mobile Navbar ---------- */}
+          <MobileMenu setOpen={setOpen} profileData={profileData} />
+        </MainContainer>
+      </header>
+    </>
   );
 };
 

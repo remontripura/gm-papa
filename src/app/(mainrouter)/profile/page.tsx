@@ -1,5 +1,5 @@
 // app/profile/page.tsx
-import ProfileComponents from "@/components/pagesComponent/profile/ProfileComponents";
+import ProfileComponents from "@/components/pagesComponents/profile/ProfileComponents";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

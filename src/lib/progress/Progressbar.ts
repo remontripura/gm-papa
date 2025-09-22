@@ -11,33 +11,38 @@ NProgress.configure({ showSpinner: false });
 export default function ProgressBar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   useEffect(() => {
     NProgress.done();
   }, [pathname, searchParams]);
 
   useEffect(() => {
     const handleAnchorClick = (event: MouseEvent) => {
-      const targetUrl = (event.currentTarget as HTMLAnchorElement).href;
-      const currentUrl = location.href;
-      if (targetUrl !== currentUrl) {
-        NProgress.start();
-      }
+      const anchor = event.currentTarget as HTMLAnchorElement;
+      if (!anchor || !anchor.href) return;
+
+      const targetUrl = anchor.href;
+      const currentUrl = window.location.href;
+      const isExternal = !targetUrl.startsWith(window.location.origin);
+      const isNewTab = (anchor.target ?? "").toLowerCase() === "_blank";
+
+      if (isExternal || isNewTab) return;
+      if (targetUrl === currentUrl) return;
+      NProgress.start();
     };
 
-    const handleMutation: MutationCallback = () => {
-      const anchorElements = document.querySelectorAll("a");
-      anchorElements.forEach((anchor) => {
+    const attachListeners = () => {
+      document.querySelectorAll<HTMLAnchorElement>("a").forEach((anchor) => {
+        anchor.removeEventListener("click", handleAnchorClick);
         anchor.addEventListener("click", handleAnchorClick);
       });
     };
-
-    const mutationObserver = new MutationObserver(handleMutation);
-    mutationObserver.observe(document, { childList: true, subtree: true });
+    attachListeners();
+    const observer = new MutationObserver(attachListeners);
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      mutationObserver.disconnect();
-      document.querySelectorAll("a").forEach((anchor) => {
+      observer.disconnect();
+      document.querySelectorAll<HTMLAnchorElement>("a").forEach((anchor) => {
         anchor.removeEventListener("click", handleAnchorClick);
       });
     };

@@ -2,20 +2,26 @@
 import { Suspense } from "react";
 import { getData } from "@/lib/fetch/getData";
 import MainContainer from "@/components/container/MainContainer";
-import SingleProductComponents from "@/components/pagesComponent/checkout/SingleProductComponents";
-import ProductHeader from "@/components/pagesComponent/checkout/ProductHeader";
-import PriceAction from "@/components/pagesComponent/checkout/PriceAction";
-import ProductDescription from "@/components/pagesComponent/checkout/ProductDescription";
+import SingleProductComponents from "@/components/pagesComponents/checkout/SingleProductComponents";
+import ProductHeader from "@/components/pagesComponents/checkout/ProductHeader";
+import PriceAction from "@/components/pagesComponents/checkout/PriceAction";
+import ProductDescription from "@/components/pagesComponents/checkout/ProductDescription";
 import CustomSkeleton from "@/components/shared/skelton/Skelton";
 import { Metadata } from "next";
+import { IGameRes } from "@/types/productsDataType/SingleProductType";
+
+interface PageProps {
+  params: { slug: string };
+  searchParams: Promise<{ page?: string }>;
+}
 
 // Dynamic metadata
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const { data: singleProduct } = await getData(`/product/${params.slug}`);
+}: PageProps): Promise<Metadata> {
+  const { data: singleProduct } = await getData<IGameRes>(
+    `/product/${params.slug}`
+  );
 
   return {
     title: singleProduct?.name || "Product",
@@ -35,17 +41,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductSlug({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { data: singleProduct } = await getData(`/product/${params.slug}`);
+export default async function ProductSlug({ params, searchParams }: PageProps) {
+  const { data: singleProduct } = await getData<IGameRes>(
+    `/product/${params.slug}`
+  );
+  const { page } = (await searchParams) ?? { page: "1" };
 
   return (
     <div>
       <MainContainer>
-        <div className="grid grid-cols-12 gap-3 px-3">
+        <div className="grid grid-cols-12 gap-3 px-3 md:pt-6">
           <div className="md:col-span-8 col-span-12">
             <Suspense
               fallback={
@@ -95,7 +100,7 @@ export default async function ProductSlug({
             />
           }
         >
-          <ProductDescription slug={params.slug} />
+          <ProductDescription slug={params.slug} pageNumber={page} />
         </Suspense>
       </MainContainer>
     </div>

@@ -3,19 +3,19 @@
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import SectionOne from "./SectionOne";
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { playerAddressSchema } from "@/schema/palyerAddressSchema/playerAddressSchema";
 import { z } from "zod";
 import Cookies from "js-cookie";
 import { TextField } from "@/components/Form/fields/TextField";
 import { CopyToClipboard } from "../copyClipboard/copyClipboard";
 import { LuCheckCheck } from "react-icons/lu";
 import { FaRegCopy } from "react-icons/fa";
-import { LoadingButton } from "../submitButton/submitButton";
-import SectionTwo from "./SectionTwo";
-import { useScrollLockss } from "@/lib/useScrollLock/useScrollLock";
 import { useUserStore } from "@/lib/store/authStore/authStore";
+import { useScrollLockss } from "@/lib/useScrollLock/useScrollLock";
+import SectionTwo from "./SectionTwo";
+import { LoadingButton } from "../submitButton/submitButton";
+import { playerAddressSchema } from "@/schema/playerAddressSchema/playerAddressSchema";
+import SectionOne from "./SectionOne";
 
 
 export default function CheckoutModal({ isOpen, onClose, couponModal }) {

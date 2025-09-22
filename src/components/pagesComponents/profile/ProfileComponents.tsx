@@ -22,14 +22,6 @@ export default function ProfileComponents() {
     });
   };
 
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
-
   return (
     <div className="p-4">
       <MainContainer>
@@ -45,7 +37,7 @@ export default function ProfileComponents() {
                 </div>
                 {user?.email}
                 <div className="flex md:flex-row flex-col justify-between items-start md:items-center">
-                  <p>Wallet : Tk {user?.wallet}</p>
+                  <p>Wallet : Tk {user?.wallet.toLocaleString()}</p>
                   <Link href="/profile/edit">
                     <button className="px-8 py-1 button-color rounded-md md:mt-0 mt-3">
                       Edit

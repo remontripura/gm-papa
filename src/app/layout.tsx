@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import { AuthProvider } from "@/components/provider/MainProvider";
 import { getData } from "@/lib/fetch/getData";
 import type { Metadata, Viewport } from "next";
-import MobileWarning from "@/components/pwa/PwaPopup";
 import { SocialLinkResponse } from "@/types/helpline/helpline";
 
 const geistSans = Geist({
@@ -52,7 +51,6 @@ export default async function RootLayout({
             <ProgressBar />
           </Suspense>
           <AuthProvider>{children}</AuthProvider>
-          <MobileWarning />
         </ThemeProvider>
       </body>
     </html>

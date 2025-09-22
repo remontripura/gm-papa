@@ -1,5 +1,5 @@
 // stores/useCategoryStore.ts
-import { ICategory } from "@/types/procutsDataType/procutsDataType";
+import { ICategory } from "@/types/productsDataType/productsDataType";
 import { create } from "zustand";
 
 interface CategoryState {
