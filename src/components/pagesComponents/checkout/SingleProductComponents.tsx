@@ -50,16 +50,31 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
       inputNames.push(`input_${i}`);
     }
   }
+  // useEffect(() => {
+  //   if (select) {
+  //     const firstInput = document.querySelector(
+  //       'input[name="' + inputNames[0] + '"]'
+  //     ) as HTMLInputElement;
+  //     if (firstInput) {
+  //       firstInput.focus();
+  //     }
+  //   }
+  // }, [select, inputNames]);
+
   useEffect(() => {
     if (select) {
       const firstInput = document.querySelector(
-        'input[name="' + inputNames[0] + '"]'
+        `input[name="${inputNames[0]}"]`
       ) as HTMLInputElement;
+
       if (firstInput) {
-        firstInput.focus();
+        setTimeout(() => {
+          firstInput.focus();
+        }, 500);
       }
     }
   }, [select, inputNames]);
+
   const schemaShape: ZodRawShape = {};
   inputNames.forEach((name) => {
     schemaShape[name] = z.string().min(1, `Enter your ${name}`);

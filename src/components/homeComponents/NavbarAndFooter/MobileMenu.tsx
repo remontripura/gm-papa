@@ -7,7 +7,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 import { IoMenu, IoWalletOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
-import { FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaSignOutAlt, FaUser, FaWallet } from "react-icons/fa";
 import { handleLogout } from "@/lib/logout/logout";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { usePathname } from "next/navigation";
@@ -37,9 +37,7 @@ export default function MobileMenu({
   return (
     <div className="flex md:hidden flex-col gap-2">
       {/* Top logo */}
-      <div className="flex items-center justify-between">
-
-      </div>
+      <div className="flex items-center justify-between"></div>
       <div className="flex items-center w-full justify-between">
         {/* Menu */}
         <div className="">
@@ -78,8 +76,9 @@ export default function MobileMenu({
                           {item.label}
                         </p>
                         <IoIosArrowDown
-                          className={`transition-transform duration-300 ${mobileGameOpen ? "rotate-180" : ""
-                            }`}
+                          className={`transition-transform duration-300 ${
+                            mobileGameOpen ? "rotate-180" : ""
+                          }`}
                           size={16}
                         />
                       </button>
@@ -123,7 +122,11 @@ export default function MobileMenu({
         </div>
         {token ? (
           <div className="relative group">
-            <button className="flex items-center gap-1">
+            <button className="flex items-center gap-4">
+              <p className="text-white flex items-center gap-2">
+                <FaWallet />
+                <span> ৳{profileData?.user.wallet}</span>
+              </p>
               <Image
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="size-8 rounded-full"
@@ -136,10 +139,11 @@ export default function MobileMenu({
 
             {/* User Dropdown */}
             <div
-              className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${userMenuOpen
-                ? "opacity-100 visible translate-y-0"
-                : "opacity-0 invisible -translate-y-2"
-                }`}
+              className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${
+                userMenuOpen
+                  ? "opacity-100 visible translate-y-0"
+                  : "opacity-0 invisible -translate-y-2"
+              }`}
             >
               <Link
                 href="/profile"

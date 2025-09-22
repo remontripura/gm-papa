@@ -18,39 +18,18 @@ export default function PriceAction({
     }
     return false;
   };
-  // const handleSelectItem = (item: IItem) => {
-  //   setSelected(true);
-  //   setActive(item.name);
-  //   setSelectedItem(item);
+  const handleSelectItem = (item: IItem) => {
+    setSelected(true);
+    setActive(item.name);
+    setSelectedItem(item);
 
-  //   if (isMobile()) {
-  //     setTimeout(() => {
-  //       const formElement = document.getElementById("form-section");
-  //       formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
-  //     }, 0);
-  //   }
-  // };
-const handleSelectItem = (item: IItem) => {
-  setSelected(true);
-  setActive(item.name);
-  setSelectedItem(item);
-
-  if (isMobile()) {
-    requestAnimationFrame(() => {
-      const formElement = document.getElementById("form-section");
-      if (formElement) {
-        const yOffset = -80; 
-        const y =
-          formElement.getBoundingClientRect().top + window.scrollY + yOffset;
-
-        // আমাদের custom smooth scroll
-        smoothScrollTo(y, 2000); // 700ms duration
-      }
-    });
-  }
-};
-
-
+    if (isMobile()) {
+      setTimeout(() => {
+        const formElement = document.getElementById("form-section");
+        formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 0);
+    }
+  };
 
   return (
     <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2 mt-8 bg-mainlight p-2 rounded-lg">

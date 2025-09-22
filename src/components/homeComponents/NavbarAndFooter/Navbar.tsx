@@ -27,6 +27,7 @@ import { IoWalletOutline } from "react-icons/io5";
 import { IProduct } from "@/types/productsDataType/productsDataType";
 import { Profile } from "@/types/profile/profile";
 import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
+import { FaWallet } from "react-icons/fa6";
 
 type NavItem = {
   id: number;
@@ -125,17 +126,19 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
                       <button className="flex items-center gap-1 text-white hover:text-blue-500">
                         {item.label}
                         <IoIosArrowDown
-                          className={`transition-transform duration-300 ${isGameOpen ? "rotate-180" : ""
-                            }`}
+                          className={`transition-transform duration-300 ${
+                            isGameOpen ? "rotate-180" : ""
+                          }`}
                           size={16}
                         />
                       </button>
                       {/* Dropdown - made bigger */}
                       <div
-                        className={`absolute left-0 top-10 mt- bg-[#1c223e] w-[1000px] grid grid-cols-3 shadow-lg transition-all duration-300 overflow-hidden ${isGameOpen
+                        className={`absolute left-0 top-10 mt- bg-[#1c223e] w-[1000px] grid grid-cols-3 shadow-lg transition-all duration-300 overflow-hidden ${
+                          isGameOpen
                             ? "opacity-100 visible translate-y-0"
                             : "opacity-0 invisible -translate-y-2"
-                          }`}
+                        }`}
                       >
                         <div className="col-span-2 px-4 p-6">
                           <h6 className="flex items-center gap-3 font-semibold">
@@ -210,62 +213,71 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
             {/* Right Menu */}
             <div className="flex items-center gap-4 relative">
               {token ? (
-                <div
-                  className="relative group"
-                  onMouseEnter={() => setUserMenuOpen(true)}
-                  onMouseLeave={() => setUserMenuOpen(false)}
-                >
-                  <button className="flex items-center gap-1">
-                    <Image
-                      className="size-8 rounded-full"
-                      src={profileData?.user?.image ?? ""}
-                      alt="img"
-                      width={30}
-                      height={30}
-                    />
-                    <span className="text-white font-medium">{user?.name}</span>
-                    <GoChevronDown className="size-5 text-white" />
-                  </button>
-
-                  {/* User Dropdown */}
+                <>
+                  <p className="text-white flex items-center gap-2">
+                    <FaWallet />
+                    <span> ৳{profileData?.user.wallet}</span>
+                  </p>
                   <div
-                    className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${userMenuOpen
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible -translate-y-2"
-                      }`}
+                    className="relative group"
+                    onMouseEnter={() => setUserMenuOpen(true)}
+                    onMouseLeave={() => setUserMenuOpen(false)}
                   >
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                    >
-                      <FaUser /> Profile
-                    </Link>
-                    <Link
-                      href="/my-order"
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                    >
-                      <TbShoppingCartCheck /> My-Order
-                    </Link>
-                    <Link
-                      href="/wallet-balance"
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                    >
-                      <IoWalletOutline /> Add Wallet
-                    </Link>
-                    <Link
-                      href="/wallet-history"
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
-                    >
-                      <IoWalletOutline /> Wallet History
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex w-full text-left items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-red-400"
-                    >
-                      <FaSignOutAlt /> Logout
+                    <button className="flex items-center gap-1">
+                      <Image
+                        className="size-8 rounded-full"
+                        src={profileData?.user?.image ?? ""}
+                        alt="img"
+                        width={30}
+                        height={30}
+                      />
+                      <span className="text-white font-medium">
+                        {user?.name}
+                      </span>
+                      <GoChevronDown className="size-5 text-white" />
                     </button>
+
+                    {/* User Dropdown */}
+                    <div
+                      className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${
+                        userMenuOpen
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2"
+                      }`}
+                    >
+                      <Link
+                        href="/profile"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                      >
+                        <FaUser /> Profile
+                      </Link>
+                      <Link
+                        href="/my-order"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                      >
+                        <TbShoppingCartCheck /> My-Order
+                      </Link>
+                      <Link
+                        href="/wallet-balance"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                      >
+                        <IoWalletOutline /> Add Wallet
+                      </Link>
+                      <Link
+                        href="/wallet-history"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
+                      >
+                        <IoWalletOutline /> Wallet History
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="flex w-full text-left items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-red-400"
+                      >
+                        <FaSignOutAlt /> Logout
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </>
               ) : (
                 <Button
                   onClick={() => setOpen(true)}
