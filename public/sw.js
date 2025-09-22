@@ -13,17 +13,15 @@ precacheAndRoute([
 // ✅ Runtime caching for JS/CSS (network-first or stale)
 registerRoute(
   /\.(?:js|css)$/,
-  new StaleWhileRevalidate({
+  new NetworkFirst({
     cacheName: 'static-resources',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 10,          // limit cached files
-        maxAgeSeconds: 24 * 60 * 60, // 1 day
+        maxEntries: 0, // basically no cache
       }),
     ],
   })
 );
-
 // ✅ Runtime caching for images (small limit)
 registerRoute(
   /\.(?:png|jpg|jpeg|svg|gif)$/,
