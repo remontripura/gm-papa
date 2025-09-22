@@ -61,7 +61,8 @@ export default function CheckoutComponent() {
     if (filteredPaymentMethods?.length && !method) {
       const defaultMethod = token
         ? filteredPaymentMethods[0]
-        : filteredPaymentMethods.find(m => m.method !== "Wallet") ?? filteredPaymentMethods[0];
+        : filteredPaymentMethods.find((m) => m.method !== "Wallet") ??
+          filteredPaymentMethods[0];
 
       setMethod(defaultMethod);
     }
@@ -81,7 +82,8 @@ export default function CheckoutComponent() {
   }, [method]);
   const { copy, copied } = CopyToClipboard();
   const { selectedItem } = useProductSelectionStore();
-  const { count, formData, product_id, items_id, reset, name } = usePurchaseStore();
+  const { count, formData, product_id, items_id, reset, name } =
+    usePurchaseStore();
   const formValue = Object.values(formData)[0];
   const { data: profile } = getProfile(loggedIn);
   const [orderData, setOrderData] = useState<IOrderResponse>();
@@ -112,9 +114,8 @@ export default function CheckoutComponent() {
   const [modalData, setModalData] = useState<IModalData>({
     item_name: "",
     product_name: "",
-    method: ""
-  })
-  console.log(modalData)
+    method: "",
+  });
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
       const cleanedData = Object.fromEntries(
@@ -132,8 +133,15 @@ export default function CheckoutComponent() {
         customer_data: formValue,
         items_id: items_id,
       };
-      setModalData({ item_name: selectedItem?.name, product_name: name, method: method?.method })
-      const response = await axiosInstance.post<IOrderResponse>(`/add-order`, finalData);
+      setModalData({
+        item_name: selectedItem?.name,
+        product_name: name,
+        method: method?.method,
+      });
+      const response = await axiosInstance.post<IOrderResponse>(
+        `/add-order`,
+        finalData
+      );
       return response.data;
     },
 
@@ -143,9 +151,9 @@ export default function CheckoutComponent() {
       } else {
         setOrderData(data);
         setModal(true);
-        // setTimeout(() => {
-        //   formRef.current?.reset();
-        // }, 100);
+        setTimeout(() => {
+          formRef.current?.reset();
+        }, 100);
       }
     },
     onError: (
@@ -179,13 +187,11 @@ export default function CheckoutComponent() {
 
   return (
     <>
-      {/* setModal(false), router.push("/"), reset(); */}
-
       <ThankyouModal
         modalData={modalData}
         isOpen={modal}
         onClose={() => {
-          setModal(false)
+          setModal(false), router.push("/"), reset();
         }}
         OrderData={orderData}
       />
@@ -293,10 +299,11 @@ export default function CheckoutComponent() {
                             e.stopPropagation();
                             setMethod(item);
                           }}
-                          className={`p-2 rounded-lg cursor-pointer border-2 transition-all duration-200 ${method?.id.toString() === item.id.toString()
-                            ? "border-purple-500 shadow-md shadow-purple-300 bg-purple-200"
-                            : "border-gray-300 hover:border-gray-400  bg-white"
-                            }`}
+                          className={`p-2 rounded-lg cursor-pointer border-2 transition-all duration-200 ${
+                            method?.id.toString() === item.id.toString()
+                              ? "border-purple-500 shadow-md shadow-purple-300 bg-purple-200"
+                              : "border-gray-300 hover:border-gray-400  bg-white"
+                          }`}
                         >
                           <Image
                             src={item.icon}
@@ -311,7 +318,8 @@ export default function CheckoutComponent() {
 
                     {method?.method !== "Wallet" ? (
                       <>
-                        <div className="text-green-600"
+                        <div
+                          className="text-green-600"
                           dangerouslySetInnerHTML={{
                             __html: method?.description || "",
                           }}
@@ -322,14 +330,9 @@ export default function CheckoutComponent() {
                             onClick={() => copy(`${method?.number}`)}
                             className="px-3 py-1 cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
                           >
-                            {copied ? (
-                              "Copied"
-                            ) : (
-                              "Copy"
-                            )}
+                            {copied ? "Copied" : "Copy"}
                           </span>
                         </p>
-
                       </>
                     ) : (
                       <p className="text-sm font-semibold flex items-center gap-3">
