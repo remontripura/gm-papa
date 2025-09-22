@@ -90,7 +90,7 @@ export default function Banner({
                   <Link href={item.link}>
                     <div className="relative w-full md:w-[250px] first:md:w-auto overflow-hidden">
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${item.images_url}`}
+                        src={item.images_url}
                         alt="banner"
                         width={800}
                         height={500}

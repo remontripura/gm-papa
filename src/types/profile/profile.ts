@@ -5,6 +5,7 @@ export interface Profile {
     name: string;
     phone: string | null;
     email: string;
+    image: string;
     role: string;
     email_verified_at: string | null;
     wallet: number;
@@ -18,8 +19,9 @@ export type profileResponse = {
   user: {
     id: number;
     name: string;
-    phone: string;
+    phone: string | null;
     email: string;
+    image: string;
     role: string;
     email_verified_at: string | null;
     wallet: number;

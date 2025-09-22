@@ -5,6 +5,7 @@ import { GoShieldCheck } from "react-icons/go";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Images } from "@/lib/store/images";
 
 export default function ProductHeader({
   singleProduct,
@@ -29,8 +30,6 @@ export default function ProductHeader({
           <span className="text-yellow-500">★★★★★</span>
           <span className="text-sm">Excellent</span>
         </div>
-
-        <p className="text-xs text-gray-500">0 reviews on </p>
       </div>
 
       {/* Main product header */}
@@ -58,16 +57,28 @@ export default function ProductHeader({
                     <GoShieldCheck className="text-green-500" />
                     {singleProduct.delivery_system || "N/A"}
                   </p>
-                  <p className="text-sm flex items-center gap-1">
+                  <div className="text-sm flex items-center gap-1">
                     <Image
-                      className="rounded-full object-cover"
-                      src="https://cdn-icons-png.flaticon.com/512/7826/7826304.png"
+                      className="rounded-full object-cover w-5 h-5"
+                      src={
+                        singleProduct.support_country === "BD"
+                          ? Images.bd
+                          : singleProduct.support_country === "IN"
+                          ? Images.ind
+                          : singleProduct.support_country === "MY"
+                          ? Images.myl
+                          : singleProduct.support_country === "SG"
+                          ? Images.sig
+                          : singleProduct.support_country === "ID"
+                          ? Images.indn
+                          : ""
+                      }
                       alt="img"
                       width={20}
                       height={20}
                     />
-                    {singleProduct.support_country || "N/A"}
-                  </p>
+                    <p>{singleProduct.support_country || "N/A"}</p>
+                  </div>
                 </div>
               </div>
 
@@ -76,8 +87,6 @@ export default function ProductHeader({
                   <span className="text-yellow-500">★★★★★</span>
                   <span className="text-sm">Excellent</span>
                 </div>
-
-                <p className="text-xs text-gray-500">0 reviews on </p>
               </div>
             </div>
 
@@ -90,7 +99,7 @@ export default function ProductHeader({
           <p className={expanded ? "line-clamp-none" : "line-clamp-1"}>
             {singleProduct.short_description}
           </p>
-          {singleProduct.short_description?.length > 60 && (
+          {singleProduct.short_description?.length > 35 && (
             <button
               onClick={() => setExpanded(!expanded)}
               className="mt-1 text-xs underline text-white"

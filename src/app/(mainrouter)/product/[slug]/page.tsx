@@ -50,7 +50,7 @@ export default async function ProductSlug({ params, searchParams }: PageProps) {
   return (
     <div>
       <MainContainer>
-        <div className="grid grid-cols-12 gap-3 px-3">
+        <div className="grid grid-cols-12 gap-3 px-3 md:pt-6">
           <div className="md:col-span-8 col-span-12">
             <Suspense
               fallback={

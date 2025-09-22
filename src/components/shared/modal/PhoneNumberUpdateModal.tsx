@@ -13,6 +13,7 @@ import { AxiosError } from "axios";
 import { useScrollLock } from "@/lib/useScrollLock/useScrollLock";
 import { LoadingButton } from "../submitButton/submitButton";
 import { showErrorAlert, showSuccessAlert } from "../toast/ToastModal";
+import { useRouter } from "next/navigation";
 
 type response = {
   status: boolean;
@@ -22,17 +23,22 @@ type FormType = z.infer<typeof couponSchema>;
 const initialValues: FormType = {
   mobile: "",
 };
-
+type props = {
+  isOpen: boolean;
+  onClose: () => void;
+  refetch?: (() => void | undefined) | undefined;
+  setWarningModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function PhoneNumberUpdateModal({
   isOpen,
   onClose,
   refetch,
   setWarningModal,
-}) {
+}: props) {
   const formRef = useRef<GenericFormRef<FormType>>(null);
   useScrollLock(isOpen);
   if (!isOpen) return null;
-
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
       const response = await axiosInstance.post<response>(
@@ -46,7 +52,8 @@ export default function PhoneNumberUpdateModal({
         showErrorAlert(data.message);
       } else {
         showSuccessAlert(data.message);
-        refetch();
+        refetch?.();
+        router.refresh();
         setWarningModal(false);
         onClose();
       }

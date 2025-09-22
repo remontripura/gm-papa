@@ -1,7 +1,6 @@
 import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import axiosInstance from "../axios/AxiosInstance";
 
-
 const fetchData = async <T>(dataUrl: string): Promise<T> => {
   const response = await axiosInstance.get(dataUrl);
   return response.data;

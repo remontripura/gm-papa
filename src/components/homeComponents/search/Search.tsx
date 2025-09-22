@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { z } from "zod";
 import { searchSchema } from "@/schema/searchSchema/searchSchema";
@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { IProduct } from "@/types/productsDataType/productsDataType";
+import { usePathname } from "next/navigation";
 
 const Search = ({
   className,
@@ -27,9 +28,17 @@ const Search = ({
   const initialValues: FormType = {
     search: "",
   };
+  const pathname = usePathname();
 
   const [results, setResults] = useState<any[]>([]);
   const [showResults, setShowResults] = useState(false);
+  useEffect(() => {
+    if (pathname) {
+      formRef.current?.reset();
+      setResults([]);
+      setShowResults(false);
+    }
+  }, [pathname]);
 
   const handleSubmit = (data: FormType | React.FormEvent<HTMLFormElement>) => {
     // optional form submit handling
@@ -96,10 +105,12 @@ const Search = ({
                           width={500}
                           height={500}
                         />
-                       <div>
-                       <p className="font-semibold"> {product.name}</p>
-                       <h1 className="bg-yellow-500 text-white px-3 py-1 rounded-2xl text-[10px] font-semibold">Popular</h1>
-                       </div>
+                        <div>
+                          <p className="font-semibold"> {product.name}</p>
+                          <h1 className="bg-yellow-500 text-white px-3 py-1 rounded-2xl text-[10px] font-semibold">
+                            Popular
+                          </h1>
+                        </div>
                       </div>
                     </Link>
                   ))

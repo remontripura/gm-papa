@@ -68,7 +68,10 @@ const MyWalletHistory = () => {
                     </p>
                     <p className="text-sm text-white">
                       Date:{" "}
-                      {format(new Date(item.created_at), "dd MMM yyyy, hh:mm a")}
+                      {format(
+                        new Date(item.created_at),
+                        "dd MMM yyyy, hh:mm a"
+                      )}
                     </p>
                   </div>
                 </div>

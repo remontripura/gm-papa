@@ -156,7 +156,7 @@ export default function AddWalletComponent() {
                   label="Amont ৳"
                   name="amount"
                   type="number"
-                  placeholder="Enter your account"
+                  placeholder="Enter your amount"
                   inputClass="form-input"
                 />
 

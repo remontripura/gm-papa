@@ -9,6 +9,7 @@ import { SliderResponse } from "@/types/bannerType/bannerType";
 import Heading from "@/components/homeComponents/heading/Heading";
 import { ICategory } from "@/types/productsDataType/productsDataType";
 import HomaPageComponents from "@/components/homeComponents/HomePageComponents/HomePageComponents";
+import MobileWarning from "@/components/pwa/PwaPopup";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data }: { data: ICategory[] } = await getData("/products");
@@ -39,18 +40,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 const HomePage = async () => {
-  // const { data }: { data: ICategory[] } = await getData("/products", {
-  //   next: { revalidate: 60 },
-  // });
   const bannerImage: SliderResponse = await getData("/slider-image", {
-    cache: "force-cache",
+    next: { revalidate: 60 * 5 },
   });
-  // console.log(bannerImage)
-  // const cookieStore = await cookies();
-  // const token = cookieStore.get("gmpapa_token")?.value;
   return (
     <>
-    <Heading />
+      <Heading />
       <Banner bannerImage={bannerImage} />
       <Suspense
         fallback={
@@ -71,6 +66,7 @@ const HomePage = async () => {
         <HomaPageComponents />
       </Suspense>
       <WhyChooseUsPage />
+      <MobileWarning />
     </>
   );
 };

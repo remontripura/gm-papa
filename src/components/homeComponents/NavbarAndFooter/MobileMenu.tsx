@@ -6,20 +6,21 @@ import { navItems } from "./Navbar";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 import { IoMenu, IoWalletOutline } from "react-icons/io5";
-import Search from "../search/Search";
-import { GoMail } from "react-icons/go";
 import Cookies from "js-cookie";
-import { FaRegUserCircle, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaSignOutAlt, FaUser } from "react-icons/fa";
 import { handleLogout } from "@/lib/logout/logout";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import { useCategoryStore } from "@/lib/store/allProductStore/allProductStore";
 import { IProduct } from "@/types/productsDataType/productsDataType";
+import { Profile } from "@/types/profile/profile";
 
 export default function MobileMenu({
   setOpen,
+  profileData,
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  profileData: Profile | null;
 }) {
   const [mobileGameOpen, setMobileGameOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -37,18 +38,20 @@ export default function MobileMenu({
     <div className="flex md:hidden flex-col gap-2">
       {/* Top logo */}
       <div className="flex items-center justify-between">
-        <Link href="/" className="text-[18px] font-semibold">
-          GMPAPA
-        </Link>
-        <GoMail className="size-6 text-primary_text hover:text-white transition-colors duration-200" />
+
       </div>
       <div className="flex items-center w-full justify-between">
         {/* Menu */}
         <div className="">
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger asChild>
-              <IoMenu className="text-white size-7 cursor-pointer hover:opacity-80 transition-opacity" />
-            </SheetTrigger>
+            <div className="flex items-center gap-3">
+              <SheetTrigger asChild>
+                <IoMenu className="text-white size-7 cursor-pointer hover:opacity-80 transition-opacity" />
+              </SheetTrigger>
+              <Link href="/" className="text-[18px] font-semibold">
+                GMPAPA
+              </Link>
+            </div>
 
             <SheetContent
               side="left"
@@ -75,9 +78,8 @@ export default function MobileMenu({
                           {item.label}
                         </p>
                         <IoIosArrowDown
-                          className={`transition-transform duration-300 ${
-                            mobileGameOpen ? "rotate-180" : ""
-                          }`}
+                          className={`transition-transform duration-300 ${mobileGameOpen ? "rotate-180" : ""
+                            }`}
                           size={16}
                         />
                       </button>
@@ -119,25 +121,25 @@ export default function MobileMenu({
             </SheetContent>
           </Sheet>
         </div>
-        <div className="w-9/12">
-          <Search className="w-full px-1" resultClass="w-full" />
-        </div>
         {token ? (
           <div className="relative group">
             <button className="flex items-center gap-1">
-              <FaRegUserCircle
-                className="size-8 text-white"
+              <Image
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="size-8 rounded-full"
+                src={profileData?.user.image ?? ""}
+                alt="img"
+                width={30}
+                height={30}
               />
             </button>
 
             {/* User Dropdown */}
             <div
-              className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${
-                userMenuOpen
-                  ? "opacity-100 visible translate-y-0"
-                  : "opacity-0 invisible -translate-y-2"
-              }`}
+              className={`absolute right-0 mt-3 w-48 bg-[#1c223e] rounded-xl shadow-lg overflow-hidden border border-[#2d3359] transition-all duration-300 ${userMenuOpen
+                ? "opacity-100 visible translate-y-0"
+                : "opacity-0 invisible -translate-y-2"
+                }`}
             >
               <Link
                 href="/profile"
@@ -155,7 +157,7 @@ export default function MobileMenu({
                 href="/wallet-balance"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
               >
-                <IoWalletOutline /> Add Wallet 
+                <IoWalletOutline /> Add Wallet
               </Link>
               <Link
                 href="/wallet-history"
