@@ -12,28 +12,45 @@ export default function PriceAction({
 }) {
   const { active, setActive, setSelectedItem } = useProductSelectionStore();
   const { setSelected } = useSelectedItemStore();
-
-  // Function to detect if device is mobile
   const isMobile = () => {
     if (typeof window !== "undefined") {
-      return window.innerWidth <= 768; // md breakpoint এর নিচে হলে mobile ধরবো
+      return window.innerWidth <= 768;
     }
     return false;
   };
+  // const handleSelectItem = (item: IItem) => {
+  //   setSelected(true);
+  //   setActive(item.name);
+  //   setSelectedItem(item);
 
-  const handleSelectItem = (item: IItem) => {
-    setSelected(true);
-    setActive(item.name);
-    setSelectedItem(item);
+  //   if (isMobile()) {
+  //     setTimeout(() => {
+  //       const formElement = document.getElementById("form-section");
+  //       formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+  //     }, 0);
+  //   }
+  // };
+const handleSelectItem = (item: IItem) => {
+  setSelected(true);
+  setActive(item.name);
+  setSelectedItem(item);
 
-    // শুধু mobile এ scroll করবে
-    if (isMobile()) {
-      setTimeout(() => {
-        const formElement = document.getElementById("form-section");
-        formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 0);
-    }
-  };
+  if (isMobile()) {
+    requestAnimationFrame(() => {
+      const formElement = document.getElementById("form-section");
+      if (formElement) {
+        const yOffset = -80; 
+        const y =
+          formElement.getBoundingClientRect().top + window.scrollY + yOffset;
+
+        // আমাদের custom smooth scroll
+        smoothScrollTo(y, 2000); // 700ms duration
+      }
+    });
+  }
+};
+
+
 
   return (
     <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2 mt-8 bg-mainlight p-2 rounded-lg">
@@ -62,7 +79,7 @@ export default function PriceAction({
               "hover:border-[var(--custom-orange)] hover:scale-[1.02]",
               isActive && "border-[var(--custom-orange)] shadow-lg",
               lastOdd &&
-                "col-span-2 md:col-span-1 justify-self-center md:justify-self-auto"
+              "col-span-2 md:col-span-1 justify-self-center md:justify-self-auto"
             )}
           >
             <p className="text-[10px] md:text-sm font-medium text-center">

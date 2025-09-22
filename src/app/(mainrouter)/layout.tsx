@@ -34,7 +34,7 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
       {/* Pass profileData (which might be null) to the Navbar component */}
       <Navbar profileData={profileData} />
       <main className="flex-1">
-        <div className="md:mt-16 mt-24" />
+        <div className="md:mt-16 mt-18" />
         {children}
       </main>
       <Footer />
