@@ -87,6 +87,7 @@ export default function CheckoutComponent() {
   const formValue = Object.values(formData)[0];
   const { data: profile } = getProfile(loggedIn);
   const [orderData, setOrderData] = useState<IOrderResponse>();
+  const [phoneAllow, setPhoneAllow] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -161,6 +162,13 @@ export default function CheckoutComponent() {
         message: { message: string };
       }
     ) => {
+      if (
+        err.message.message ===
+        "Transaction ID and payment number are required for this payment method."
+      ) {
+        setPhoneAllow(false);
+      }
+
       showErrorAlert(err.message.message);
     },
   });
@@ -215,7 +223,7 @@ export default function CheckoutComponent() {
         <div className="w-full h-full text-gray-200 overflow-auto scroll-hidden">
           <div className="mt-3">
             <GenericForm
-              schema={playerAddressSchema(loggedIn, wallet)}
+              schema={playerAddressSchema(loggedIn, wallet, phoneAllow)}
               initialValues={initialValues}
               onSubmit={handleSubmit}
               ref={formRef}
@@ -340,7 +348,9 @@ export default function CheckoutComponent() {
                         {profileData?.user?.wallet?.toLocaleString()} Tk
                       </p>
                     )}
-                    {method?.method !== "Wallet" && <PaymentForm />}
+                    {method?.method !== "Wallet" && (
+                      <PaymentForm phoneAllow={phoneAllow} />
+                    )}
                   </div>
 
                   <LoadingButton
@@ -361,15 +371,17 @@ export default function CheckoutComponent() {
 }
 
 /* ---------- small sub-components ---------- */
-const PaymentForm = () => (
+const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
   <div className="mt-4 space-y-3">
-    <TextField
-      label="Customer Number"
-      name="number"
-      type="number"
-      placeholder="Enter your account number"
-      inputClass="form-input"
-    />
+    {!phoneAllow && (
+      <TextField
+        label="Customer Number"
+        name="number"
+        type="number"
+        placeholder="Enter your account number"
+        inputClass="form-input"
+      />
+    )}
     <TextField
       label="Transaction Number"
       name="transaction_id"
