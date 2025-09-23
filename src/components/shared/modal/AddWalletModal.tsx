@@ -12,24 +12,34 @@ import { useRouter } from "next/navigation";
 import { addWalletSchema } from "@/schema/addWallet/addWallet";
 
 type FormType = z.infer<typeof addWalletSchema>;
+
 const initialValues: FormType = {
   amount: "",
 };
-type props = {
+
+type Props = {
   isOpen: boolean;
   onClose: () => void;
   setWalletModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export default function WalletModalCom({ isOpen, onClose }: props) {
+
+export default function WalletModalCom({
+  isOpen,
+  onClose,
+  setWalletModal,
+}: Props) {
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [loading, setLoading] = useState(false);
   useScrollLock(isOpen);
-  if (!isOpen) return null;
   const router = useRouter();
 
+  if (!isOpen) return null;
+
   const handleSubmit = (data: FormType | React.FormEvent<HTMLFormElement>) => {
+    if ("preventDefault" in data) return;
     setLoading(true);
-    router.push("/wallet-balance");
+    router.push(`/wallet-balance?amount=${encodeURIComponent(data.amount)}`);
+    setWalletModal(false);
   };
 
   return (
@@ -70,7 +80,7 @@ export default function WalletModalCom({ isOpen, onClose }: props) {
                   className={cn("button-color", "w-full mt-0")}
                   type="submit"
                 >
-                  {loading ? "Processing" : "Add Wallet"}
+                  {loading ? "Processing..." : "Add Wallet"}
                 </LoadingButton>
               </div>
             </GenericForm>

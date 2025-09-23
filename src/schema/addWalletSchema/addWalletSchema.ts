@@ -1,8 +1,19 @@
 import { z } from "zod";
 
-export const addWalletSchema = z.object({
-  amount: z.string().min(1, "Enter amount"),
-  payment_id: z.string().min(1, "Enter payment id"),
-  transaction_id: z.string().min(1, "Enter transaction id"),
-  payment_number: z.string().min(1, "Enter payment number"),
-});
+// export const addWalletSchema = (phoneAllow: boolean) =>
+//   z.object({
+//     amount: z.string().min(1, "Enter amount"),
+//     payment_id: z.string().min(1, "Enter payment id"),
+//     transaction_id: z.string().min(1, "Enter transaction id"),
+//     payment_number: z.string().min(1, "Enter payment number"),
+//   });
+
+export const WalletSchema = (phoneAllow: boolean) =>
+  z.object({
+    amount: z.string().min(1, "Enter amount"),
+    payment_id: z.string().min(1, "Enter payment id"),
+    transaction_id: z.string().min(1, "Enter transaction id"),
+    payment_number: phoneAllow
+      ? z.string().optional()
+      : z.string().regex(/^\d{11}$/, "Enter valid phone number"),
+  });

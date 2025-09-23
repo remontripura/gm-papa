@@ -3,7 +3,6 @@
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
 import { z } from "zod";
 import { TextField } from "@/components/Form/fields/TextField";
-
 import MainContainer from "@/components/container/MainContainer";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axios/AxiosInstance";
@@ -13,7 +12,6 @@ import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/components/shared/toast/ToastModal";
-import { addWalletSchema } from "@/schema/addWalletSchema/addWalletSchema";
 import { useEffect, useRef, useState } from "react";
 import { LoadingButton } from "@/components/shared/submitButton/submitButton";
 import { cn } from "@/lib/utils";
@@ -26,8 +24,16 @@ import Image from "next/image";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { FaCopy } from "react-icons/fa";
 import { IoCheckmarkDone } from "react-icons/io5";
+import { useSearchParams } from "next/navigation";
+import { WalletSchema } from "@/schema/addWalletSchema/addWalletSchema";
 
 export default function AddWalletComponent() {
+  type FormType = z.infer<ReturnType<typeof WalletSchema>>;
+  const formRef = useRef<GenericFormRef<FormType>>(null);
+
+  const searchParams = useSearchParams();
+  const amountFromParams = searchParams.get("amount") || "";
+
   const { copy, copied } = CopyToClipboard();
   const { data: paymentMethod } = useGetData<paymentMethodResponse>(
     ["paymentMethod"],
@@ -37,27 +43,30 @@ export default function AddWalletComponent() {
     (item) => item.method !== "Wallet"
   );
   const [method, setMethod] = useState<PaymentMethod | undefined>(undefined);
-  const formRef = useRef<GenericFormRef<FormType>>(null);
-  type FormType = z.infer<typeof addWalletSchema>;
+  const [phoneAllow, setPhoneAllow] = useState<boolean>(true);
+
   const initialValues: FormType = {
-    amount: "",
-    payment_id: "22",
+    amount: amountFromParams,
+    payment_id: "",
     payment_number: "",
     transaction_id: "",
   };
 
   useEffect(() => {
-    if (filteredPaymentMethods && filteredPaymentMethods.length > 0) {
+    if (
+      filteredPaymentMethods &&
+      filteredPaymentMethods.length > 0 &&
+      !method
+    ) {
       setMethod(filteredPaymentMethods[0]);
-      // form এর payment_id ও auto-set করতে চাইলে
       formRef.current?.reset({
-        amount: "",
+        amount: amountFromParams,
         payment_id: filteredPaymentMethods[0].id.toString(),
         payment_number: "",
         transaction_id: "",
       });
     }
-  }, [filteredPaymentMethods]);
+  }, [filteredPaymentMethods, amountFromParams, method]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
@@ -77,6 +86,12 @@ export default function AddWalletComponent() {
         message: { message: string };
       }
     ) => {
+      if (
+        err.message.message ===
+        "Transaction ID and payment number are required for this payment method."
+      ) {
+        setPhoneAllow(false);
+      }
       showErrorAlert(err.message.message);
     },
   });
@@ -87,31 +102,37 @@ export default function AddWalletComponent() {
 
   return (
     <>
-      <MainContainer className="px-3 pb-8 pt-10">
-        <p className="text-gray-500 text-center font-medium mb-5">
+      <MainContainer className="px-4 pb-10 py-12">
+        <p className="text-lg text-gray-400 text-center font-semibold mb-6 tracking-wide">
           Add Wallet Balance
         </p>
-        <div className=" h-full text-gray-200 overflow-auto scroll-hidden max-w-3xl mx-auto w-full bg-mainlight p-5 rounded-xl">
-          <div className="mt-3">
+
+        <div className="h-full overflow-auto max-w-3xl mx-auto w-full bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/70 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-gray-700">
+          <div className="mt-2">
             <GenericForm
-              schema={addWalletSchema}
+              schema={WalletSchema(phoneAllow)}
               initialValues={initialValues}
               onSubmit={handleSubmit}
               ref={formRef}
             >
-              <div className="mt-4 space-y-3">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="mt-5 space-y-5">
+                {/* Payment Methods */}
+                <div className="grid grid-cols-2 gap-5">
                   {filteredPaymentMethods?.map((item, index) => (
                     <div
                       key={index}
                       onClick={(e) => {
                         e.stopPropagation();
                         setMethod(item);
+                        formRef.current?.setValue(
+                          "payment_id",
+                          item.id.toString()
+                        );
                       }}
-                      className={`p-2 rounded-lg cursor-pointer border-2 transition-all bg-white duration-200 ${
+                      className={`p-3 rounded-xl cursor-pointer border-2 transition-all duration-300 bg-white/95 shadow-sm flex items-center justify-center hover:scale-105 ${
                         method?.id.toString() === item.id.toString()
-                          ? "border-purple-500"
-                          : "border-gray-300 hover:border-gray-400"
+                          ? "border-purple-500 shadow-md shadow-purple-300 bg-purple-200"
+                          : "border-gray-200 hover:border-gray-400"
                       }`}
                     >
                       <Image
@@ -124,62 +145,64 @@ export default function AddWalletComponent() {
                     </div>
                   ))}
                 </div>
+
+                {/* Selected Method Info */}
                 {method && (
-                  <div className="mt-4 p-3 rounded-lg bg-mainDark">
+                  <div className="mt-5 p-4 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
                     {method.description && (
                       <div
+                        className="text-gray-300 text-sm leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: method.description }}
                       />
                     )}
 
-                    <p className="text-sm text-gray-50 mt-1 flex items-center gap-2">
-                      <span className="font-medium">Number:</span>{" "}
-                      {method.number}{" "}
+                    <p className="text-sm text-gray-100 mt-3 flex items-center gap-3">
+                      <span className="font-medium">Number:</span>
+                      <span className="font-mono tracking-wide">
+                        {method.number}
+                      </span>
                       <span
-                        className="px-4 py-2 border border-gray-600 rounded "
+                        className="px-3 py-1 border border-gray-600 rounded-lg hover:bg-gray-700 cursor-pointer transition-all"
                         onClick={() => copy(method?.number)}
                       >
                         {copied ? (
-                          <>
-                            <IoCheckmarkDone className="text-green-500 " />
-                          </>
+                          <IoCheckmarkDone className="text-green-400" />
                         ) : (
-                          <>
-                            <FaCopy />
-                          </>
+                          <FaCopy />
                         )}
                       </span>
                     </p>
                   </div>
                 )}
-                <TextField
-                  label="Amont ৳"
-                  name="amount"
-                  type="number"
-                  placeholder="Enter your amount"
-                  inputClass="form-input"
-                />
 
+                {/* Inputs */}
+                {!phoneAllow && (
+                  <TextField
+                    label="Payment Number"
+                    name="payment_number"
+                    type="number"
+                    placeholder="Enter payment number"
+                    inputClass="form-input rounded-lg border-gray-600 focus:ring-2 focus:ring-purple-500"
+                  />
+                )}
                 <TextField
-                  label="Payment Number"
-                  name="payment_number"
-                  type="number"
-                  placeholder="Enter payment number"
-                  inputClass="form-input"
-                />
-                <TextField
-                  label="Transaction Id"
+                  label="Transaction ID"
                   name="transaction_id"
                   type="text"
-                  placeholder="Enter your transaction id"
-                  inputClass="form-input"
+                  placeholder="Enter your transaction ID"
+                  inputClass="form-input rounded-lg border-gray-600 focus:ring-2 focus:ring-purple-500"
                 />
+
+                {/* Submit Button */}
                 <LoadingButton
                   disabled={isPending}
-                  className={cn("button-color w-full mt-3")}
+                  className={cn(
+                    "w-full mt-4 py-3 rounded-xl font-semibold text-white shadow-md transition-all duration-300",
+                    "bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 hover:shadow-xl"
+                  )}
                   type="submit"
                 >
-                  {isPending ? "Processing" : "Add Wallet"}
+                  {isPending ? "Processing..." : "Add Wallet"}
                 </LoadingButton>
               </div>
             </GenericForm>
