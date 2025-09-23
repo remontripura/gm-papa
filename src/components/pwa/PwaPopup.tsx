@@ -70,7 +70,7 @@ export default function InstallPrompt() {
     <>
       {isMobile ? (
         // 📱 Mobile → Bottom Full-width Popup
-        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 p-4 shadow-xl border-t rounded-t-2xl z-50">
+        <div className="fixed bottom-5 left-3 right-3 bg-white dark:bg-slate-900 p-4 shadow-xl border-t rounded-t-2xl z-50">
           <div className="flex justify-between items-start">
             <div>
               <h2 className="text-base font-bold text-indigo-600 flex items-center">

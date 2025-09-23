@@ -49,9 +49,9 @@ export default function PriceAction({
             onClick={() => {
               if (!isIOS) handleSelectItem(item);
             }}
-            onTouchEnd={() => {
-              if (isIOS) handleSelectItem(item);
-            }}
+            // onTouchEnd={() => {
+            //   if (isIOS) handleSelectItem(item);
+            // }}
             className={cn(
               "relative rounded-lg border border-transparent p-2 py-3 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ease-out",
               "bg-mainDark text-white shadow-sm hover:shadow-md",
