@@ -99,7 +99,7 @@ export default function ProductHeader({
           <p className={expanded ? "line-clamp-none" : "line-clamp-1"}>
             {singleProduct.short_description}
           </p>
-          {singleProduct.short_description?.length > 35 && (
+          {singleProduct.short_description?.length > 30 && (
             <button
               onClick={() => setExpanded(!expanded)}
               className="mt-1 text-xs underline text-white"
