@@ -50,35 +50,10 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
       inputNames.push(`input_${i}`);
     }
   }
-  // useEffect(() => {
-  //   if (select) {
-  //     const firstInput = document.querySelector(
-  //       'input[name="' + inputNames[0] + '"]'
-  //     ) as HTMLInputElement;
-  //     if (firstInput) {
-  //       firstInput.focus();
-  //     }
-  //   }
-  // }, [select, inputNames]);
-
-  // useEffect(() => {
-  //   if (select) {
-  //     const firstInput = document.querySelector(
-  //       `input[name="${inputNames[0]}"]`
-  //     ) as HTMLInputElement;
-
-  //     if (firstInput) {
-  //       setTimeout(() => {
-  //         firstInput.focus();
-  //       }, 500);
-  //     }
-  //   }
-  // }, [select, inputNames]);
-  const firstRender = useRef(true); // first render tracking
+  const firstRender = useRef(true);
 
   useEffect(() => {
     if (firstRender.current) {
-      // first render, ignore focus
       firstRender.current = false;
       return;
     }

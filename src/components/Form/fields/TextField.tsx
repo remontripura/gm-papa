@@ -132,7 +132,7 @@ export const TextField = <T extends FieldValues>({
                   type={type}
                   placeholder={placeholder ?? "Enter a value"}
                   className={cn(
-                    `w-full bg-[#F5F5F6] text-gray-950 ${inputClass}`,
+                    ` ${inputClass}`,
                     action && "pr-12"
                   )}
                   id={name}

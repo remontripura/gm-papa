@@ -299,7 +299,7 @@ export default function CheckoutComponent() {
                 >
                   <h6 className="font-semibold text-[18px]">Payment Method</h6>
                   <div className="p-4 rounded-lg bg-mainlight space-y-4 mt-3">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                       {filteredPaymentMethods?.map((item, index) => (
                         <div
                           key={index}
@@ -332,11 +332,11 @@ export default function CheckoutComponent() {
                             __html: method?.description || "",
                           }}
                         />
-                        <p className="text-sm font-semibold flex items-center gap-3 p-4 bg-mainDark rounded-xl">
+                        <p className="text-[20px] flex items-center gap-3 p-4 bg-[#20243a] rounded-xl">
                           {method?.number}{" "}
                           <span
                             onClick={() => copy(`${method?.number}`)}
-                            className="px-3 py-1 cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
+                            className="px-3 py-1 text-sm cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
                           >
                             {copied ? "Copied" : "Copy"}
                           </span>

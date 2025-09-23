@@ -30,8 +30,7 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Pass profileData (which might be null) to the Navbar component */}
+    <div className="flex flex-col min-h-screen bg-gradient-to-br to-[#2B304C]/70 from-[#2B304C]/10">
       <Navbar profileData={profileData} />
       <main className="flex-1">
         <div className="md:mt-16 mt-18" />
