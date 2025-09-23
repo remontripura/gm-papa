@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
@@ -12,8 +12,6 @@ import MainContainer from "@/components/container/MainContainer";
 import { useRef, useState } from "react";
 import { SliderResponse } from "@/types/bannerType/bannerType";
 import Link from "next/link";
-
-const items = Array.from({ length: 6 }).map((_, i) => `Item ${i}`);
 
 export default function Banner({
   bannerImage,
@@ -23,18 +21,15 @@ export default function Banner({
   const swiperRef = useRef<SwiperType | null>(null);
   const [hoverSide, setHoverSide] = useState<"left" | "right" | null>(null);
 
-  // Check if slide is active (middle)
   const isSlideActive = (slideRealIndex: number) => {
     if (!swiperRef.current) return false;
     return slideRealIndex === swiperRef.current.realIndex;
   };
 
-  // Determine if slide is left or right side slide
   const getSlideSide = (slideRealIndex: number) => {
     if (!swiperRef.current) return null;
     const realIndex = swiperRef.current.realIndex;
-    const slidesCount = items.length;
-
+    const slidesCount = swiperRef.current.slides.length; // ✅ dynamic length
     const leftIndex = (realIndex - 1 + slidesCount) % slidesCount;
     const rightIndex = (realIndex + 1) % slidesCount;
 
@@ -56,12 +51,16 @@ export default function Banner({
             centeredSlides={true}
             slidesPerView={"auto"}
             spaceBetween={10}
+            autoplay={{
+              delay: 3000, // ✅ auto slide every 3s
+              disableOnInteraction: false,
+            }}
             navigation={{
               nextEl: ".banner-next-btn",
               prevEl: ".banner-prev-btn",
             }}
             pagination={{ clickable: true }}
-            modules={[Navigation, Pagination]}
+            modules={[Navigation, Pagination, Autoplay]} // ✅ autoplay added
             breakpoints={{
               0: { slidesPerView: 1, centeredSlides: false, spaceBetween: 10 },
               768: {
@@ -80,12 +79,11 @@ export default function Banner({
                 <SwiperSlide
                   key={index}
                   className="relative group"
-                  style={{ width: "100%", maxWidth: "800px" }}
+                  style={{ width: "100%", maxWidth: "800px" }} // ✅ চাইলে এটাও dynamic props থেকে আনতে পারো
                   onMouseEnter={() => {
                     if (side) setHoverSide(side);
                     else setHoverSide(null);
                   }}
-                  // onMouseLeave removed here to avoid flicker, wrapper handles it
                 >
                   <Link href={item.link}>
                     <div className="relative w-full md:w-[250px] first:md:w-auto overflow-hidden">
@@ -104,7 +102,7 @@ export default function Banner({
                             : "opacity-40 group-hover:opacity-70"
                         }`}
                       ></div>
-                    </div>{" "}
+                    </div>
                   </Link>
                 </SwiperSlide>
               );
@@ -119,7 +117,7 @@ export default function Banner({
                 : "opacity-0 scale-75"
             }`}
             style={{ top: "50%", left: "80px", transform: "translateY(-50%)" }}
-            onMouseEnter={() => setHoverSide("left")} // keep nav visible while hovering nav btn
+            onMouseEnter={() => setHoverSide("left")}
             onMouseLeave={() => setHoverSide(null)}
           >
             <GoArrowRight className="rotate-180" />
@@ -138,9 +136,6 @@ export default function Banner({
           >
             <GoArrowRight />
           </button>
-
-          {/* Pagination */}
-          {/* <div className="banner-pagination flex justify-center"></div> */}
         </div>
       </MainContainer>
     </section>
