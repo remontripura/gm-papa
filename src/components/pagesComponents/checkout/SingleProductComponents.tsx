@@ -61,7 +61,28 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   //   }
   // }, [select, inputNames]);
 
+  // useEffect(() => {
+  //   if (select) {
+  //     const firstInput = document.querySelector(
+  //       `input[name="${inputNames[0]}"]`
+  //     ) as HTMLInputElement;
+
+  //     if (firstInput) {
+  //       setTimeout(() => {
+  //         firstInput.focus();
+  //       }, 500);
+  //     }
+  //   }
+  // }, [select, inputNames]);
+  const firstRender = useRef(true); // first render tracking
+
   useEffect(() => {
+    if (firstRender.current) {
+      // first render, ignore focus
+      firstRender.current = false;
+      return;
+    }
+
     if (select) {
       const firstInput = document.querySelector(
         `input[name="${inputNames[0]}"]`
