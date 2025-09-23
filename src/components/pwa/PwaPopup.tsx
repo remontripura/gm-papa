@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { RxCross2 } from "react-icons/rx";
 
 export default function InstallPrompt() {
   const [showPrompt, setShowPrompt] = useState(false);
@@ -70,38 +71,41 @@ export default function InstallPrompt() {
     <>
       {isMobile ? (
         // 📱 Mobile → Bottom Full-width Popup
-        <div className="fixed bottom-5 left-3 right-3 bg-white dark:bg-slate-900 p-4 shadow-xl border-t rounded-t-2xl z-50">
-          <div className="flex justify-between items-start">
-            <div>
-              <h2 className="text-base font-bold text-indigo-600 flex items-center">
-                📲 Install App
-              </h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
-                Would you like to install this app for a better experience?
-              </p>
+        <div className="fixed bottom-5 w-fullshadow-xl border-t z-50 right-3 left-3">
+          <div className=" dark:bg-slate-900 w-full p-4 rounded-xl relative">
+            <div className="flex justify-between items-start mt-5">
+              <div>
+                <h2 className="text-base font-bold text-indigo-600 flex items-center">
+                  📲 Install App
+                </h2>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                  Would you like to install this app for a better experience?
+                </p>
+              </div>
+              <button
+                onClick={handleDismiss}
+                className="text-gray-500 hover:text-gray-800 size-6 bg-mainlight p-1 rounded-full dark:hover:text-white ml-3 absolute top-2 right-2"
+              >
+                <RxCross2 />
+              </button>
+              <div className="mt-3 flex justify-end gap-2">
+                <button
+                  onClick={handleInstall}
+                  className="bg-indigo-600 text-white px-4 py-2 rounded text-[12px] hover:bg-indigo-700 transition"
+                >
+                  Install
+                </button>
+              </div>
             </div>
-            <button
-              onClick={handleDismiss}
-              className="text-gray-500 hover:text-gray-800 dark:hover:text-white ml-3"
-            >
-              ✖
-            </button>
-          </div>
-
-          <div className="mt-3 flex justify-end gap-2">
-            <button
-              onClick={handleInstall}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-            >
-              Install
-            </button>
           </div>
         </div>
       ) : (
         // 💻 Desktop → Small bottom-right modal
         <div className="fixed bottom-4 right-4 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-lg w-72 z-50">
           <div className="flex justify-between items-start">
-            <h2 className="text-sm font-bold text-indigo-600">📲 Install App</h2>
+            <h2 className="text-sm font-bold text-indigo-600">
+              📲 Install App
+            </h2>
             <button
               onClick={handleDismiss}
               className="text-gray-400 hover:text-gray-700 dark:hover:text-white"

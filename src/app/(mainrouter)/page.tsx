@@ -10,6 +10,7 @@ import Heading from "@/components/homeComponents/heading/Heading";
 import { ICategory } from "@/types/productsDataType/productsDataType";
 import HomaPageComponents from "@/components/homeComponents/HomePageComponents/HomePageComponents";
 import MobileWarning from "@/components/pwa/PwaPopup";
+import { RxCross2 } from "react-icons/rx";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data }: { data: ICategory[] } = await getData("/products");
