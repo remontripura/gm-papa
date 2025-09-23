@@ -9,7 +9,7 @@ import { SliderResponse } from "@/types/bannerType/bannerType";
 import Heading from "@/components/homeComponents/heading/Heading";
 import { ICategory } from "@/types/productsDataType/productsDataType";
 import HomaPageComponents from "@/components/homeComponents/HomePageComponents/HomePageComponents";
-// import MobileWarning from "@/components/pwa/PwaPopup";
+import MobileWarning from "@/components/pwa/PwaPopup";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data }: { data: ICategory[] } = await getData("/products");
@@ -66,7 +66,7 @@ const HomePage = async () => {
         <HomaPageComponents />
       </Suspense>
       <WhyChooseUsPage />
-      {/* <MobileWarning /> */}
+      <MobileWarning />
     </>
   );
 };
