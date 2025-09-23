@@ -6,11 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import MainContainer from "@/components/container/MainContainer";
 import { GoHome, GoChevronDown } from "react-icons/go";
-import {
-  FaRegNewspaper,
-  FaUser,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaRegNewspaper, FaUser, FaSignOutAlt } from "react-icons/fa";
 import Image from "next/image";
 import LoginModal from "@/components/shared/modal/loginModal";
 import Cookies from "js-cookie";
@@ -22,6 +18,7 @@ import { IoWalletOutline } from "react-icons/io5";
 import { Profile } from "@/types/profile/profile";
 import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
 import { FaWallet } from "react-icons/fa6";
+import WalletModalCom from "@/components/shared/modal/AddWalletModal";
 
 type NavItem = {
   id: number;
@@ -47,6 +44,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
   const [warningModal, setWarningModal] = useState(false);
   const token = Cookies.get("GM_T");
   const user = useUserStore((state) => state.user);
+  const [walletModal, setWalletModal] = useState(false);
 
   useEffect(() => {
     if (profileData?.user?.phone === null) {
@@ -72,6 +70,13 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
           setWarningModal={setWarningModal}
         />
       )}
+      {walletModal && (
+        <WalletModalCom
+          isOpen={walletModal}
+          onClose={() => setWalletModal(false)}
+          setWalletModal={setWalletModal}
+        />
+      )}
       <header
         className={cn(
           "fixed top-0 z-50 w-full transition-all duration-500 text-primary_text",
@@ -84,10 +89,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
           <nav className="hidden md:flex justify-between items-center relative h-10">
             {/* Left Menu */}
             <div className="flex items-center gap-12">
-              <Link
-                href="/"
-                className="text-[18px] text-white"
-              >
+              <Link href="/" className="text-[18px] text-white">
                 GMPAPA
               </Link>
               <div className="flex items-center gap-6">
@@ -156,12 +158,12 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
                       >
                         <TbShoppingCartCheck /> My-Order
                       </Link>
-                      <Link
-                        href="/wallet-balance"
+                      <div
+                        onClick={() => setWalletModal(true)}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
                       >
                         <IoWalletOutline /> Add Wallet
-                      </Link>
+                      </div>
                       <Link
                         href="/wallet-history"
                         className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
