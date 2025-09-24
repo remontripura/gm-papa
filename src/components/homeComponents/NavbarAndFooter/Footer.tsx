@@ -108,7 +108,7 @@ export default function Footer() {
   return (
     <footer className="bg-mainDark text-white md:py-10 py-8">
       <MainContainer className="flex flex-col items-center gap-8 text-center">
-        <h2 className="text-3xl font-bold tracking-wide">GMPAPA</h2>
+        <h2 className="text-[20px] font-semibold tracking-wide">GMPAPA</h2>
         <div>
           <p className="mb-4 text-sm uppercase tracking-wider opacity-80">
             We Support
@@ -118,7 +118,7 @@ export default function Footer() {
               <div
                 key={i}
                 className={cn(
-                  "rounded-xl border border-gray-300 shadow-sm hover:shadow-md transition w-[100px] h-[60px] flex justify-center items-center p-0.5 bg-white",
+                  "rounded-xl border border-gray-300 shadow-sm hover:shadow-md transition md:w-[100px] w-[80px] md:h-[60px] h-[40px] flex justify-center items-center p-0.5 bg-white",
                   i === 2 && "!bg-[#8C3494]"
                 )}
               >
