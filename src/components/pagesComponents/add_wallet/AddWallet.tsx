@@ -24,16 +24,17 @@ import Image from "next/image";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { FaCopy } from "react-icons/fa";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { WalletSchema } from "@/schema/addWalletSchema/addWalletSchema";
 
 export default function AddWalletComponent() {
-  type FormType = z.infer<ReturnType<typeof WalletSchema>>;
-  const formRef = useRef<GenericFormRef<FormType>>(null);
-
   const searchParams = useSearchParams();
   const amountFromParams = searchParams.get("amount") || "";
-
+  if (!amountFromParams) {
+    redirect("/");
+  }
+  type FormType = z.infer<ReturnType<typeof WalletSchema>>;
+  const formRef = useRef<GenericFormRef<FormType>>(null);
   const { copy, copied } = CopyToClipboard();
   const { data: paymentMethod } = useGetData<paymentMethodResponse>(
     ["paymentMethod"],

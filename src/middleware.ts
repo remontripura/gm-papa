@@ -4,11 +4,26 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("GM_T")?.value;
   const { pathname } = request.nextUrl;
 
-  if (!token && ["/profile", "/my-order"].includes(pathname)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (
+    !token &&
+    [
+      "/profile",
+      "/my-order",
+      "/wallet-balance",
+      "/profile/edit",
+      "/wallet-history",
+    ].includes(pathname)
+  ) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/profile", "/my-order"],
+  matcher: [
+    "/profile",
+    "/my-order",
+    "/wallet-balance",
+    "/profile/edit",
+    "/wallet-history",
+  ],
 };
