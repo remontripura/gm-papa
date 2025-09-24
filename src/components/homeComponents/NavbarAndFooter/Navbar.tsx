@@ -38,6 +38,7 @@ export const navItems: NavItem[] = [
 ];
 
 const Navbar = ({ profileData }: { profileData: Profile | null }) => {
+  console.log(profileData?.user.image)
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -113,7 +114,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
 
             {/* Right Menu */}
             <div className="flex items-center gap-4 relative">
-              {token ? (
+              {profileData ? (
                 <>
                   <p className="text-white flex items-center gap-2">
                     <FaWallet />

@@ -18,6 +18,7 @@ export default async function ProductDescription({
       <div className="md:w-2/3 w-full">
         <h6 className="font-medium mt-5 text-[20px] mb-3">Game Description</h6>
         <div
+          className="game-description-content"
           dangerouslySetInnerHTML={{ __html: singleProduct.description }}
         ></div>
       </div>

@@ -145,7 +145,7 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
                     key={name}
                     name={name}
                     placeholder={`Enter ${name}`}
-                    inputClass="px-3 bg-transparent border border-gray-300 rounded text-gray-100"
+                    inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
                   />
                 ))}
               </div>

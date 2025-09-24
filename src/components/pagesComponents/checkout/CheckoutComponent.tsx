@@ -267,21 +267,21 @@ export default function CheckoutComponent() {
                             name="name"
                             type="text"
                             placeholder="Enter your full name"
-                            inputClass="form-input"
+                            inputClass="px-3 bg-transparent borde-2 border-red-500 rounded-lg text-gray-100"
                           />
                           <TextField
                             label="Phone"
                             name="phone"
                             type="number"
                             placeholder="Enter your phone number"
-                            inputClass="form-input"
+                            inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
                           />
                           <TextField
                             label="Email"
                             name="email"
                             type="text"
                             placeholder="Enter your email address"
-                            inputClass="form-input"
+                            inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
                           />
                         </div>
                       </div>
@@ -379,7 +379,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
         name="number"
         type="number"
         placeholder="Enter your account number"
-        inputClass="form-input"
+        inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
       />
     )}
     <TextField
@@ -387,7 +387,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
       name="transaction_id"
       type="text"
       placeholder="Enter your transaction number"
-      inputClass="form-input"
+      inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
     />
   </div>
 );
