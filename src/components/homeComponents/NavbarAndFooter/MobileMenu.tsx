@@ -15,9 +15,11 @@ import { Profile } from "@/types/profile/profile";
 export default function MobileMenu({
   setOpen,
   profileData,
+  setWalletModal,
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   profileData: Profile | null;
+  setWalletModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -111,12 +113,12 @@ export default function MobileMenu({
               >
                 <TbShoppingCartCheck /> My-Order
               </Link>
-              <Link
-                href="/wallet-balance"
+              <div
+                onClick={() => setWalletModal(true)}
                 className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
               >
                 <IoWalletOutline /> Add Wallet
-              </Link>
+              </div>
               <Link
                 href="/wallet-history"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"

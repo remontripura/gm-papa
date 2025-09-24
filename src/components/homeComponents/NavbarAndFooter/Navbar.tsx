@@ -38,7 +38,7 @@ export const navItems: NavItem[] = [
 ];
 
 const Navbar = ({ profileData }: { profileData: Profile | null }) => {
-  console.log(profileData?.user.image)
+  console.log(profileData?.user.image);
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -192,7 +192,11 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
           </nav>
 
           {/* ---------- Mobile Navbar ---------- */}
-          <MobileMenu setOpen={setOpen} profileData={profileData} />
+          <MobileMenu
+            setOpen={setOpen}
+            profileData={profileData}
+            setWalletModal={setWalletModal}
+          />
         </MainContainer>
       </header>
     </>
