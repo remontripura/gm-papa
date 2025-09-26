@@ -169,6 +169,27 @@ export default function AddWalletComponent() {
                     </p>{" "}
                   </div>
                 )}
+
+                {/* Inputs */}
+                <div className="space-y-5">
+                  {!phoneAllow && (
+                    <TextField
+                      label="Payment Number"
+                      name="payment_number"
+                      type="number"
+                      placeholder="Enter payment number"
+                      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
+                    />
+                  )}
+                  <TextField
+                    label="Transaction ID"
+                    name="transaction_id"
+                    type="text"
+                    placeholder="Enter your transaction id"
+                    inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
+                  />
+                </div>
+
                 <div className="mt-3 rounded-xl border border-gray-700 shadow-inner">
                   {method && (
                     <div
@@ -182,24 +203,6 @@ export default function AddWalletComponent() {
                     />
                   )}
                 </div>
-
-                {/* Inputs */}
-                {!phoneAllow && (
-                  <TextField
-                    label="Payment Number"
-                    name="payment_number"
-                    type="number"
-                    placeholder="Enter payment number"
-                    inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
-                  />
-                )}
-                <TextField
-                  label="Transaction ID"
-                  name="transaction_id"
-                  type="text"
-                  placeholder="Enter your transaction id"
-                  inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
-                />
 
                 {/* Submit Button */}
                 <LoadingButton
