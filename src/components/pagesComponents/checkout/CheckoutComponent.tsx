@@ -339,7 +339,7 @@ export default function CheckoutComponent() {
                           className="game-description-content"
                           dangerouslySetInnerHTML={{
                             __html: (method?.description || "").replace(
-                              "[amout]",
+                              "[amount]",
                               balance.toString()
                             ),
                           }}

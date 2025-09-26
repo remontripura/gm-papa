@@ -168,19 +168,21 @@ export default function AddWalletComponent() {
                         )}
                       </span>
                     </p>{" "}
-                    {method.description && (
-                      <div
-                        className="game-description-content"
-                        dangerouslySetInnerHTML={{
-                          __html: (method?.description || "").replace(
-                            "[amout]",
-                            amountFromParams.toString()
-                          ),
-                        }}
-                      />
-                    )}
                   </div>
                 )}
+                <div className="mt-5 p-4 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
+                  {method && (
+                    <div
+                      className="game-description-content"
+                      dangerouslySetInnerHTML={{
+                        __html: (method?.description || "").replace(
+                          "[amount]",
+                          amountFromParams.toString()
+                        ),
+                      }}
+                    />
+                  )}
+                </div>
 
                 {/* Inputs */}
                 {!phoneAllow && (
