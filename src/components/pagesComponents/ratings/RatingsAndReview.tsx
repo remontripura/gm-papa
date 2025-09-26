@@ -183,15 +183,17 @@ const RatingAndReview = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {item.user.image ? (
-                  <Image
-                    src={item?.user?.image}
-                    alt="profile"
-                    width={40}
-                    height={40}
-                    className="rounded-full w-12 h-12 object-cover"
-                  />
+                  <div className="size-10 p-1 border border-gray-400 rounded-full flex justify-center items-center">
+                    <Image
+                      src={item?.user?.image}
+                      alt="profile"
+                      width={40}
+                      height={40}
+                      className="rounded-full size-full object-cover"
+                    />
+                  </div>
                 ) : (
-                  <div className="size-12 p-2 border border-gray-400 rounded-full flex justify-center items-center">
+                  <div className="size-10 p-1 border border-gray-400 rounded-full flex justify-center items-center">
                     <User className="size-full" />
                   </div>
                 )}
