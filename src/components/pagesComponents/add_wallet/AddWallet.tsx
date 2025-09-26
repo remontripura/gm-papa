@@ -154,7 +154,7 @@ export default function AddWalletComponent() {
                   <div className="mt-5 p- rounded-xl bg-gray-900/80 border p-3 border-gray-700 shadow-inner">
                     <p className=" text-gray-100 flex items-center justify-between gap-3">
                       <span className="font-mono tracking-wide">
-                        Number: {method.number}
+                       {method.number}
                       </span>
                       <span
                         className="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 cursor-pointer transition-all"
