@@ -151,14 +151,14 @@ export default function AddWalletComponent() {
 
                 {/* Selected Method Info */}
                 {method && (
-                  <div className="mt-5 p-2 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
-                    <p className="text-sm text-gray-100 mt-3 flex items-center gap-3">
+                  <div className="mt-5 p- rounded-xl bg-gray-900/80 border p-3 border-gray-700 shadow-inner">
+                    <p className=" text-gray-100 flex items-center gap-3">
                       <span className="font-medium">Number:</span>
                       <span className="font-mono tracking-wide">
                         {method.number}
                       </span>
                       <span
-                        className="px-3 py-1 border border-gray-600 rounded-lg hover:bg-gray-700 cursor-pointer transition-all"
+                        className="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 cursor-pointer transition-all"
                         onClick={() => copy(method?.number)}
                       >
                         {copied ? (
@@ -170,7 +170,7 @@ export default function AddWalletComponent() {
                     </p>{" "}
                   </div>
                 )}
-                <div className="mt-3 p-2 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
+                <div className="mt-3 p-3 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
                   {method && (
                     <div
                       className="game-description-content"
@@ -198,7 +198,7 @@ export default function AddWalletComponent() {
                   label="Transaction ID"
                   name="transaction_id"
                   type="text"
-                  placeholder="Enter your transaction ID"
+                  placeholder="Enter your transaction id"
                   inputClass="form-input rounded-lg border-gray-600 focus:ring-2 focus:ring-purple-500"
                 />
 
