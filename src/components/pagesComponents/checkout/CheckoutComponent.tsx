@@ -261,27 +261,27 @@ export default function CheckoutComponent() {
                       </h6>
 
                       <div className="p-4 rounded-lg bg-mainlight mt-3">
-                        <div className="mt-3 space-y-3">
+                        <div className="mt-3 space-y-5">
                           <TextField
                             label="Full name"
                             name="name"
                             type="text"
                             placeholder="Enter your full name"
-                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
+                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
                           />
                           <TextField
                             label="Phone"
                             name="phone"
                             type="number"
                             placeholder="Enter your phone number"
-                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
+                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
                           />
                           <TextField
                             label="Email"
                             name="email"
                             type="text"
                             placeholder="Enter your email address"
-                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
+                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
                           />
                         </div>
                       </div>
@@ -327,7 +327,7 @@ export default function CheckoutComponent() {
                     {method?.method !== "Wallet" ? (
                       <>
                         <p className="text-[20px] flex items-center justify-between gap-3 p-4 bg-[#20243a] rounded-xl">
-                          <span> {method?.number}</span>
+                          <span>Number : {method?.number}</span>
                           <span
                             onClick={() => copy(`${method?.number}`)}
                             className="px-3 py-1 text-sm cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
@@ -375,14 +375,14 @@ export default function CheckoutComponent() {
 
 /* ---------- small sub-components ---------- */
 const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
-  <div className="mt-4 space-y-3">
+  <div className="mt-4 space-y-5">
     {!phoneAllow && (
       <TextField
-        label="Customer Number"
+        label="Account Number"
         name="number"
         type="number"
         placeholder="Enter your account number"
-        inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 mt-1 bg-gray-50"
+        inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
       />
     )}
     <TextField
@@ -390,7 +390,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
       name="transaction_id"
       type="text"
       placeholder="transaction id"
-      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 mt-1 bg-gray-50"
+      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
     />
   </div>
 );
