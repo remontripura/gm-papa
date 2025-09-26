@@ -82,7 +82,7 @@ export default function CheckoutComponent() {
   }, [method]);
   const { copy, copied } = CopyToClipboard();
   const { selectedItem } = useProductSelectionStore();
-  const { count, formData, product_id, items_id, reset, name } =
+  const { count, formData, product_id, items_id, reset, name, balance } =
     usePurchaseStore();
   const formValue = Object.values(formData)[0];
   const { data: profile } = getProfile(loggedIn);
@@ -336,9 +336,12 @@ export default function CheckoutComponent() {
                           </span>
                         </p>
                         <div
-                          className="game-description-content "
+                          className="game-description-content"
                           dangerouslySetInnerHTML={{
-                            __html: method?.description || "",
+                            __html: (method?.description || "").replace(
+                              "[amount]",
+                              balance.toString()
+                            ),
                           }}
                         />
                       </>

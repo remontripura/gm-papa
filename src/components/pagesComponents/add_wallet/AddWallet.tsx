@@ -171,7 +171,12 @@ export default function AddWalletComponent() {
                     {method.description && (
                       <div
                         className="game-description-content"
-                        dangerouslySetInnerHTML={{ __html: method.description }}
+                        dangerouslySetInnerHTML={{
+                          __html: (method?.description || "").replace(
+                            "[amount]",
+                            amountFromParams.toString()
+                          ),
+                        }}
                       />
                     )}
                   </div>
