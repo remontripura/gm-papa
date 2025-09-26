@@ -103,7 +103,7 @@ export default function AddWalletComponent() {
 
   return (
     <>
-      <MainContainer className="px-4 pb-10 py-12">
+      <MainContainer className="px-4 md:pb-10 md:py-12 py-5">
         <div className=" max-w-3xl mx-auto w-full ">
           <p className="text-lg text-gray-200 text-start font-semibold mb-6 tracking-wide">
             Add Wallet Balance
