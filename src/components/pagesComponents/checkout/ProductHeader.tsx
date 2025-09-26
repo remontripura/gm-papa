@@ -6,11 +6,12 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Images } from "@/lib/store/images";
+import { IGameData } from "@/types/productsDataType/SingleProductType";
 
 export default function ProductHeader({
   singleProduct,
 }: {
-  singleProduct: any;
+  singleProduct: IGameData;
 }) {
   const router = useRouter();
   const [expanded, setExpanded] = useState(false);
@@ -25,11 +26,6 @@ export default function ProductHeader({
         >
           <FaChevronLeft />
         </button>
-
-        <div className="flex items-center gap-1">
-          <span className="text-yellow-500">★★★★★</span>
-          <span className="text-sm">Excellent</span>
-        </div>
       </div>
 
       {/* Main product header */}
@@ -79,13 +75,6 @@ export default function ProductHeader({
                     />
                     <p>{singleProduct.support_country || "N/A"}</p>
                   </div>
-                </div>
-              </div>
-
-              <div className="md:flex flex-col items-start md:items-end gap-1 hidden">
-                <div className="flex items-center gap-1">
-                  <span className="text-yellow-500">★★★★★</span>
-                  <span className="text-sm">Excellent</span>
                 </div>
               </div>
             </div>

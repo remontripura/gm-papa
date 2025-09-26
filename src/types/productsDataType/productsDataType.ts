@@ -4,6 +4,7 @@ export interface IProduct {
   image: string;
   slug: string;
   reviews_count: number;
+  reviews_avg_rating: number;
 }
 
 export interface ICategory {
