@@ -339,7 +339,7 @@ export default function CheckoutComponent() {
                           <PaymentForm phoneAllow={phoneAllow} />
                         )}
                         <div
-                          className="game-description-content"
+                          className="game-description-content border rounded-md"
                           dangerouslySetInnerHTML={{
                             __html: (method?.description || "").replace(
                               "[amount]",
@@ -382,7 +382,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
         name="number"
         type="number"
         placeholder="Enter your account number"
-        inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
+        inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 mt-1 bg-gray-50"
       />
     )}
     <TextField
@@ -390,7 +390,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
       name="transaction_id"
       type="text"
       placeholder="transaction id"
-      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
+      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 mt-1 bg-gray-50"
     />
   </div>
 );

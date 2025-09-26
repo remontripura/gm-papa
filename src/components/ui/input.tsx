@@ -8,7 +8,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       data-slot="input"
       className={cn(
         // Base styles
-        "flex h-10 w-full rounded-xl border-2 bg-transparent px-3 py-2 text-base shadow-sm transition-all outline-none md:text-sm",
+        "flex h-auto !text-[18px] py-1.5 w-full rounded-xl border-2 bg-transparent px-3 text-base shadow-sm transition-all outline-none md:text-sm",
         "placeholder:text-muted-foreground file:border-0 file:bg-transparent file:text-sm file:font-medium",
         "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 ",
 
@@ -16,7 +16,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "border-gray-100 dark:border-gray-700",
 
         // Focus: premium purple glow
-        "focus-visible:border-purple-300 focus-visible:ring-0 focus-visible:ring-purple-300/70 focus-visible:ring-offset-1",
+        "focus-visible:border-purple-300 focus-visible:ring-1 focus-visible:ring-purple-300/70 focus-visible:ring-offset-1",
 
         // Invalid
         "aria-invalid:border-red-500 aria-invalid:ring-red-500/20",

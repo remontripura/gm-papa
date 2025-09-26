@@ -169,7 +169,7 @@ export default function AddWalletComponent() {
                     </p>{" "}
                   </div>
                 )}
-                <div className="mt-3 p-3 rounded-xl bg-gray-50 border border-gray-700 shadow-inner">
+                <div className="mt-3 rounded-xl border border-gray-700 shadow-inner">
                   {method && (
                     <div
                       className="game-description-content"
