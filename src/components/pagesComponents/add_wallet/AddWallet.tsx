@@ -110,7 +110,7 @@ export default function AddWalletComponent() {
           </p>
           <p className="mb-2">Wallet Amount : ৳{amountFromParams}</p>
         </div>
-        <div className="h-full overflow-auto max-w-3xl mx-auto w-full bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/70 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-gray-700">
+        <div className="h-full overflow-auto max-w-3xl mx-auto w-full bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/70 backdrop-blur-xl p-3 rounded-2xl shadow-xl border border-gray-700">
           <div className="mt-2">
             <GenericForm
               schema={WalletSchema(phoneAllow)}
@@ -151,7 +151,7 @@ export default function AddWalletComponent() {
 
                 {/* Selected Method Info */}
                 {method && (
-                  <div className="mt-5 p-4 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
+                  <div className="mt-5 p-2 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
                     <p className="text-sm text-gray-100 mt-3 flex items-center gap-3">
                       <span className="font-medium">Number:</span>
                       <span className="font-mono tracking-wide">
@@ -170,7 +170,7 @@ export default function AddWalletComponent() {
                     </p>{" "}
                   </div>
                 )}
-                <div className="mt-5 p-4 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
+                <div className="mt-3 p-2 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
                   {method && (
                     <div
                       className="game-description-content"
