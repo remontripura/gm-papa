@@ -42,12 +42,11 @@ const RatingAndReview = ({
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const token = Cookies.get("GM_T");
-console.log(pageNumber)
+  console.log(pageNumber);
   const { data: review, refetch } = useGetData<ReviewResponse>(
     ["review", pageNumber],
     `/review/${decodedSlug}?page=${pageNumber}`
   );
-  console.log(review);
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
       const finalData = {
@@ -185,7 +184,7 @@ console.log(pageNumber)
               <div className="flex items-center gap-3">
                 {item.user.image ? (
                   <Image
-                    src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
+                    src={item?.user?.image}
                     alt="profile"
                     width={40}
                     height={40}
