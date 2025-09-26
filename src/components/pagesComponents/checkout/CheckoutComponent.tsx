@@ -326,8 +326,8 @@ export default function CheckoutComponent() {
 
                     {method?.method !== "Wallet" ? (
                       <>
-                        <p className="text-[20px] flex items-center gap-3 p-4 bg-[#20243a] rounded-xl">
-                          {method?.number}{" "}
+                        <p className="text-[20px] flex items-center justify-between gap-3 p-4 bg-[#20243a] rounded-xl">
+                          <span> {method?.number}</span>
                           <span
                             onClick={() => copy(`${method?.number}`)}
                             className="px-3 py-1 text-sm cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
