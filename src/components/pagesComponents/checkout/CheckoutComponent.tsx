@@ -326,12 +326,6 @@ export default function CheckoutComponent() {
 
                     {method?.method !== "Wallet" ? (
                       <>
-                        <div
-                          className="game-description-content "
-                          dangerouslySetInnerHTML={{
-                            __html: method?.description || "",
-                          }}
-                        />
                         <p className="text-[20px] flex items-center gap-3 p-4 bg-[#20243a] rounded-xl">
                           {method?.number}{" "}
                           <span
@@ -341,6 +335,12 @@ export default function CheckoutComponent() {
                             {copied ? "Copied" : "Copy"}
                           </span>
                         </p>
+                        <div
+                          className="game-description-content "
+                          dangerouslySetInnerHTML={{
+                            __html: method?.description || "",
+                          }}
+                        />
                       </>
                     ) : (
                       <p className="text-sm font-semibold flex items-center gap-3">
@@ -383,10 +383,10 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
       />
     )}
     <TextField
-      label="Transaction Number"
+      label="Transaction Id"
       name="transaction_id"
       type="text"
-      placeholder="Enter your transaction number"
+      placeholder="transaction id"
       inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
     />
   </div>

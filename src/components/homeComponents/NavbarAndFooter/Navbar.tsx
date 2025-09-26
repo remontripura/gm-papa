@@ -128,16 +128,18 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
                     onMouseLeave={() => setUserMenuOpen(false)}
                   >
                     <button className="flex items-center gap-1">
-                      <Image
-                        className="size-8 rounded-full"
-                        src={profileData?.user?.image ?? ""}
-                        alt="img"
-                        width={30}
-                        height={30}
-                      />
-                      <span className="text-white font-medium">
+                      {profileData && (
+                        <Image
+                          className="size-8 rounded-full"
+                          src={profileData?.user?.image}
+                          alt="img"
+                          width={30}
+                          height={30}
+                        />
+                      )}
+                      {/* <span className="text-white font-medium">
                         {profileData?.user?.name}
-                      </span>
+                      </span> */}
                       <GoChevronDown className="size-5 text-white" />
                     </button>
 

@@ -184,10 +184,10 @@ const PaymentForm = () => (
       inputClass="form-input"
     />
     <TextField
-      label="Transaction Number"
+      label="Transaction Id"
       name="transaction_id"
       type="text"
-      placeholder="Enter your transaction number"
+      placeholder="transaction id"
       inputClass="form-input"
     />
   </div>

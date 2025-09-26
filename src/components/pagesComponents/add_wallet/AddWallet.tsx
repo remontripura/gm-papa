@@ -152,13 +152,6 @@ export default function AddWalletComponent() {
                 {/* Selected Method Info */}
                 {method && (
                   <div className="mt-5 p-4 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
-                    {method.description && (
-                      <div
-                        className="game-description-content"
-                        dangerouslySetInnerHTML={{ __html: method.description }}
-                      />
-                    )}
-
                     <p className="text-sm text-gray-100 mt-3 flex items-center gap-3">
                       <span className="font-medium">Number:</span>
                       <span className="font-mono tracking-wide">
@@ -174,7 +167,13 @@ export default function AddWalletComponent() {
                           <FaCopy />
                         )}
                       </span>
-                    </p>
+                    </p>{" "}
+                    {method.description && (
+                      <div
+                        className="game-description-content"
+                        dangerouslySetInnerHTML={{ __html: method.description }}
+                      />
+                    )}
                   </div>
                 )}
 

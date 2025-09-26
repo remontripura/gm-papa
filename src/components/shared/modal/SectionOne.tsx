@@ -17,7 +17,7 @@ export default function SectionOne() {
         Product details{" "}
         <span className="text-orange-500 font-normal">(Please confirm)</span>{" "}
       </h6>
-      <div className="bg-mainlight rounded-lg p-4 mt-3">
+      <div className="bg-mainlight rounded-lg p-4 mt-3 space-y-2">
         <div className="flex items-start justify-between ">
           <p className="flex-1">Product</p>
           <p className="flex-1">{name}</p>

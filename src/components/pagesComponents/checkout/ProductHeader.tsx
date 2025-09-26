@@ -18,17 +18,6 @@ export default function ProductHeader({
 
   return (
     <>
-      {/* Mobile top bar */}
-      <div className="flex items-center my-3 gap-6 md:hidden">
-        <button
-          onClick={() => router.back()}
-          className="p-2 rounded-full hover:bg-gray-200 transition cursor-pointer"
-        >
-          <FaChevronLeft />
-        </button>
-      </div>
-
-      {/* Main product header */}
       <div className="w-full p-3 rounded-lg bg-mainlight ">
         <div className="w-full flex items-center md:items-center gap-4">
           <div className="flex-shrink-0">
@@ -88,7 +77,7 @@ export default function ProductHeader({
           <p className={expanded ? "line-clamp-none" : "line-clamp-1"}>
             {singleProduct.short_description}
           </p>
-          {singleProduct.short_description?.length > 30 && (
+          {singleProduct.short_description?.length > 40 && (
             <button
               onClick={() => setExpanded(!expanded)}
               className="mt-1 text-xs underline text-white"

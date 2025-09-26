@@ -9,8 +9,8 @@ export const playerAddressSchema = z.object({
 
   transaction_id: z
     .string()
-    .min(5, "Transaction number must be at least 5 characters")
-    .max(20, "Transaction number cannot exceed 20 characters"),
+    .min(5, "Transaction id must be at least 5 characters")
+    .max(20, "Transaction id cannot exceed 20 characters"),
 
   method_id: z.string().min(1, "Please select a payment method"),
 
