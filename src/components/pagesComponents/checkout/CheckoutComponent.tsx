@@ -327,7 +327,7 @@ export default function CheckoutComponent() {
                     {method?.method !== "Wallet" ? (
                       <>
                         <div
-                          className="text-green-600"
+                          className="game-description-content "
                           dangerouslySetInnerHTML={{
                             __html: method?.description || "",
                           }}

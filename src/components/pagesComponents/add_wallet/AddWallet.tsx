@@ -104,10 +104,12 @@ export default function AddWalletComponent() {
   return (
     <>
       <MainContainer className="px-4 pb-10 py-12">
-        <p className="text-lg text-gray-400 text-center font-semibold mb-6 tracking-wide">
-          Add Wallet Balance
-        </p>
-
+        <div className=" max-w-3xl mx-auto w-full ">
+          <p className="text-lg text-gray-200 text-start font-semibold mb-6 tracking-wide">
+            Add Wallet Balance
+          </p>
+          <p className="mb-2">Wallet Amount : ৳{amountFromParams}</p>
+        </div>
         <div className="h-full overflow-auto max-w-3xl mx-auto w-full bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/70 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-gray-700">
           <div className="mt-2">
             <GenericForm
@@ -152,7 +154,7 @@ export default function AddWalletComponent() {
                   <div className="mt-5 p-4 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
                     {method.description && (
                       <div
-                        className="text-gray-300 text-sm leading-relaxed"
+                        className="game-description-content"
                         dangerouslySetInnerHTML={{ __html: method.description }}
                       />
                     )}

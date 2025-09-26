@@ -9,8 +9,6 @@ import { GoHome, GoChevronDown } from "react-icons/go";
 import { FaRegNewspaper, FaUser, FaSignOutAlt } from "react-icons/fa";
 import Image from "next/image";
 import LoginModal from "@/components/shared/modal/loginModal";
-import Cookies from "js-cookie";
-import { useUserStore } from "@/lib/store/authStore/authStore";
 import MobileMenu from "./MobileMenu";
 import { handleLogout } from "@/lib/logout/logout";
 import { TbShoppingCartCheck } from "react-icons/tb";
@@ -19,6 +17,7 @@ import { Profile } from "@/types/profile/profile";
 import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
 import { FaWallet } from "react-icons/fa6";
 import WalletModalCom from "@/components/shared/modal/AddWalletModal";
+import { usePathname } from "next/navigation";
 
 type NavItem = {
   id: number;
@@ -38,14 +37,12 @@ export const navItems: NavItem[] = [
 ];
 
 const Navbar = ({ profileData }: { profileData: Profile | null }) => {
-  console.log(profileData?.user.image);
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [warningModal, setWarningModal] = useState(false);
-  const token = Cookies.get("GM_T");
-  const user = useUserStore((state) => state.user);
   const [walletModal, setWalletModal] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (profileData?.user?.phone === null) {
@@ -53,6 +50,11 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
     }
   }, [profileData]);
 
+  useEffect(() => {
+    if (pathname.startsWith("/wallet-balance")) {
+      setWalletModal(false);
+    }
+  }, [pathname]);
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleScroll = () => {
@@ -114,7 +116,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
 
             {/* Right Menu */}
             <div className="flex items-center gap-4 relative">
-              {profileData ? (
+              {profileData && profileData ? (
                 <>
                   <p className="text-white flex items-center gap-2">
                     <FaWallet />
@@ -134,7 +136,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
                         height={30}
                       />
                       <span className="text-white font-medium">
-                        {user?.name}
+                        {profileData?.user?.name}
                       </span>
                       <GoChevronDown className="size-5 text-white" />
                     </button>

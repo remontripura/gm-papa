@@ -39,7 +39,6 @@ export default function WalletModalCom({
     if ("preventDefault" in data) return;
     setLoading(true);
     router.push(`/wallet-balance?amount=${encodeURIComponent(data.amount)}`);
-    setWalletModal(false);
   };
 
   return (
