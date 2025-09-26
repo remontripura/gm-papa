@@ -267,21 +267,21 @@ export default function CheckoutComponent() {
                             name="name"
                             type="text"
                             placeholder="Enter your full name"
-                            inputClass="px-3 bg-transparent borde-2 border-red-500 rounded-lg text-gray-100"
+                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
                           />
                           <TextField
                             label="Phone"
                             name="phone"
                             type="number"
                             placeholder="Enter your phone number"
-                            inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
+                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
                           />
                           <TextField
                             label="Email"
                             name="email"
                             type="text"
                             placeholder="Enter your email address"
-                            inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
+                            inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
                           />
                         </div>
                       </div>
@@ -335,6 +335,9 @@ export default function CheckoutComponent() {
                             {copied ? "Copied" : "Copy"}
                           </span>
                         </p>
+                        {method?.method !== "Wallet" && (
+                          <PaymentForm phoneAllow={phoneAllow} />
+                        )}
                         <div
                           className="game-description-content"
                           dangerouslySetInnerHTML={{
@@ -350,9 +353,6 @@ export default function CheckoutComponent() {
                         Wallet Balance:{" "}
                         {profileData?.user?.wallet?.toLocaleString()} Tk
                       </p>
-                    )}
-                    {method?.method !== "Wallet" && (
-                      <PaymentForm phoneAllow={phoneAllow} />
                     )}
                   </div>
 
@@ -382,7 +382,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
         name="number"
         type="number"
         placeholder="Enter your account number"
-        inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
+        inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
       />
     )}
     <TextField
@@ -390,7 +390,7 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
       name="transaction_id"
       type="text"
       placeholder="transaction id"
-      inputClass="px-3 bg-transparent border border-gray-300 rounded-lg text-gray-100"
+      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
     />
   </div>
 );

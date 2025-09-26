@@ -152,10 +152,9 @@ export default function AddWalletComponent() {
                 {/* Selected Method Info */}
                 {method && (
                   <div className="mt-5 p- rounded-xl bg-gray-900/80 border p-3 border-gray-700 shadow-inner">
-                    <p className=" text-gray-100 flex items-center gap-3">
-                      <span className="font-medium">Number:</span>
+                    <p className=" text-gray-100 flex items-center justify-between gap-3">
                       <span className="font-mono tracking-wide">
-                        {method.number}
+                        Number: {method.number}
                       </span>
                       <span
                         className="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 cursor-pointer transition-all"
@@ -170,7 +169,7 @@ export default function AddWalletComponent() {
                     </p>{" "}
                   </div>
                 )}
-                <div className="mt-3 p-3 rounded-xl bg-gray-900/80 border border-gray-700 shadow-inner">
+                <div className="mt-3 p-3 rounded-xl bg-gray-50 border border-gray-700 shadow-inner">
                   {method && (
                     <div
                       className="game-description-content"
@@ -191,7 +190,7 @@ export default function AddWalletComponent() {
                     name="payment_number"
                     type="number"
                     placeholder="Enter payment number"
-                    inputClass="form-input rounded-lg border-gray-600 focus:ring-2 focus:ring-purple-500"
+                    inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
                   />
                 )}
                 <TextField
@@ -199,7 +198,7 @@ export default function AddWalletComponent() {
                   name="transaction_id"
                   type="text"
                   placeholder="Enter your transaction id"
-                  inputClass="form-input rounded-lg border-gray-600 focus:ring-2 focus:ring-purple-500"
+                  inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] mt-1 bg-gray-50"
                 />
 
                 {/* Submit Button */}

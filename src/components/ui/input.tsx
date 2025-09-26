@@ -16,7 +16,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "border-gray-100 dark:border-gray-700",
 
         // Focus: premium purple glow
-        "focus-visible:border-purple-500 focus-visible:ring-2 focus-visible:ring-purple-400/70 focus-visible:ring-offset-1",
+        "focus-visible:border-purple-300 focus-visible:ring-0 focus-visible:ring-purple-300/70 focus-visible:ring-offset-1",
 
         // Invalid
         "aria-invalid:border-red-500 aria-invalid:ring-red-500/20",
