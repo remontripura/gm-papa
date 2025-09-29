@@ -80,7 +80,8 @@ import { useSelectedItemStore } from "@/lib/store/productSelectStore/activeItemS
 import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
 import { cn } from "@/lib/utils";
 import { IGameData, IItem } from "@/types/productsDataType/SingleProductType";
-import { useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 export default function PriceAction({
   singleProduct,
@@ -89,6 +90,7 @@ export default function PriceAction({
 }) {
   const { active, setActive, setSelectedItem } = useProductSelectionStore();
   const { setSelected } = useSelectedItemStore();
+  const pathname = usePathname();
 
   const touchStartY = useRef<number | null>(null);
   const touchEndY = useRef<number | null>(null);
@@ -99,7 +101,19 @@ export default function PriceAction({
     }
     return false;
   };
+  useEffect(() => {
+    // Reset whenever route changes
+    setSelected(false);
+    setActive("");
+    setSelectedItem(null);
 
+    // Cleanup when component unmounts (user leaves page)
+    return () => {
+      setSelected(false);
+      setActive("");
+      setSelectedItem(null);
+    };
+  }, [pathname, setSelected, setActive, setSelectedItem]);
   const handleSelectItem = (item: IItem) => {
     setSelected(true);
     setActive(item.name);

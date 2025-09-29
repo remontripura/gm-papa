@@ -18,6 +18,7 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   const { selectedItem, setActive, setSelectedItem } =
     useProductSelectionStore();
   const { select } = useSelectedItemStore();
+  console.log(select);
 
   // useEffect(() => {
   //   if (singleProduct.items.length > 0) {
@@ -71,20 +72,19 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   //   }
   // }, [select, inputNames]);
   useEffect(() => {
-  if (select) {
-    const firstInput = document.querySelector(
-      `input[name="${inputNames[0]}"]`
-    ) as HTMLInputElement;
+    if (select) {
+      const firstInput = document.querySelector(
+        `input[name="${inputNames[0]}"]`
+      ) as HTMLInputElement;
 
-    if (firstInput) {
-      firstInput.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => {
-        firstInput.focus();
-      }, 700); 
+      if (firstInput) {
+        firstInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => {
+          firstInput.focus();
+        }, 700);
+      }
     }
-  }
-}, [select, inputNames]);
-
+  }, [select, inputNames]);
 
   const schemaShape: ZodRawShape = {};
   inputNames.forEach((name) => {
