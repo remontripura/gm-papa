@@ -6,11 +6,11 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
-      // authorization: {
-      //   params: {
-      //     redirect_uri:`https://www.gmpapa.com/api/auth/callback/google`,
-      //   },
-      // },
+      authorization: {
+        params: {
+          redirect_uri:`https://www.freefirebd.com/api/auth/callback/google`,
+        },
+      },
     }),
   ],
   callbacks: {
