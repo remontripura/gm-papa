@@ -9,17 +9,14 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
   let profileData: Profile | null = null;
   if (token) {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/my-profile`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/my-profile`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
-      );
+      });
       if (response.status === 401 || response.status === 403) {
         redirect("/logout");
       }
@@ -27,20 +24,17 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
         profileData = await response.json();
       }
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+      console.error('Error fetching profile data:', error);
       redirect("/logout");
     }
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br to-[#2B304C]/70 from-[#2B304C]/10">
       <Navbar profileData={profileData} />
       <main className="flex-1">
-        <div className="bg-[#2f2b5f]">
-          {" "}
-          <div className="md:mt-16 mt-18" />
-          {children}
-        </div>
+        <div className="md:mt-16 mt-18" />
+        {children}
       </main>
       <Footer />
     </div>
