@@ -39,6 +39,7 @@ export default function PhoneNumberUpdateModal({
   useScrollLock(isOpen);
   if (!isOpen) return null;
   const router = useRouter();
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
       const response = await axiosInstance.post<response>(
@@ -54,15 +55,13 @@ export default function PhoneNumberUpdateModal({
         showSuccessAlert(data.message);
         refetch?.();
         router.refresh();
-        setWarningModal(false);
-        onClose();
+        setWarningModal(false); // ✅ close only after success
+        onClose();              // ✅ handled only here
       }
     },
-    onError: (
-      err: AxiosError<{ message: { message: string } }> & {
-        message: { message: string };
-      }
-    ) => {
+    onError: (err: AxiosError<{ message: { message: string } }> & {
+      message: { message: string };
+    }) => {
       showErrorAlert(err.message.message || "Something went wrong");
     },
   });
@@ -73,19 +72,12 @@ export default function PhoneNumberUpdateModal({
 
   return (
     <div
-      onClick={onClose}
       className="fixed inset-0 bg-black/50 backdrop-blur-[4px] flex items-center justify-center z-[60]"
     >
       <div
-        onClick={(e) => e.stopPropagation()}
         className="relative rounded-xl p-3 md:w-[450px] w-[98%] h-fit max-h-[90vh] overflow-hidden shadow-lg bg-gray-100"
       >
-        <div
-          onClick={onClose}
-          className="absolute right-3 top-3 size-8 flex items-center justify-center text-white rounded-full bg-gray-400 hover:bg-gray-500 cursor-pointer z-20"
-        >
-          <RxCross2 />
-        </div>
+        {/* ❌ removed manual close button */}
         <div className="w-full h-full text-gray-500 overflow-auto scroll-hidden">
           <h6 className="font-semibold text-gray-800 text-[20px]">
             Update Phone
@@ -119,3 +111,4 @@ export default function PhoneNumberUpdateModal({
     </div>
   );
 }
+

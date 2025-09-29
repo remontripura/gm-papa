@@ -58,7 +58,7 @@ export default function WalletModalCom({
         </div>
         <div className="w-full h-full text-gray-500 overflow-auto scroll-hidden">
           <h6 className="font-semibold text-gray-800 text-[20px]">
-            Add Wallet Amount
+            Add Wallet Balance
           </h6>
 
           <div className="mt-3">
@@ -79,7 +79,7 @@ export default function WalletModalCom({
                   className={cn("button-color", "w-full mt-0")}
                   type="submit"
                 >
-                  {loading ? "Processing..." : "Add Wallet"}
+                  {loading ? "Processing..." : "Add Balance"}
                 </LoadingButton>
               </div>
             </GenericForm>

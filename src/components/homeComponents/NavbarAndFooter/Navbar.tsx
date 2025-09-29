@@ -173,7 +173,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
                         onClick={() => setWalletModal(true)}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-[#2d3359] transition-colors text-white"
                       >
-                        <IoWalletOutline /> Add Wallet
+                        <IoWalletOutline /> Add Balance
                       </div>
                       <Link
                         href="/wallet-history"

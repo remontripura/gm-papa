@@ -18,13 +18,14 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   const { selectedItem, setActive, setSelectedItem } =
     useProductSelectionStore();
   const { select } = useSelectedItemStore();
+  
 
-  useEffect(() => {
-    if (singleProduct.items.length > 0) {
-      setActive(singleProduct.items[0].name);
-      setSelectedItem(singleProduct.items[0]);
-    }
-  }, [singleProduct, setActive, setSelectedItem]);
+  // useEffect(() => {
+  //   if (singleProduct.items.length > 0) {
+  //     setActive(singleProduct.items[0].name);
+  //     setSelectedItem(singleProduct.items[0]);
+  //   }
+  // }, [singleProduct, setActive, setSelectedItem]);
   const {
     count,
     setCount,
@@ -66,7 +67,7 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
       if (firstInput) {
         setTimeout(() => {
           firstInput.focus();
-        }, 700);
+        }, 1500);
       }
     }
   }, [select, inputNames]);
@@ -109,7 +110,7 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
     <>
       <div className="md:col-span-4 col-span-12 sticky top-0 self-start">
         <div className="" id="form-section">
-          {selectedItem && (
+          {selectedItem ? (
             <div className="text-center animate-fade-in duration-300 bg-mainlight p-3 mb-5 rounded-lg">
               <div className="w-full flex justify-between">
                 <h6 className="font-medium">Order Info :</h6>
@@ -129,8 +130,8 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
                 <span className="">Tk {selectedItem?.price * count}</span>
               </p>
               <p className="text-primary">{selectedItem.description}</p>
-            </div>
-          )}
+            </div> 
+          ) : <p className="bg-mainlight/60 rounded-lg mb-4 p-3">Please select a item</p>}
           <GenericForm
             schema={schema}
             initialValues={initialValues}
