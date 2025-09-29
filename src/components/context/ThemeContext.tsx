@@ -72,7 +72,7 @@ export const ThemeProvider = ({
               >
                 <Image
                   className="size-full rounded-full"
-                  src={item.image}
+                  src={`https://admin.gmpapa.com/uploads/helpline/${item.image}`}
                   alt={item.name}
                   width={200}
                   height={200}

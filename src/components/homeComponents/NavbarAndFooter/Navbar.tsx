@@ -93,7 +93,13 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
             {/* Left Menu */}
             <div className="flex items-center gap-12">
               <Link href="/" className="text-[18px] text-white">
-                GMPAPA
+                <Image
+                  className="w-[120px]"
+                  src="/logo.png"
+                  alt="logo"
+                  width={500}
+                  height={500}
+                />
               </Link>
               <div className="flex items-center gap-6">
                 {navItems.map((item) => (

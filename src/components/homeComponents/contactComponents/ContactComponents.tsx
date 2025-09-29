@@ -97,10 +97,10 @@ const ConactComponents = ({ helpline }: { helpline: SocialLink[] }) => {
               <li className="flex items-center gap-2">
                 <IoMail className="size-4" />
                 <a
-                  href="mailto:support@gmpapa.com"
+                  href="mailto:support@freefirebd.com"
                   className="hover:text-[var(--custom-orange)] cursor-pointer"
                 >
-                  support@gmpapa.com
+                  support@freefirebd.com
                 </a>
               </li>
             </ul>

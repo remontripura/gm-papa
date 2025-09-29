@@ -2,7 +2,7 @@ import CheckoutComponent from "@/components/pagesComponents/checkout/CheckoutCom
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Checkout | GM-Papa",
+  title: `Checkout | ${process.env.NEXT_PUBLIC_APP_NAME}}`,
   description: "Best gaming top-up",
 };
 

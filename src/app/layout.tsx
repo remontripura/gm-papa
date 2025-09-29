@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GM-Papa | Home",
+  title: "FreeFireBD | Home",
   description: "Gaming topup",
   manifest: "/manifest.json",
   icons: {
-    icon: "https://png.pngtree.com/element_our/png/20181227/buildequipmentfablabtools-white-glyph-icon-in-circle--ve-png_287050.jpg",
+    icon: "./fav.jpg",
   },
 };
 

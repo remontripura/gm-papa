@@ -14,9 +14,7 @@ export const playerAddressSchema = (
       ? z.string().optional()
       : z.string().regex(/^\d{11}$/, "Enter valid phone number"),
 
-    email: loggedIn
-      ? z.string().optional()
-      : z.string().email("Enter valid email"),
+    email: loggedIn ? z.string().optional() : z.string().optional(),
 
     number:
       wallet || phoneAllow

@@ -3,7 +3,7 @@ import ProfileComponents from "@/components/pagesComponents/profile/ProfileCompo
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Profile | GM-Papa",
+  title: `Profile | ${process.env.NEXT_PUBLIC_APP_NAME}}`,
   description: "Best gaming top-up",
 };
 

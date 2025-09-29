@@ -33,9 +33,15 @@ export default function LoginModal({ isOpen, onClose }) {
           <RxCross2 />
         </div>
         <div className="relative z-10 p-3 py-4 text-white">
-          <h6 className="text-center text-green-500 font-semibold text-[25px]">
-            GMPAPA
-          </h6>
+          <div className="flex justify-center items-center">
+            <Image
+              className="w-[120px]"
+              src="/logo.png"
+              alt="logo"
+              width={500}
+              height={500}
+            />
+          </div>
           <div className="flex w-full justify-center mt-8">
             <button
               onClick={() => {

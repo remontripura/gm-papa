@@ -21,7 +21,7 @@ import SectionOne from "./SectionOne";
 export default function CheckoutModal({ isOpen, onClose, couponModal }) {
   type FormType = z.infer<ReturnType<typeof playerAddressSchema>>;
   const { user } = useUserStore.getState();
-  const token = Cookies.get("gmpapa_token");
+  const token = Cookies.get("FFT");
   const loggedIn = !!token && token !== "undefined";
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [method, setMethod] = useState(0);

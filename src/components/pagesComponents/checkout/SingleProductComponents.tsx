@@ -66,7 +66,7 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
       if (firstInput) {
         setTimeout(() => {
           firstInput.focus();
-        }, 500);
+        }, 700);
       }
     }
   }, [select, inputNames]);

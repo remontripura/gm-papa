@@ -43,7 +43,13 @@ export default function MobileMenu({
                 <IoMenu className="text-white size-7 cursor-pointer hover:opacity-80 transition-opacity" />
               </SheetTrigger>
               <Link href="/" className="text-[18px] font-semibold">
-                GMPAPA
+                <Image
+                  className="w-[120px]"
+                  src="/logo.png"
+                  alt="logo"
+                  width={500}
+                  height={500}
+                />
               </Link>
             </div>
 
@@ -57,7 +63,13 @@ export default function MobileMenu({
                 className="text-lg font-semibold block mb-4 hover:text-[#9377FF] transition-colors duration-200"
                 onClick={() => setSheetOpen(false)}
               >
-                GMPAPA
+                <Image
+                  className="w-[120px]"
+                  src="/logo.png"
+                  alt="logo"
+                  width={500}
+                  height={500}
+                />
               </Link>
               <nav className="flex flex-col gap-1">
                 {navItems.map((item) => (

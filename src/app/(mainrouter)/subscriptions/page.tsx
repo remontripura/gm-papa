@@ -4,7 +4,7 @@ import { ICategory } from "@/types/productsDataType/productsDataType";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "GMPAPA | Subscriptions",
+    title: `Sebscription | ${process.env.NEXT_PUBLIC_APP_NAME}`,
   description: "the most trusted shop",
 };
 

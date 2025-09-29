@@ -9,16 +9,18 @@ const TermsAndConditions = () => {
 
       <p className="mb-2">
         These Terms and Conditions govern your use of the{" "}
-        <strong>gmpapa</strong> platform and its services. By accessing or using
-        our services, you agree to be bound by these terms.
+        <strong>{process.env.NEXT_PUBLIC_APP_NAME}</strong> platform and its
+        services. By accessing or using our services, you agree to be bound by
+        these terms.
       </p>
 
       <h2 className="text-lg font-semibold mt-6 mb-2">
         1. Service Description
       </h2>
       <p className="mb-2">
-        gmpapa provides digital gaming and social packages such as internet
-        offers for Emo, YouTube, PUBG, Free Fire, and other platforms.
+        {process.env.NEXT_PUBLIC_APP_NAME} provides digital gaming and social
+        packages such as internet offers for Emo, YouTube, PUBG, FreeFireBD, and
+        other platforms.
       </p>
 
       <h2 className="text-lg font-semibold mt-6 mb-2">
@@ -45,7 +47,7 @@ const TermsAndConditions = () => {
       <h2 className="text-lg font-semibold mt-6 mb-2">5. Contact</h2>
       <p>
         For any concerns, please reach out to our support team at:{" "}
-        <strong>support@gmpapa.com</strong>
+        <strong>support@freefirebd.com</strong>
       </p>
     </div>
   );

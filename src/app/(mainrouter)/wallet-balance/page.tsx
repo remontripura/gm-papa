@@ -2,7 +2,7 @@ import AddWalletComponent from "@/components/pagesComponents/add_wallet/AddWalle
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Wallet | GM-Papa",
+  title: `Wallet | ${process.env.NEXT_PUBLIC_APP_NAME}}`,
   description: "Best gaming top-up",
 };
 export default function WalletBalance() {

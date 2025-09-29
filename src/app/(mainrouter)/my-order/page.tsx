@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export const metadata: Metadata = {
-  title: "GMPAPA | My-Order",
+    title: `My Order | ${process.env.NEXT_PUBLIC_APP_NAME}`,
   description: "the most trusted shop",
 };
 

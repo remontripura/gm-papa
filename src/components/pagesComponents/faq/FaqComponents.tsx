@@ -7,9 +7,9 @@ import MainContainer from "@/components/container/MainContainer";
 
 const faqs = [
   {
-    question: "What is GMPAPA?",
+    question: "What is FreeFireBD?",
     answer:
-      "GMPAPA is a digital platform where users can purchase top-up packages for popular online games, streaming services, and digital platforms. It's fast, reliable, and secure.",
+      "FreeFireBD is a digital platform where users can purchase top-up packages for popular online games, streaming services, and digital platforms. It's fast, reliable, and secure.",
   },
   {
     question: "How do I top up my account?",

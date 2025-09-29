@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "GMPAPA | Blog",
+    title: `Blog| ${process.env.NEXT_PUBLIC_APP_NAME}`,
   description: "the most trusted shop",
 };
 

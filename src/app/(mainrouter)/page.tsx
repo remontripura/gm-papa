@@ -10,7 +10,6 @@ import Heading from "@/components/homeComponents/heading/Heading";
 import { ICategory } from "@/types/productsDataType/productsDataType";
 import HomaPageComponents from "@/components/homeComponents/HomePageComponents/HomePageComponents";
 import MobileWarning from "@/components/pwa/PwaPopup";
-import { RxCross2 } from "react-icons/rx";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data }: { data: ICategory[] } = await getData("/products");
@@ -23,12 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
       : "/default-image.png";
 
   return {
-    title: "Buy Popular Gaming Products | Gmpapa",
+    title: `Buy Popular Gaming Products | ${process.env.NEXT_PUBLIC_APP_NAME}`,
     description: `Explore gaming categories: ${categoryNames}. Top games: ${productNames.join(
       ", "
     )}.`,
     openGraph: {
-      title: "Gaming Products | Gmpapa",
+    title: `Buy Popular Gaming Products | ${process.env.NEXT_PUBLIC_APP_NAME}`,
       description: `Shop items for games like ${productNames.join(", ")}.`,
       images: [firstImage],
     },

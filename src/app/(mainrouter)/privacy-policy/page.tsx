@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
     <div className="max-w-4xl mx-auto p-6 text-sm text-white">
       <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
       <p className="mb-2">
-        At <strong>gmpapa</strong>, we are committed to protecting your personal
+        At <strong>{process.env.NEXT_PUBLIC_APP_NAME}</strong>, we are committed to protecting your personal
         information and your right to privacy. This Privacy Policy explains how
         we collect, use, and safeguard your data when you use our website or
         services.
@@ -49,7 +49,7 @@ const PrivacyPolicy = () => {
       <h2 className="text-lg font-semibold mt-6 mb-2">5. Contact Us</h2>
       <p>
         If you have any questions about this Privacy Policy, please contact us
-        at: <strong>support@gmpapa.com</strong>
+        at: <strong>support@freefirebd.com</strong>
       </p>
     </div>
   );
