@@ -70,20 +70,20 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   //     }
   //   }
   // }, [select, inputNames]);
-//   useEffect(() => {
-//   if (select) {
-//     const firstInput = document.querySelector(
-//       `input[name="${inputNames[0]}"]`
-//     ) as HTMLInputElement;
+  useEffect(() => {
+  if (select) {
+    const firstInput = document.querySelector(
+      `input[name="${inputNames[0]}"]`
+    ) as HTMLInputElement;
 
-//     if (firstInput) {
-//       firstInput.scrollIntoView({ behavior: "smooth", block: "center" });
-//       setTimeout(() => {
-//         firstInput.focus();
-//       }, 700); 
-//     }
-//   }
-// }, [select, inputNames]);
+    if (firstInput) {
+      firstInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        firstInput.focus();
+      }, 700); 
+    }
+  }
+}, [select, inputNames]);
 
 
   const schemaShape: ZodRawShape = {};
