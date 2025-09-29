@@ -18,7 +18,6 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   const { selectedItem, setActive, setSelectedItem } =
     useProductSelectionStore();
   const { select } = useSelectedItemStore();
-  
 
   // useEffect(() => {
   //   if (singleProduct.items.length > 0) {
@@ -53,24 +52,39 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
   }
   const firstRender = useRef(true);
 
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
+  // useEffect(() => {
+  //   if (firstRender.current) {
+  //     firstRender.current = false;
+  //     return;
+  //   }
 
-    if (select) {
-      const firstInput = document.querySelector(
-        `input[name="${inputNames[0]}"]`
-      ) as HTMLInputElement;
+  //   if (select) {
+  //     const firstInput = document.querySelector(
+  //       `input[name="${inputNames[0]}"]`
+  //     ) as HTMLInputElement;
 
-      if (firstInput) {
-        setTimeout(() => {
-          firstInput.focus();
-        }, 1500);
-      }
-    }
-  }, [select, inputNames]);
+  //     if (firstInput) {
+  //       setTimeout(() => {
+  //         firstInput.focus();
+  //       }, 1500);
+  //     }
+  //   }
+  // }, [select, inputNames]);
+//   useEffect(() => {
+//   if (select) {
+//     const firstInput = document.querySelector(
+//       `input[name="${inputNames[0]}"]`
+//     ) as HTMLInputElement;
+
+//     if (firstInput) {
+//       firstInput.scrollIntoView({ behavior: "smooth", block: "center" });
+//       setTimeout(() => {
+//         firstInput.focus();
+//       }, 700); 
+//     }
+//   }
+// }, [select, inputNames]);
+
 
   const schemaShape: ZodRawShape = {};
   inputNames.forEach((name) => {
@@ -130,8 +144,12 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
                 <span className="">Tk {selectedItem?.price * count}</span>
               </p>
               <p className="text-primary">{selectedItem.description}</p>
-            </div> 
-          ) : <p className="bg-mainlight/60 rounded-lg mb-4 p-3">Please select a item</p>}
+            </div>
+          ) : (
+            <p className="bg-mainlight/60 rounded-lg mb-4 p-3">
+              Please select a item
+            </p>
+          )}
           <GenericForm
             schema={schema}
             initialValues={initialValues}

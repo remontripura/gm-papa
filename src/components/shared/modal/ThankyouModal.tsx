@@ -75,7 +75,7 @@ export default function ThankyouModal({ isOpen, onClose, OrderData, modalData }:
           <div className="flex justify-between">
             <span className="font-medium">Total {`(${order?.quantity} * ${order?.total})`}</span>
             <span className="text-green-600 font-semibold">
-              Tk {(Number(order?.total) * Number(order?.quantity)).toFixed(2)}
+              Tk {(Number(order?.total))}
             </span>
           </div>
         </div>

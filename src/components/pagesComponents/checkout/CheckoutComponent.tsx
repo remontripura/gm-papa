@@ -341,9 +341,9 @@ export default function CheckoutComponent() {
                         <div
                           className="game-description-content border rounded-md"
                           dangerouslySetInnerHTML={{
-                            __html: (method?.description || "").replace(
+                            __html: (method?.description || "").replaceAll(
                               "[amount]",
-                              balance.toString()
+                              (balance * count).toString()
                             ),
                           }}
                         />
