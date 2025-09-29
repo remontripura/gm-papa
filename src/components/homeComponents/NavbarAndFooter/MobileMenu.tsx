@@ -23,7 +23,7 @@ export default function MobileMenu({
 }) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const token = Cookies.get("GM_T");
+  const token = Cookies.get("FFT");
   const pathname = usePathname();
 
   useEffect(() => {

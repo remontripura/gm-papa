@@ -30,7 +30,7 @@ export default function GoogleLoginHandler({
         });
         if (response.data.token) {
           setUser(response.data.user);
-          Cookies.set("GM_T", response.data.token ?? "", {
+          Cookies.set("FFT", response.data.token ?? "", {
             expires: 3,
           });
           await signOut({ redirect: false });

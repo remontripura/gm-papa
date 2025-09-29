@@ -38,7 +38,7 @@ import { useProductSelectionStore } from "@/lib/store/productSelectStore/product
 import { IModalData } from "@/types/modalData/modalData";
 
 export default function CheckoutComponent() {
-  const token = Cookies.get("GM_T");
+  const token = Cookies.get("FFT");
   const { data: paymentMethod } = useGetData<paymentMethodResponse>(
     ["paymentMethod"],
     `/payment-method`

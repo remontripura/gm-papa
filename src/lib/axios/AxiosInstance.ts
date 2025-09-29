@@ -24,7 +24,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = Cookies.get("GM_T");
+  const token = Cookies.get("FFT");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { Profile } from "@/types/profile/profile";
 
 const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
-  const token = (await cookies()).get("GM_T")?.value;
+  const token = (await cookies()).get("FFT")?.value;
   let profileData: Profile | null = null;
   if (token) {
     try {

@@ -41,7 +41,7 @@ const RatingAndReview = ({
   const decodedSlug = decodeURIComponent(slug);
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [selectedRating, setSelectedRating] = useState<number>(0);
-  const token = Cookies.get("GM_T");
+  const token = Cookies.get("FFT");
   console.log(pageNumber);
   const { data: review, refetch } = useGetData<ReviewResponse>(
     ["review", pageNumber],
