@@ -81,7 +81,7 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
         firstInput.scrollIntoView({ behavior: "smooth", block: "center" });
         setTimeout(() => {
           firstInput.focus();
-        }, 1500);
+        }, 10000);
       }
     }
   }, [select, inputNames]);
