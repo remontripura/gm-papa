@@ -139,7 +139,7 @@ export default function PriceAction({
     const startY = window.scrollY; // শুরু পজিশন
     const targetY = target.getBoundingClientRect().top + window.scrollY; // টার্গেট পজিশন
     const distance = targetY - startY;
-    const duration = 1000; // ৫ সেকেন্ড
+    const duration = 1500; 
     let startTime: number | null = null;
 
     const animateScroll = (currentTime: number) => {
