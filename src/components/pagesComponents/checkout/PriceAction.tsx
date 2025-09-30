@@ -114,20 +114,55 @@ export default function PriceAction({
       // setSelectedItem(null);
     };
   }, [pathname, setSelected, setActive, setSelectedItem]);
-  const handleSelectItem = (item: IItem) => {
-    setSelected(true);
-    setActive(item.name);
-    setSelectedItem(item);
+  // const handleSelectItem = (item: IItem) => {
+  //   setSelected(true);
+  //   setActive(item.name);
+  //   setSelectedItem(item);
 
-    if (isMobile()) {
-      // ৫ সেকেন্ড delay এর পর scroll
-      setTimeout(() => {
-        document
-          .getElementById("form-section")
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 5000);
-    }
-  };
+  //   if (isMobile()) {
+  //     setTimeout(() => {
+  //       const formElement = document.getElementById("form-section");
+  //       formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+  //     }, 5000);
+  //   }
+  // };
+
+  const handleSelectItem = (item: IItem) => {
+  setSelected(true);
+  setActive(item.name);
+  setSelectedItem(item);
+
+  if (isMobile()) {
+    const target = document.getElementById("form-section");
+    if (!target) return;
+
+    const startY = window.scrollY; // শুরু পজিশন
+    const targetY = target.getBoundingClientRect().top + window.scrollY; // টার্গেট পজিশন
+    const distance = targetY - startY;
+    const duration = 5000; // ৫ সেকেন্ড
+    let startTime: number | null = null;
+
+    const animateScroll = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+
+      // easeInOut ফাংশন (smooth effect)
+      const progress = Math.min(timeElapsed / duration, 1);
+      const ease = progress < 0.5
+        ? 2 * progress * progress
+        : -1 + (4 - 2 * progress) * progress;
+
+      window.scrollTo(0, startY + distance * ease);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
+  }
+};
+
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
