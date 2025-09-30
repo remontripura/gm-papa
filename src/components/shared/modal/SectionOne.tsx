@@ -8,6 +8,7 @@ import { RxCross2 } from "react-icons/rx";
 export default function SectionOne() {
   const { count, balance, formData, name } = usePurchaseStore();
   const { selectedItem } = useProductSelectionStore();
+  console.log(selectedItem);
   const entries = Object.entries(formData);
   const raw = entries[0]?.[1];
   const playerId = raw == null ? "" : String(raw);

@@ -110,8 +110,8 @@ export default function PriceAction({
     // Cleanup when component unmounts (user leaves page)
     return () => {
       setSelected(false);
-      setActive("");
-      setSelectedItem(null);
+      // setActive("");
+      // setSelectedItem(null);
     };
   }, [pathname, setSelected, setActive, setSelectedItem]);
   const handleSelectItem = (item: IItem) => {
