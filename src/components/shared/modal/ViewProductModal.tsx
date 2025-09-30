@@ -53,93 +53,95 @@ export default function ViewProductModal({
         {/* Cross Button */}
         <button
           onClick={onClose}
-          className="absolute -top-2 -right-2 size-8 p-1 rounded-full bg-green-500 hover:bg-green-500/60 cursor-pointer z-50"
+          className="absolute -top-2 -right-2 size-8 p-1 rounded-full bg-green-500 hover:bg-green-500/80 cursor-pointer z-50"
         >
           <RxCross2 className="size-full" />
         </button>
-
-        {/* Scrollable content */}
-        <div className="overflow-y-auto max-h-[90vh] p-6 space-y-6">
-          {/* Product Details */}
+        <div className="overflow-y-auto max-h-[90vh] p-3 space-y-3">
           <div>
-            <h3 className="text-base md:text-lg font-semibold mb-2 text-indigo-400">
-              🛍️ Product Details
+            <h3 className="text-base md:text-lg font-semibold text-indigo-400">
+              Product Details
             </h3>
-            <div className="bg-gray-800 rounded-xl p-4 space-y-2 border border-gray-700">
-              <p>
-                <span className="font-medium">Product:</span>{" "}
-                {order.item !== null
-                  ? order.product?.name
-                  : order.customer_data}
-              </p>
+            <div className="bg-gray-800 rounded-xl p-3 border border-gray-700 divide-y divide-gray-700">
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Product:</span>
+                <span>
+                  {order.item !== null
+                    ? order.product?.name
+                    : order.customer_data}
+                </span>
+              </div>
               {order.item !== null && (
-                <p>
-                  <span className="font-medium">Quantity:</span>{" "}
-                  {order.item.name}
-                </p>
+                <div className="flex justify-between py-2">
+                  <span className="font-semibold">Item:</span>
+                  <span>{order.item.name}</span>
+                </div>
               )}
-
-              <p>
-                <span className="font-medium">Quantity:</span> {order.quantity}
-              </p>
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Id:</span>
+                <span>{order.id}</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Quantity:</span>
+                <span>{order.quantity}</span>
+              </div>
               {order.item !== null && (
-                <p>
-                  <span className="font-medium">Amount:</span> ৳
-                  {order.item?.price}
-                </p>
+                <div className="flex justify-between py-2">
+                  <span className="font-semibold">Amount:</span>
+                  <span>৳ {order.item?.price}</span>
+                </div>
               )}
-              <p>
-                <span className="font-medium">Total Amount:</span> ৳
-                {Number(order.total).toLocaleString()}
-              </p>
-              <p>
-                <span className="font-medium">Player Id:</span>{" "}
-                {order.customer_data}
-              </p>
-              <p>
-                <span className="font-medium">Date:</span>{" "}
-                {formatDate(order.created_at)}
-              </p>
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Total Amount:</span>
+                <span>৳ {Number(order.total).toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Player Id:</span>
+                <span>{order.customer_data}</span>
+              </div>
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Date:</span>
+                <span>{formatDate(order.created_at)}</span>
+              </div>
             </div>
           </div>
-
-          {/* Payment Info */}
           <div>
-            <h3 className="text-base md:text-lg font-semibold mb-2 text-yellow-400">
-              💳 Payment Info
+            <h3 className="text-base md:text-lg font-semibold text-yellow-400">
+               Payment Info
             </h3>
-            <div className="bg-gray-800 rounded-xl p-4 space-y-2 border border-gray-700">
-              <p className="flex items-center gap-2">
-                <span className="font-medium">Method:</span>
-                <img
-                  src={order.payment_method.icon}
-                  alt={order.payment_method.method}
-                  className="w-6 h-6 rounded"
-                />
-                {order.payment_method.method}
-              </p>
+            <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 divide-y divide-gray-700">
+              <div className="flex justify-between items-center py-2">
+                <span className="font-semibold">Method:</span>
+                <span className="flex items-center gap-2">
+                  <img
+                    src={order.payment_method.icon}
+                    alt={order.payment_method.method}
+                    className="w-6 h-6 rounded"
+                  />
+                  {order.payment_method.method}
+                </span>
+              </div>
               {order.number && (
-                <p>
-                  <span className="font-medium">Number:</span> {order.number}
-                </p>
+                <div className="flex justify-between py-2">
+                  <span className="font-semibold">Number:</span>
+                  <span>{order.number}</span>
+                </div>
               )}
               {order.transaction_id && (
-                <p>
-                  <span className="font-medium">Transaction ID:</span>{" "}
-                  {order.transaction_id}
-                </p>
+                <div className="flex justify-between py-2">
+                  <span className="font-semibold">Transaction ID:</span>
+                  <span>{order.transaction_id}</span>
+                </div>
               )}
             </div>
           </div>
-
-          {/* Status & Note */}
           <div>
-            <h3 className="text-base md:text-lg font-semibold mb-2 text-green-400">
-              📦 Order Status
+            <h3 className="text-base md:text-lg font-semibold text-green-400">
+              Order Status
             </h3>
-            <div className="bg-gray-800 rounded-xl p-4 space-y-2 border border-gray-700">
-              <p>
-                <span className="font-medium">Status:</span>{" "}
+            <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 divide-y divide-gray-700">
+              <div className="flex justify-between py-2">
+                <span className="font-semibold">Status:</span>
                 <span
                   className={cn(
                     "px-2 py-1 rounded-lg font-semibold",
@@ -149,12 +151,12 @@ export default function ViewProductModal({
                 >
                   {order.status}
                 </span>
-              </p>
+              </div>
               {order.order_note && (
-                <p>
-                  <span className="font-medium">Order Note:</span>{" "}
-                  {order.order_note}
-                </p>
+                <div className="flex justify-between py-2">
+                  <span className="font-semibold">Order Note:</span>
+                  <span>{order.order_note}</span>
+                </div>
               )}
             </div>
           </div>
