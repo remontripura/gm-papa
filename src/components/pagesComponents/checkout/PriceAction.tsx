@@ -120,9 +120,11 @@ export default function PriceAction({
     setSelectedItem(item);
 
     if (isMobile()) {
+      // ৫ সেকেন্ড delay এর পর scroll
       setTimeout(() => {
-        const formElement = document.getElementById("form-section");
-        formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document
+          .getElementById("form-section")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 5000);
     }
   };
