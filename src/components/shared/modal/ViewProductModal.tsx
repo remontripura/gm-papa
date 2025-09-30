@@ -78,7 +78,7 @@ export default function ViewProductModal({
                 </div>
               )}
               <div className="flex justify-between py-2">
-                <span className="font-semibold">Id:</span>
+                <span className="font-semibold">Order Id:</span>
                 <span>{order.id}</span>
               </div>
               <div className="flex justify-between py-2">
