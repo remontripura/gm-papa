@@ -123,7 +123,7 @@ export default function PriceAction({
       setTimeout(() => {
         const formElement = document.getElementById("form-section");
         formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 0);
+      }, 5000);
     }
   };
 

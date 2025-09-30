@@ -199,7 +199,7 @@ export default function CheckoutComponent() {
         modalData={modalData}
         isOpen={modal}
         onClose={() => {
-          setModal(false), router.push("/"), reset();
+          setModal(false), router.push(loggedIn ? "/my-order" : "/"), reset();
         }}
         OrderData={orderData}
       />
