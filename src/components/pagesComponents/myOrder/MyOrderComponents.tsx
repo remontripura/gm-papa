@@ -50,6 +50,7 @@ const MyOrderComponents = () => {
                     className="border rounded-2xl flex items-center justify-between p-3"
                   >
                     <div className="text-[12px] md:text-[16px] md:w-4/12 w-9/12">
+                      <p>Order Id: {order.id}</p>
                       <h6>
                         Name :{" "}
                         {order.item !== null
