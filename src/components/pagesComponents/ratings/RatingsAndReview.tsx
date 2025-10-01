@@ -42,7 +42,6 @@ const RatingAndReview = ({
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const token = Cookies.get("FFT");
-  console.log(pageNumber);
   const { data: review, refetch } = useGetData<ReviewResponse>(
     ["review", pageNumber],
     `/review/${decodedSlug}?page=${pageNumber}`
@@ -182,7 +181,7 @@ const RatingAndReview = ({
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                {item.user.image ? (
+                {item?.user?.image ? (
                   <div className="size-10 p-1 border border-gray-400 rounded-full flex justify-center items-center">
                     <Image
                       src={item?.user?.image}
@@ -199,7 +198,7 @@ const RatingAndReview = ({
                 )}
 
                 <div>
-                  <h6 className="font-semibold">{item.user.name}</h6>
+                  <h6 className="font-semibold">{item?.user?.name}</h6>
                   <p className="text-sm">{timeAgo(item.created_at)}</p>
                 </div>
               </div>

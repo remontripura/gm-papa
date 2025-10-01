@@ -45,10 +45,29 @@ export const ThemeProvider = ({
     return () => clearTimeout(timer);
   }, []);
 
+  // 🔹 Disable body scroll when modal open
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [modalOpen]);
+
   return (
     <ThemeContext.Provider value={{ theme }}>
       {children}
+
+      {/* 🔹 Transparent layer that blocks all site interaction */}
+      {modalOpen && (
+        <div
+          onClick={() => setModalOpen(false)}
+          className="fixed inset-0 z-20 bg-transparent cursor-pointer"
+        />
+      )}
+
       <div className="fixed md:right-12 right-5 md:bottom-12 bottom-5 z-30 flex flex-col items-end gap-2">
+        {/* Modal content */}
         <div
           className={`flex flex-col items-center gap-2 transition-all duration-300 ${
             modalOpen
@@ -58,7 +77,6 @@ export const ThemeProvider = ({
         >
           {helpLine.map((item, index) => {
             const isPhone = /^[0-9+]+$/.test(item.url);
-            // const isTelegram = item.url.includes("t.me");
             const href = isPhone ? `tel:${item.url}` : item.url;
 
             return (
@@ -81,6 +99,8 @@ export const ThemeProvider = ({
             );
           })}
         </div>
+
+        {/* Toggle Button */}
         <button
           onClick={() => setModalOpen((prev) => !prev)}
           className={cn(

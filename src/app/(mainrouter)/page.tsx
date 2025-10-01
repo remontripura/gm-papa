@@ -22,19 +22,21 @@ export async function generateMetadata(): Promise<Metadata> {
       : "/default-image.png";
 
   return {
-    title: `Buy Popular Gaming Products | ${process.env.NEXT_PUBLIC_APP_NAME}`,
-    description: `Explore gaming categories: ${categoryNames}. Top games: ${productNames.join(
-      ", "
-    )}.`,
+    title:
+      "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
+    description:
+      "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
     openGraph: {
-    title: `Buy Popular Gaming Products | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+      title: `Buy Popular Gaming Products | ${process.env.NEXT_PUBLIC_APP_NAME}`,
       description: `Shop items for games like ${productNames.join(", ")}.`,
       images: [firstImage],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Buy Gaming Products Online",
-      description: `Top-up products available for ${productNames.join(", ")}.`,
+      title:
+        "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
+      description:
+        "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
       images: [firstImage],
     },
   };

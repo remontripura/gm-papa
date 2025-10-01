@@ -19,8 +19,10 @@ import { SocialLinkResponse } from "@/types/helpline/helpline";
 // });
 
 export const metadata: Metadata = {
-  title: "FreeFireBD | Home",
-  description: "Gaming topup",
+  title:
+    "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
+  description:
+    "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
   icons: {
     icon: "./fav.jpg",
@@ -44,9 +46,7 @@ export default async function RootLayout({
         <script />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body
-        className={`antialiased`}
-      >
+      <body className={`antialiased`}>
         <ThemeProvider helpLine={helpLine}>
           <Suspense fallback={null}>
             <ProgressBar />
