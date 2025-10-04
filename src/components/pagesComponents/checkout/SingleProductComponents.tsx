@@ -2,7 +2,7 @@
 
 import { TextField } from "@/components/Form/fields/TextField";
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { z, ZodRawShape } from "zod";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import { SubmitHandler } from "react-hook-form";
@@ -13,19 +13,26 @@ import { useRouter } from "next/navigation";
 import { BounceLoader } from "react-spinners";
 import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
 import { useSelectedItemStore } from "@/lib/store/productSelectStore/activeItemSelected";
+import { useProfileStore } from "@/lib/store/profileDataStore/profileDataStore";
+import { IGameData } from "@/types/productsDataType/SingleProductType";
 
-const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
+const SingleProductComponents = ({
+  singleProduct,
+}: {
+  singleProduct: IGameData;
+}) => {
   const { selectedItem, setActive, setSelectedItem } =
     useProductSelectionStore();
   const { select } = useSelectedItemStore();
-  console.log(select);
+  const { profile } = useProfileStore();
+  const [emailActive, setEmailActive] = useState(false);
 
-  // useEffect(() => {
-  //   if (singleProduct.items.length > 0) {
-  //     setActive(singleProduct.items[0].name);
-  //     setSelectedItem(singleProduct.items[0]);
-  //   }
-  // }, [singleProduct, setActive, setSelectedItem]);
+  useEffect(() => {
+    if (singleProduct.input_name === "Email") {
+      setEmailActive(true);
+    }
+  }, [profile, singleProduct]);
+
   const {
     count,
     setCount,
@@ -51,26 +58,8 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
       inputNames.push(`input_${i}`);
     }
   }
-  const firstRender = useRef(true);
 
-  // useEffect(() => {
-  //   if (firstRender.current) {
-  //     firstRender.current = false;
-  //     return;
-  //   }
-
-  //   if (select) {
-  //     const firstInput = document.querySelector(
-  //       `input[name="${inputNames[0]}"]`
-  //     ) as HTMLInputElement;
-
-  //     if (firstInput) {
-  //       setTimeout(() => {
-  //         firstInput.focus();
-  //       }, 1500);
-  //     }
-  //   }
-  // }, [select, inputNames]);
+  // auto focus first input if select = true
   useEffect(() => {
     if (select) {
       const firstInput = document.querySelector(
@@ -86,20 +75,34 @@ const SingleProductComponents = ({ singleProduct }: { singleProduct: any }) => {
     }
   }, [select, inputNames]);
 
+  // schema build dynamically
   const schemaShape: ZodRawShape = {};
   inputNames.forEach((name) => {
     schemaShape[name] = z.string().min(1, `Enter your ${name}`);
   });
   const schema = z.object(schemaShape);
   type FormData = z.infer<typeof schema>;
+
   const formRef = useRef<GenericFormRef<FormData>>(null);
   const router = useRouter();
 
-  const initialValues: FormData = inputNames.reduce((acc, curr) => {
-    acc[curr] = "";
-    return acc;
-  }, {} as Record<string, string>);
+  // initial values setup
+  const initialValues: FormData = useMemo(() => {
+    return inputNames.reduce((acc, curr) => {
+      acc[curr] = emailActive ? profile?.user.email ?? "" : "";
+      return acc;
+    }, {} as Record<string, string>);
+  }, [emailActive, profile?.user.email, inputNames]);
+
+  // 🔥 RESET FORM WHEN emailActive or profile.email changes
+  useEffect(() => {
+    if (emailActive && profile?.user.email && formRef.current) {
+      formRef.current.reset(initialValues);
+    }
+  }, [emailActive, profile?.user.email, initialValues]);
+
   const [loading, setLoading] = useState(false);
+
   const handleSubmit: SubmitHandler<FormData> = (data) => {
     setLoading(true);
     if (!selectedItem) {

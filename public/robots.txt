@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block private/protected routes
+Disallow: /profile
+Disallow: /profile/edit
+Disallow: /my-order
+Disallow: /wallet-balance
+Disallow: /wallet-history
+Disallow: /checkout
+
+# Sitemap location
+Sitemap: https://freefirebd.com/sitemap.xml

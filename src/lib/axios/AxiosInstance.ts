@@ -34,7 +34,6 @@ axiosInstance.interceptors.request.use((config) => {
 // ✅ Response interceptor
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response)
     const responseObject: any = {
       data: response?.data,
       status: response?.status,

@@ -18,6 +18,7 @@ import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateM
 import { FaWallet } from "react-icons/fa6";
 import WalletModalCom from "@/components/shared/modal/AddWalletModal";
 import { usePathname } from "next/navigation";
+import { useProfileStore } from "@/lib/store/profileDataStore/profileDataStore";
 
 type NavItem = {
   id: number;
@@ -43,10 +44,19 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
   const [warningModal, setWarningModal] = useState(false);
   const [walletModal, setWalletModal] = useState(false);
   const pathname = usePathname();
+  const { setProfile } = useProfileStore();
 
   useEffect(() => {
     if (profileData?.user?.phone === null) {
       setWarningModal(true);
+    }
+    if (profileData) {
+      setProfile(profileData);
+    }
+  }, [profileData]);
+  useEffect(() => {
+    if (profileData) {
+      setProfile(profileData);
     }
   }, [profileData]);
 
