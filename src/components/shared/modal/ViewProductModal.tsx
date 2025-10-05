@@ -107,7 +107,7 @@ export default function ViewProductModal({
           </div>
           <div>
             <h3 className="text-base md:text-lg font-semibold text-yellow-400">
-               Payment Info
+              Payment Info
             </h3>
             <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 divide-y divide-gray-700">
               <div className="flex justify-between items-center py-2">
@@ -155,7 +155,10 @@ export default function ViewProductModal({
               {order.order_note && (
                 <div className="flex justify-between py-2">
                   <span className="font-semibold">Order Note:</span>
-                  <span>{order.order_note}</span>
+                  <div
+                    className="game-description-content"
+                    dangerouslySetInnerHTML={{ __html: order.order_note }}
+                  ></div>
                 </div>
               )}
             </div>
@@ -165,6 +168,5 @@ export default function ViewProductModal({
     </div>
   );
 }
-
 
 // update

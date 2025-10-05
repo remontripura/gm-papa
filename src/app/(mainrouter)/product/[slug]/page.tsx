@@ -24,10 +24,10 @@ export async function generateMetadata({
   );
 
   return {
-    title: singleProduct?.name || "Product",
+    title: singleProduct?.seo_title || singleProduct.name || "Product",
     description: singleProduct?.description || "Check out this product",
     openGraph: {
-      title: singleProduct?.name || "Product",
+      title: singleProduct?.seo_title || singleProduct.name || "Product",
       description: singleProduct?.description || "Check out this product",
       images: [
         {
