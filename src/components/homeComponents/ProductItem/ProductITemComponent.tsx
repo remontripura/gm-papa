@@ -9,9 +9,9 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
   return (
     <div className="w-full px-3 my-3 mt-8">
       <MainContainer>
-        <h6 className="font-bold text-white w-fit text-[18px]">
+        <h1 className="font-bold text-white w-fit text-[18px]">
           {product.name}
-        </h6>
+        </h1>
         <div className="mt-2 grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 md:gap-4 gap-2">
           {product.products.map((item) => (
             <Link key={item.id} href={`/product/${item.slug}`} prefetch>
@@ -30,20 +30,21 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                     height={500}
                   />
                 </div>
-                <h6 className="block truncate font-semibold md:text-[16px] text-[12px] text-white py-1 px-2">
+                <h1 className="block truncate font-semibold md:text-[16px] text-[12px] text-white py-1 px-2">
                   {item.name}
-                </h6>
-                <p className="md:flex hidden gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
+                </h1>
+                <h2 className="md:flex hidden gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
                   <span className="flex items-center gap-0.5">
                     {" "}
-                    {item.reviews_avg_rating} <FaStar className="text-yellow-500 inline" />
+                    {item.reviews_avg_rating}{" "}
+                    <FaStar className="text-yellow-500 inline" />
                   </span>
                   <span className="text-gray-400 font-semibold">
                     {" "}
                     {item.reviews_count.toLocaleString()} reviews
                   </span>
-                </p>
-                <p className="md:hidden flex gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
+                </h2>
+                <h3 className="md:hidden flex gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
                   <span className="flex items-center gap-0.5">
                     {" "}
                     {item.reviews_avg_rating}{" "}
@@ -55,7 +56,7 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                     {" "}
                     {item.reviews_count.toLocaleString()} reviews
                   </span>
-                </p>
+                </h3>
               </div>
             </Link>
           ))}
