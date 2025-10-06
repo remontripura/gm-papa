@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ",
       description:
         "Instant Free Fire Diamond রিচার্জ করুন বাংলাদেশে। Trusted, Fast & Secure service 24/7।",
-      url: "https://www.gmpapa.com/",
+      url: "https://freefirebd.com/",
       siteName: "FreeFireBD.com",
       images: [
         {
