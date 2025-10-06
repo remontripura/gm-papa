@@ -31,7 +31,7 @@ export async function generateMetadata({
       description: singleProduct?.description || "Check out this product",
       images: [
         {
-          url: singleProduct.image,
+          url: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`,
           width: 1200,
           height: 630,
           alt: "Free Fire Diamond Top Up BD Banner",
