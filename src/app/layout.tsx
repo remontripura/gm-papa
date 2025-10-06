@@ -24,7 +24,24 @@ export const metadata: Metadata = {
     "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
   icons: {
-    icon: "./og_image.jpg",
+    icon: "/icon_favicon.png",
+  },
+  openGraph: {
+    title: "Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ",
+    description:
+      "Instant Free Fire Diamond রিচার্জ করুন বাংলাদেশে। Trusted, Fast & Secure service 24/7।",
+    // url: "https://freefirebd.com", // ← তোমার সাইটের আসল URL
+    siteName: "FreeFireBD.com",
+    images: [
+      {
+        url: "/og_image.jpg", // ← এখানে তোমার banner image এর link
+        width: 1200,
+        height: 630,
+        alt: "Free Fire Diamond Top Up BD Banner",
+      },
+    ],
+    locale: "bn_BD",
+    type: "website",
   },
 };
 
