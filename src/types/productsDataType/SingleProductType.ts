@@ -24,6 +24,7 @@ export interface IGameData {
   delivery_system: string | null;
   seo_title: null | string;
   seo_description: null | string;
+  seo_keywords: null | string;
   items: IItem[];
 }
 

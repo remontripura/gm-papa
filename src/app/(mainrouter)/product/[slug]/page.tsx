@@ -22,13 +22,13 @@ export async function generateMetadata({
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
   );
-
   return {
     title: singleProduct?.seo_title || singleProduct.name || "Product",
-    description: singleProduct?.description || "Check out this product",
+    description: singleProduct?.seo_description || "Check out this product",
+    keywords: singleProduct?.seo_keywords,
     openGraph: {
       title: singleProduct?.seo_title || singleProduct.name || "Product",
-      description: singleProduct?.description || "Check out this product",
+      description: singleProduct?.seo_description || "Check out this product",
       images: [
         {
           url: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`,

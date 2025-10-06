@@ -9,9 +9,9 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
   return (
     <div className="w-full px-3 my-3 mt-8">
       <MainContainer>
-        <h1 className="font-bold text-white w-fit text-[18px]">
+        <h2 className="font-bold text-white w-fit text-[18px]">
           {product.name}
-        </h1>
+        </h2>
         <div className="mt-2 grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 md:gap-4 gap-2">
           {product.products.map((item) => (
             <Link key={item.id} href={`/product/${item.slug}`} prefetch>
