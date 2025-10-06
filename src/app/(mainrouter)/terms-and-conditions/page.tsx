@@ -1,7 +1,9 @@
-"use client";
+import { Metadata } from "next";
 
-import React from "react";
-
+export const metadata: Metadata = {
+  title: `Terms And Conditions | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  description: "the most trusted shop",
+};
 const TermsAndConditions = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 text-sm text-white">
