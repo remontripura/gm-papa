@@ -30,9 +30,9 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                     height={500}
                   />
                 </div>
-                <h1 className="block truncate font-semibold md:text-[16px] text-[12px] text-white py-1 px-2">
+                <h2 className="block truncate font-semibold md:text-[16px] text-[12px] text-white py-1 px-2">
                   {item.name}
-                </h1>
+                </h2>
                 <h2 className="md:flex hidden gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
                   <span className="flex items-center gap-0.5">
                     {" "}
@@ -44,7 +44,7 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                     {item.reviews_count.toLocaleString()} reviews
                   </span>
                 </h2>
-                <h3 className="md:hidden flex gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
+                <h2 className="md:hidden flex gap-2 items-start md:text-[14px] text-[12px] py-1 px-2">
                   <span className="flex items-center gap-0.5">
                     {" "}
                     {item.reviews_avg_rating}{" "}
@@ -56,7 +56,7 @@ const ProductITemComponent = ({ product }: { product: ICategory }) => {
                     {" "}
                     {item.reviews_count.toLocaleString()} reviews
                   </span>
-                </h3>
+                </h2>
               </div>
             </Link>
           ))}

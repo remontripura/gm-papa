@@ -1,5 +1,7 @@
 export default async function sitemap() {
-  const res = await fetch("https://admin.gmpapa.com/api/sitemap");
+  const res = await fetch("https://admin.gmpapa.com/api/sitemap", {
+    next: { revalidate: 60 * 5 },
+  });
   const data = await res.json();
 
   return data.urls.map((item: any) => ({

@@ -24,7 +24,7 @@ import Image from "next/image";
 import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
 import { FaCopy } from "react-icons/fa";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { WalletSchema } from "@/schema/addWalletSchema/addWalletSchema";
 
 export default function AddWalletComponent() {
@@ -45,7 +45,7 @@ export default function AddWalletComponent() {
   );
   const [method, setMethod] = useState<PaymentMethod | undefined>(undefined);
   const [phoneAllow, setPhoneAllow] = useState<boolean>(true);
-
+  const router = useRouter();
   const initialValues: FormType = {
     amount: amountFromParams,
     payment_id: "",
@@ -79,6 +79,7 @@ export default function AddWalletComponent() {
         showErrorAlert(data.message);
       } else {
         showSuccessAlert(data.message);
+        router.push("/wallet-history");
         formRef.current?.reset();
       }
     },
@@ -197,7 +198,7 @@ export default function AddWalletComponent() {
                       dangerouslySetInnerHTML={{
                         __html: (method?.description || "").replaceAll(
                           "[amount]",
-                          (amountFromParams).toString()
+                          amountFromParams.toString()
                         ),
                       }}
                     />
