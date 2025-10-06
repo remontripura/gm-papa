@@ -45,7 +45,7 @@ export default function MobileMenu({
               <Link href="/" className="text-[18px] font-semibold">
                 <Image
                   className="w-[120px]"
-                  src="/logo.png"
+                  src="/logo2.png"
                   alt="logo"
                   width={500}
                   height={500}
@@ -65,7 +65,7 @@ export default function MobileMenu({
               >
                 <Image
                   className="w-[120px]"
-                  src="/logo.png"
+                  src="/logo2.png"
                   alt="logo"
                   width={500}
                   height={500}

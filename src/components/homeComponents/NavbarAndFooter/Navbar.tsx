@@ -105,7 +105,7 @@ const Navbar = ({ profileData }: { profileData: Profile | null }) => {
               <Link href="/" className="text-[18px] text-white">
                 <Image
                   className="w-[120px]"
-                  src="/logo.png"
+                  src="/logo2.png"
                   alt="logo"
                   width={500}
                   height={500}

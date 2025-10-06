@@ -9,7 +9,7 @@ export default function Footer() {
       <MainContainer className="flex flex-col items-center gap-8 text-center">
         <Image
           className="w-[120px]"
-          src="/logo.png"
+          src="/logo2.png"
           alt="logo"
           width={500}
           height={500}

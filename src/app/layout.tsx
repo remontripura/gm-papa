@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/context/ThemeContext";
 import ProgressBar from "@/lib/progress/Progressbar";
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
     "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
   icons: {
-    icon: "./fav.jpg",
+    icon: "./og_image.jpg",
   },
 };
 

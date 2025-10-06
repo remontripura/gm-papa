@@ -36,7 +36,7 @@ export default function LoginModal({ isOpen, onClose }) {
           <div className="flex justify-center items-center">
             <Image
               className="w-[120px]"
-              src="/logo.png"
+              src="/logo2.png"
               alt="logo"
               width={500}
               height={500}
