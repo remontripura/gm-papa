@@ -7,15 +7,6 @@ import { getData } from "@/lib/fetch/getData";
 import type { Metadata, Viewport } from "next";
 import { SocialLinkResponse } from "@/types/helpline/helpline";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title:
