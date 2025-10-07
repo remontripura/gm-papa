@@ -1,20 +1,16 @@
-"use client";
+import { Metadata } from "next";
+import VarifyAccountCompo from "./VerifyAccount";
 
-import GoogleLoginHandler from "@/components/GoogleLoginHandler/GoogleLoginHandler";
-import { useState } from "react";
+export const metadata: Metadata = {
+  title: `verify account | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  description: "verify account",
+};
 
 const VarifyAccount = () => {
-  const [isProcessing, setIsProcessing] = useState(false);
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      {isProcessing && (
-        <p className="text-lg font-semibold text-gray-300 text-center">
-          Verifying account...
-        </p>
-      )}
-      <GoogleLoginHandler onProcessingChange={setIsProcessing} />
-    </div>
+    <>
+      <VarifyAccountCompo />
+    </>
   );
 };
 
