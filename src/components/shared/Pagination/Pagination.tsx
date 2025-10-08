@@ -54,6 +54,7 @@ const Pagination = ({ total, perPage, currentPage, route }: Props) => {
       <div className="bg-white px-4 py-2 rounded-lg shadow flex items-center space-x-1">
         {/* Prev button */}
         <Link
+          rel="canonical"
           href={`${route}?page=${currentPage - 1}`}
           className={`w-8 h-8 flex items-center justify-center rounded-md ${
             currentPage === 1
@@ -79,6 +80,7 @@ const Pagination = ({ total, perPage, currentPage, route }: Props) => {
 
           return (
             <Link
+              rel="canonical"
               key={page as string}
               href={`${route}?page=${page}`}
               className={`w-8 h-8 flex items-center justify-center rounded-md text-sm font-medium ${
@@ -94,6 +96,7 @@ const Pagination = ({ total, perPage, currentPage, route }: Props) => {
 
         {/* Next button */}
         <Link
+          rel="canonical"
           href={`${route}?page=${currentPage + 1}`}
           className={`w-8 h-8 flex items-center justify-center rounded-md ${
             currentPage === totalPages
