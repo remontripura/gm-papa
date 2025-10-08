@@ -9,6 +9,7 @@ import { getData } from "@/lib/fetch/getData";
 import { SliderResponse } from "@/types/bannerType/bannerType";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Script from "next/script"; // ✅ Important for adding Schema.org JSON-LD
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -50,10 +51,33 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+
 const HomePage = async () => {
   const bannerImage: SliderResponse = await getData("/slider-image", {
     next: { revalidate: 60 * 5 },
   });
+
+  // ✅ Schema.org JSON-LD (Organization schema)
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FreeFireBD.com",
+    "url": "https://freefirebd.com/",
+    "logo": "https://freefirebd.com/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/freefirebd",
+      "https://www.youtube.com/@freefirebd"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+8801234567890",
+      "contactType": "customer support",
+      "availableLanguage": ["English", "Bengali"]
+    },
+    "description":
+      "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। Trusted, Secure ও Instant Delivery।",
+  };
+
   return (
     <>
       <Heading />
@@ -78,6 +102,14 @@ const HomePage = async () => {
       </Suspense>
       <WhyChooseUsPage />
       <MobileWarning />
+
+      {/* ✅ Inject Schema.org JSON-LD */}
+      <Script
+        id="schema-org"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
     </>
   );
 };
