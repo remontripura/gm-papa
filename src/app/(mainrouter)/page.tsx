@@ -9,7 +9,7 @@ import { getData } from "@/lib/fetch/getData";
 import { SliderResponse } from "@/types/bannerType/bannerType";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Script from "next/script"; // ✅ Important for adding Schema.org JSON-LD
+import Script from "next/script"; // ✅ Needed for Schema injection
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -57,31 +57,74 @@ const HomePage = async () => {
     next: { revalidate: 60 * 5 },
   });
 
-  // ✅ Schema.org JSON-LD (Organization schema)
+  // ✅ Store Schema (your version, correctly formatted for JSON-LD)
   const schemaData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "FreeFireBD.com",
-    "url": "https://freefirebd.com/",
+    "@type": "Store",
+    "name": "Free Fire BD",
+    "url": "https://freefirebd.com",
     "logo": "https://freefirebd.com/logo.png",
-    "sameAs": [
-      "https://www.facebook.com/freefirebd",
-      "https://www.youtube.com/@freefirebd"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+8801234567890",
-      "contactType": "customer support",
-      "availableLanguage": ["English", "Bengali"]
-    },
+    "image": "https://freefirebd.com/assets/banner.webp",
     "description":
-      "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। Trusted, Secure ও Instant Delivery।",
+      "FreeFireBD.com is Bangladesh's most trusted online gaming top-up store for Free Fire, PUBG UC, Mobile Legends, and other games. Enjoy instant delivery, safe payments, and 24/7 customer support.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Mirpur 2",
+      "addressLocality": "Dhaka",
+      "postalCode": "1216",
+      "addressCountry": "Bangladesh",
+    },
+    "telephone": "+8801700000000",
+    "email": "support@freefirebd.com",
+    "sameAs": [
+      "https://facebook.com/freefirebd",
+      "https://instagram.com/freefirebd",
+      "https://www.youtube.com/@freefirebd",
+    ],
+    "priceRange": "৳৳",
+    "openingHours": "Mo-Su 00:00-23:59",
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "priceCurrency": "BDT",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Free Fire Diamond Top-Up",
+          "description":
+            "Instant Free Fire diamond recharge in Bangladesh at the lowest price.",
+          "url": "https://freefirebd.com/free-fire-diamond-top-up",
+        },
+      },
+      {
+        "@type": "Offer",
+        "priceCurrency": "BDT",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "PUBG UC Top-Up",
+          "description":
+            "Buy PUBG Mobile UC quickly and securely from Free Fire BD.",
+          "url": "https://freefirebd.com/pubg-uc-top-up",
+        },
+      },
+      {
+        "@type": "Offer",
+        "priceCurrency": "BDT",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Mobile Legends Diamond Top-Up",
+          "description":
+            "Instant MLBB diamond recharge with fast delivery in Bangladesh.",
+          "url": "https://freefirebd.com/mlbb-top-up",
+        },
+      },
+    ],
   };
 
   return (
     <>
       <Heading />
       <Banner bannerImage={bannerImage} />
+
       <Suspense
         fallback={
           <MainContainer className="grid md:grid-cols-6 grid-cols-3 gap-5 mt-3">
@@ -100,12 +143,13 @@ const HomePage = async () => {
       >
         <HomaPageComponents />
       </Suspense>
+
       <WhyChooseUsPage />
       <MobileWarning />
 
-      {/* ✅ Inject Schema.org JSON-LD */}
+      {/* ✅ Schema.org JSON-LD */}
       <Script
-        id="schema-org"
+        id="store-schema"
         type="application/ld+json"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
