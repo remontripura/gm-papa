@@ -25,7 +25,7 @@ const WhyChooseUsPage = () => {
   return (
     <section className="py-12">
       <MainContainer className="px-2">
-        <h1 className="font-semibold text-[18px]">Why Choose FreeFireBD</h1>
+        <h2 className="font-semibold text-[18px]">Why Choose FreeFireBD</h2>
         <div className="grid md:grid-cols-3 grid-cols-1 gap-5 mt-5">
           {content.map((item, index) => (
             <div

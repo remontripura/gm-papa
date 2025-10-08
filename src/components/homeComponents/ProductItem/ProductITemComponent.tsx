@@ -5,13 +5,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 
-const ProductITemComponent = ({ product }: { product: ICategory }) => {
+const ProductITemComponent = ({
+  product,
+  index,
+}: {
+  product: ICategory;
+  index: number;
+}) => {
   return (
     <div className="w-full px-3 my-3 mt-8">
       <MainContainer>
-        <h2 className="font-bold text-white w-fit text-[18px]">
-          {product.name}
-        </h2>
+        {index === 0 ? (
+          <h1 className="font-bold text-white w-fit text-[18px]">
+            {product.name}
+          </h1>
+        ) : (
+          <h2 className="font-bold text-white w-fit text-[18px]">
+            {product.name}
+          </h2>
+        )}
+
         <div className="mt-2 grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 md:gap-4 gap-2">
           {product.products.map((item) => (
             <Link key={item.id} href={`/product/${item.slug}`} prefetch>
