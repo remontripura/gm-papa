@@ -53,8 +53,6 @@
 //   );
 // }
 
-
-
 import "./globals.css";
 import { ThemeProvider } from "@/components/context/ThemeContext";
 import ProgressBar from "@/lib/progress/Progressbar";
@@ -86,23 +84,15 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { data: helpLine } = await getData<SocialLinkResponse>(`/help-line`);
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="manifest" href="/manifest.json" />
-
-        {/* ✅ Structured Data JSON-LD Schema */}
         <Script
-          id="store-schema"
+          id="ld-json"
           type="application/ld+json"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -141,28 +131,6 @@ export default async function RootLayout({
                     "url": "https://freefirebd.com/free-fire-diamond-top-up",
                   },
                 },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "BDT",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "PUBG UC Top-Up",
-                    "description":
-                      "Buy PUBG Mobile UC quickly and securely from Free Fire BD.",
-                    "url": "https://freefirebd.com/pubg-uc-top-up",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "BDT",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Mobile Legends Diamond Top-Up",
-                    "description":
-                      "Instant MLBB diamond recharge with fast delivery in Bangladesh.",
-                    "url": "https://freefirebd.com/mlbb-top-up",
-                  },
-                },
               ],
             }),
           }}
@@ -179,3 +147,4 @@ export default async function RootLayout({
     </html>
   );
 }
+
