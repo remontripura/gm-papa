@@ -17,7 +17,7 @@ const ProductITemComponent = ({
       <MainContainer>
         {index === 0 ? (
           <h1 className="font-bold text-white w-fit text-[18px]">
-            {product.name} sdfgfdg
+            {product.name}
           </h1>
         ) : (
           <h2 className="font-bold text-white w-fit text-[18px]">
