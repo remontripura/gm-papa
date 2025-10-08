@@ -7,17 +7,18 @@ import { getData } from "@/lib/fetch/getData";
 import type { Metadata, Viewport } from "next";
 import { SocialLinkResponse } from "@/types/helpline/helpline";
 
-
 export const metadata: Metadata = {
   title:
     "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
   description:
     "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
+  alternates: {
+    canonical: `${process.env.NEXTAUTH_URL}`,
+  },
   icons: {
     icon: "/icon_favicon.png",
   },
-
 };
 
 export const viewport: Viewport = {
@@ -26,7 +27,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#1E2131" },
   ],
 };
-
 
 export default async function RootLayout({
   children,
