@@ -17,7 +17,7 @@ const ProductITemComponent = ({
       <MainContainer>
         {index === 0 ? (
           <h1 className="font-bold text-white w-fit text-[18px]">
-            {product.name}
+            {product.name} sdfgfdg
           </h1>
         ) : (
           <h2 className="font-bold text-white w-fit text-[18px]">
@@ -84,7 +84,7 @@ export default function ProductITemComponents({ data }: { data: ICategory[] }) {
   return (
     <>
       {data.map((item, index) => (
-        <ProductITemComponent key={index} product={item} />
+        <ProductITemComponent key={index} product={item} index={index} />
       ))}
     </>
   );
