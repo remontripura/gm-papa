@@ -25,6 +25,9 @@ export async function generateMetadata({
   return {
     title: singleProduct?.seo_title || singleProduct.name || "Product",
     description: singleProduct?.seo_description || "Check out this product",
+    alternates: {
+      canonical: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
+    },
     keywords: singleProduct?.seo_keywords,
     openGraph: {
       title: singleProduct?.seo_title || singleProduct.name || "Product",
