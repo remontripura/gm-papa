@@ -33,9 +33,9 @@ export default function ProductHeader({
           <div className="flex-grow w-full">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
               <div className="flex-grow">
-                <h3 className="font-bold text-lg md:text-xl">
+                <h1 className="font-bold text-lg md:text-xl">
                   {singleProduct.name}
-                </h3>
+                </h1>
 
                 <div className="flex flex-wrap items-center gap-3 mt-1">
                   <p className="text-sm flex items-center gap-1">
