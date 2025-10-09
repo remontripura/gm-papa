@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description:
     "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
+  keywords:
+    "Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers",
   alternates: {
     canonical: `${process.env.NEXTAUTH_URL}`,
   },
