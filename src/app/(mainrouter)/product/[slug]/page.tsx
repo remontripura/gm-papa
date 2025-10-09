@@ -22,24 +22,43 @@ export async function generateMetadata({
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
   );
+
+  // Default fallback keyword for SEO
+  const fallbackKeyword = "Free Fire Diamond Top Up BD";
+
+  // Build safe title
+  const title =
+    singleProduct?.seo_title ||
+    `${singleProduct?.name || fallbackKeyword} | ${fallbackKeyword}`;
+
+  // Build safe description
+  const description =
+    singleProduct?.seo_description ||
+    `${fallbackKeyword} - বাংলাদেশে কমদামে দ্রুত UID রিচার্জ করুন 24/7।`;
+
+  // Build safe keywords
+  const keywords = singleProduct?.seo_keywords
+    ? `${singleProduct.seo_keywords}, ${fallbackKeyword}`
+    : `${fallbackKeyword}, Free Fire top up Bangladesh, cheap diamond top up`;
+
   return {
-    title: singleProduct?.seo_title || singleProduct.name || "Product",
-    description:
-      singleProduct?.seo_description || "Free Fire top up Bangladesh",
+    title,
+    description,
     alternates: {
       canonical: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
     },
-    keywords: `${singleProduct?.seo_keywords}, "Free Fire top up Bangladesh"`,
+    keywords,
     openGraph: {
-      title: singleProduct?.seo_title || singleProduct.name || "Product",
-      description:
-        singleProduct?.seo_description || "Free Fire top up Bangladesh",
+      title,
+      description,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`,
+          url: singleProduct?.image
+            ? `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`
+            : "/og_image.jpg",
           width: 1200,
           height: 630,
-          alt: "Free Fire Diamond Top Up BD Banner",
+          alt: `${fallbackKeyword} Banner`,
         },
       ],
       type: "website",
