@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
     keywords:
-      "Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers",
+      "Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers, Free Fire Diamond Top Up BD",
     openGraph: {
       title: "Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ",
       description:
