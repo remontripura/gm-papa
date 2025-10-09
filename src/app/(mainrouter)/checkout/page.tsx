@@ -3,9 +3,9 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Checkout | ${process.env.NEXT_PUBLIC_APP_NAME}}`,
-  description: "Best gaming top-up",
+  description: "Free Fire top up Bangladesh",
   keywords:
-    "Checkout, Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers",
+    "Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers",
 };
 
 const CheckoutPage = async () => {
