@@ -10,65 +10,48 @@ import { SliderResponse } from "@/types/bannerType/bannerType";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-// export async function generateMetadata(): Promise<Metadata> {
-//   return {
-//     title:
-//       "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
-//     description:
-//       "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
-//     keywords:
-//       "Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers, Free Fire Diamond Top Up BD",
-//     openGraph: {
-//       title: "Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ",
-//       description:
-//         "Instant Free Fire Diamond রিচার্জ করুন বাংলাদেশে। Trusted, Fast & Secure service 24/7।",
-//       url: "https://freefirebd.com/",
-//       siteName: "FreeFireBD.com",
-//       images: [
-//         {
-//           url: "/og_image.jpg",
-//           width: 1200,
-//           height: 630,
-//           alt: "Free Fire Diamond Top Up BD Banner",
-//         },
-//       ],
-//       locale: "bn_BD",
-//       type: "website",
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title:
-//         "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
-//       description:
-//         "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
-//       images: [
-//         {
-//           url: "/og_image.jpg",
-//           width: 1200,
-//           height: 630,
-//           alt: "Free Fire Diamond Top Up BD Banner",
-//         },
-//       ],
-//     },
-//   };
-// }
-
-export const metadata: Metadata = {
-  title:
-    "Free Fire Diamond Top Up BD | Cheap and Fast UID Recharge 24/7 in Bangladesh",
-  description:
-    "Free Fire Diamond Top Up BD - Cheap and Fast UID Recharge 24/7 in Bangladesh. 100% Trusted, Secure and Instant Delivery | FreeFireBD.com",
-  manifest: "/manifest.json",
-  keywords:
-    "Free Fire Diamond Top Up BD, Free Fire Top Up Bangladesh, cheap Free Fire diamond, FreeFireBD, UID recharge",
-  alternates: {
-    canonical: `${process.env.NEXTAUTH_URL}`,
-  },
-  icons: {
-    icon: "/icon_favicon.png",
-  },
-};
-
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title:
+      "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
+    description:
+      "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
+    keywords:
+      "Free Fire top up Bangladesh, freefirebd, cheap diamond top up, gaming offers, Free Fire Diamond Top Up BD",
+    openGraph: {
+      title: "Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ",
+      description:
+        "Instant Free Fire Diamond রিচার্জ করুন বাংলাদেশে। Trusted, Fast & Secure service 24/7।",
+      url: "https://freefirebd.com/",
+      siteName: "FreeFireBD.com",
+      images: [
+        {
+          url: "/og_image.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Free Fire Diamond Top Up BD Banner",
+        },
+      ],
+      locale: "bn_BD",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title:
+        "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
+      description:
+        "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
+      images: [
+        {
+          url: "/og_image.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Free Fire Diamond Top Up BD Banner",
+        },
+      ],
+    },
+  };
+}
 const HomePage = async () => {
   const bannerImage: SliderResponse = await getData("/slider-image", {
     next: { revalidate: 60 * 5 },
