@@ -22,28 +22,41 @@ export async function generateMetadata({
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
   );
+
+  const productName = singleProduct?.name || "Free Fire Diamond Top Up BD";
+  const seoTitle =
+    singleProduct?.seo_title ||
+    `${productName} - Free Fire Diamond Top Up BD`;
+  const seoDescription =
+    singleProduct?.seo_description ||
+    `Buy ${productName} at the best price in Bangladesh. Instant Free Fire Diamond Top Up available 24/7.`;
+  const seoKeywords =
+    singleProduct?.seo_keywords ||
+    "Free Fire Diamond Top Up BD, FF Diamond Recharge Bangladesh, Instant UID Top Up";
+
   return {
-    title: singleProduct?.seo_title || singleProduct.name || "Free Fire top up Bangladesh",
-    description: singleProduct?.seo_description || "Free Fire top up Bangladesh",
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
     },
-    keywords: `${singleProduct?.seo_keywords}," Free Fire top up Bangladesh"`,
+    keywords: seoKeywords,
     openGraph: {
-      title: singleProduct?.seo_title || singleProduct.name || "Product",
-      description: singleProduct?.seo_description || "Free Fire top up Bangladesh",
+      title: seoTitle,
+      description: seoDescription,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`,
+          url: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct?.image}`,
           width: 1200,
           height: 630,
-          alt: "Free Fire Diamond Top Up BD Banner",
+          alt: `${productName} - Free Fire Diamond Top Up BD`,
         },
       ],
       type: "website",
     },
   };
 }
+
 
 export default async function ProductSlug({ params, searchParams }: PageProps) {
   const { data: singleProduct } = await getData<IGameRes>(
