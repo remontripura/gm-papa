@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title:
     "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
   description:
-    "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7। 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
+    "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7 । 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
   keywords:
     "Free Fire Diamond Top Up BD, Free Fire Top Up Bangladesh, cheap Free Fire diamond, FreeFireBD, UID recharge",

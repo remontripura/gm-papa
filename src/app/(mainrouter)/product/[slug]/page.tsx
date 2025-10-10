@@ -17,6 +17,7 @@ interface PageProps {
 
 // Dynamic metadata
 
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -24,39 +25,51 @@ export async function generateMetadata({
     `/product/${params.slug}`
   );
 
-  // ✅ Common keyword (use this for both title & description)
+  // 🔑 Common SEO keyword (use in both title & description)
   const fallbackKeyword = "Free Fire Diamond Top Up BD";
 
-  // ✅ Build Title — includes the keyword naturally
-  const title =
+  // 🧩 Helper function to ensure keyword presence
+  const ensureKeyword = (text: string | undefined, keyword: string) => {
+    if (!text) return keyword;
+    return text.toLowerCase().includes(keyword.toLowerCase())
+      ? text
+      : `${text} | ${keyword}`;
+  };
+
+  // 🏷️ Title: make sure keyword always exists
+  const title = ensureKeyword(
     singleProduct?.seo_title ||
-    `${
-      singleProduct?.name || fallbackKeyword
-    } - ${fallbackKeyword} | Buy & Recharge Instantly`;
+      `${singleProduct?.name || fallbackKeyword} - Buy & Recharge Instantly`,
+    fallbackKeyword
+  );
 
-  // ✅ Build Description — repeats main keyword once naturally
-  const description =
+  // 📝 Description: ensure keyword presence too
+  const description = ensureKeyword(
     singleProduct?.seo_description ||
-    `Buy ${
-      singleProduct?.name || fallbackKeyword
-    } safely in Bangladesh. ${fallbackKeyword} offers cheap and fast UID recharge 24/7.`; // <-- keyword repeated
+      `Buy ${singleProduct?.name || fallbackKeyword} safely in Bangladesh. ${fallbackKeyword} offers cheap and fast UID recharge 24/7.`,
+    fallbackKeyword
+  );
 
-  // ✅ Open Graph Image fallback
+  // 🖼️ OG Image (fallback safe)
   const ogImage = singleProduct?.image
     ? `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`
     : "/og_image.jpg";
 
+  // 🌐 Base URL fallback (prevent undefined)
+  const baseUrl = process.env.NEXTAUTH_URL || "https://freefirebd.com";
+
   return {
-    metadataBase: new URL(process.env.NEXTAUTH_URL ?? ""),
+    metadataBase: new URL(baseUrl),
     title,
     description,
     alternates: {
-      canonical: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
+      canonical: `${baseUrl}/product/${params.slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
+      url: `${baseUrl}/product/${params.slug}`,
+      siteName: "FreeFireBD.com",
       images: [
         {
           url: ogImage,
@@ -65,6 +78,7 @@ export async function generateMetadata({
           alt: `${singleProduct?.name || fallbackKeyword} Banner`,
         },
       ],
+      locale: "bn_BD",
       type: "website",
     },
     twitter: {
