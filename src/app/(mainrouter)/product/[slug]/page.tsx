@@ -16,6 +16,7 @@ interface PageProps {
 }
 
 // Dynamic metadata
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -23,49 +24,57 @@ export async function generateMetadata({
     `/product/${params.slug}`
   );
 
-  // Default fallback keyword for SEO
+  // ✅ Common keyword (use this for both title & description)
   const fallbackKeyword = "Free Fire Diamond Top Up BD";
 
-  // Build safe title
+  // ✅ Build Title — includes the keyword naturally
   const title =
     singleProduct?.seo_title ||
-    `${singleProduct?.name || fallbackKeyword} | ${fallbackKeyword}`;
+    `${
+      singleProduct?.name || fallbackKeyword
+    } - ${fallbackKeyword} | Buy & Recharge Instantly`;
 
-  // Build safe description
+  // ✅ Build Description — repeats main keyword once naturally
   const description =
     singleProduct?.seo_description ||
-    `${fallbackKeyword} - বাংলাদেশে কমদামে দ্রুত UID রিচার্জ করুন 24/7।`;
+    `Buy ${
+      singleProduct?.name || fallbackKeyword
+    } safely in Bangladesh. ${fallbackKeyword} offers cheap and fast UID recharge 24/7.`; // <-- keyword repeated
 
-  // Build safe keywords
-  const keywords = singleProduct?.seo_keywords
-    ? `${singleProduct.seo_keywords}, ${fallbackKeyword}`
-    : `${fallbackKeyword}, Free Fire top up Bangladesh, cheap diamond top up`;
+  // ✅ Open Graph Image fallback
+  const ogImage = singleProduct?.image
+    ? `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`
+    : "/og_image.jpg";
 
   return {
+    metadataBase: new URL(process.env.NEXTAUTH_URL ?? ""),
     title,
     description,
     alternates: {
       canonical: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
     },
-    keywords,
     openGraph: {
       title,
       description,
+      url: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
       images: [
         {
-          url: singleProduct?.image
-            ? `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`
-            : "/og_image.jpg",
+          url: ogImage,
           width: 1200,
           height: 630,
-          alt: `${fallbackKeyword} Banner`,
+          alt: `${singleProduct?.name || fallbackKeyword} Banner`,
         },
       ],
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
-
 export default async function ProductSlug({ params, searchParams }: PageProps) {
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
