@@ -9,9 +9,9 @@ import { SocialLinkResponse } from "@/types/helpline/helpline";
 
 export const metadata: Metadata = {
   title:
-    "Free Fire Diamond Top Up BD: কমদামে দ্রুত UID রিচার্জ (Recharge) 24/7",
+    "Free Fire Diamond Top Up BD | Cheap and Fast UID Recharge 24/7 in Bangladesh",
   description:
-    "বাংলাদেশে Free Fire Diamond Top Up BD - কমদামে দ্রুত UID রিচার্জ 24/7 । 100% Trusted, Secure ও Instant Delivery | FreeFireBD.com",
+    "Free Fire Diamond Top Up BD - Cheap and Fast UID Recharge 24/7 in Bangladesh. 100% Trusted, Secure and Instant Delivery | FreeFireBD.com",
   manifest: "/manifest.json",
   keywords:
     "Free Fire Diamond Top Up BD, Free Fire Top Up Bangladesh, cheap Free Fire diamond, FreeFireBD, UID recharge",
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     icon: "/icon_favicon.png",
   },
 };
+
 
 export const viewport: Viewport = {
   themeColor: [
