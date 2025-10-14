@@ -25,8 +25,7 @@ export async function generateMetadata({
 
   const productName = singleProduct?.name || "Free Fire Diamond Top Up BD";
   const seoTitle =
-    singleProduct?.seo_title ||
-    `${productName} - Free Fire Diamond Top Up BD`;
+    singleProduct?.seo_title || `${productName} - Free Fire Diamond Top Up BD`;
   const seoDescription =
     singleProduct?.seo_description ||
     `Buy ${productName} at the best price in Bangladesh. Instant Free Fire Diamond Top Up available 24/7.`;
@@ -57,15 +56,46 @@ export async function generateMetadata({
   };
 }
 
-
 export default async function ProductSlug({ params, searchParams }: PageProps) {
   const { data: singleProduct } = await getData<IGameRes>(
     `/product/${params.slug}`
   );
   const { page } = (await searchParams) ?? { page: "1" };
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: singleProduct?.name,
+    image: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct?.image}`,
+    description:
+      singleProduct?.seo_description ||
+      `Buy ${singleProduct?.name} at the best price in Bangladesh.`,
+    sku: singleProduct?.slug,
+    brand: {
+      "@type": "Brand",
+      name: "Free Fire BD",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `${process.env.NEXTAUTH_URL}/product/${singleProduct?.slug}`,
+      priceCurrency: "BDT",
+      price: singleProduct?.items[0],
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+  };
+
   return (
-    <div>
+    <>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(productSchema),
+          }}
+        />
+      </head>
+
       <MainContainer>
         <div className="grid grid-cols-12 gap-3 px-3 md:pt-6">
           <div className="md:col-span-8 col-span-12">
@@ -120,6 +150,6 @@ export default async function ProductSlug({ params, searchParams }: PageProps) {
           <ProductDescription slug={params.slug} pageNumber={page} />
         </Suspense>
       </MainContainer>
-    </div>
+    </>
   );
 }
