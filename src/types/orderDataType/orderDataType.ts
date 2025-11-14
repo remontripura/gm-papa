@@ -1,5 +1,6 @@
 export interface IOrderResponse {
   status: boolean;
+  paymentUrl: string;
   message: string;
   order: Order;
 }

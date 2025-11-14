@@ -1,41 +1,40 @@
 "use client";
 
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { z } from "zod";
-import Cookies from "js-cookie";
-import { TextField } from "@/components/Form/fields/TextField";
-import { LuCheckCheck } from "react-icons/lu";
-import { FaRegCopy, FaShoppingCart } from "react-icons/fa";
-import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
-import SectionOne from "@/components/shared/modal/SectionOne";
-import CouponModal from "@/components/shared/modal/CouponModal";
-import { LoadingButton } from "@/components/shared/submitButton/submitButton";
 import MainContainer from "@/components/container/MainContainer";
+import { TextField } from "@/components/Form/fields/TextField";
+import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import CouponModal from "@/components/shared/modal/CouponModal";
 import LoginModal from "@/components/shared/modal/loginModal";
-import Link from "next/link";
-import { FiShoppingCart } from "react-icons/fi";
-import { usePurchaseStore } from "@/lib/store/checkoutStore/checkoutStore";
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/lib/axios/AxiosInstance";
-import { IOrderResponse, Order } from "@/types/orderDataType/orderDataType";
-import { AxiosError } from "axios";
-import { getProfile } from "@/lib/fetch/profile";
-import { cn } from "@/lib/utils";
+import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
+import SectionOne from "@/components/shared/modal/SectionOne";
 import ThankyouModal from "@/components/shared/modal/ThankyouModal";
+import { LoadingButton } from "@/components/shared/submitButton/submitButton";
+import { showErrorAlert } from "@/components/shared/toast/ToastModal";
+import axiosInstance from "@/lib/axios/AxiosInstance";
+import { getProfile } from "@/lib/fetch/profile";
 import { useGetData } from "@/lib/fetch/useGetData";
+import { usePurchaseStore } from "@/lib/store/checkoutStore/checkoutStore";
+import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
+import { cn } from "@/lib/utils";
+import { playerAddressSchema } from "@/schema/playerAddressSchema/playerAddressSchema";
+import { IModalData } from "@/types/modalData/modalData";
+import { IOrderResponse } from "@/types/orderDataType/orderDataType";
 import {
   PaymentMethod,
   paymentMethodResponse,
 } from "@/types/paymentMethod/paymentMethod";
-import { showErrorAlert } from "@/components/shared/toast/ToastModal";
-import { useRouter } from "next/navigation";
-import PhoneNumberUpdateModal from "@/components/shared/modal/PhoneNumberUpdateModal";
-import { playerAddressSchema } from "@/schema/playerAddressSchema/playerAddressSchema";
 import { Profile } from "@/types/profile/profile";
-import { useProductSelectionStore } from "@/lib/store/productSelectStore/productSelectStore";
-import { IModalData } from "@/types/modalData/modalData";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import Cookies from "js-cookie";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+import { FaShoppingCart } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
+import { z } from "zod";
 
 export default function CheckoutComponent() {
   const token = Cookies.get("FFT");
@@ -56,6 +55,7 @@ export default function CheckoutComponent() {
   const loggedIn = !!token && token !== "undefined";
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [method, setMethod] = useState<PaymentMethod>();
+  console.log(method);
   const [wallet, setWallet] = useState<boolean>(false);
   useEffect(() => {
     if (filteredPaymentMethods?.length && !method) {
@@ -88,6 +88,7 @@ export default function CheckoutComponent() {
   const { data: profile } = getProfile(loggedIn);
   const [orderData, setOrderData] = useState<IOrderResponse>();
   const [phoneAllow, setPhoneAllow] = useState<boolean>(true);
+  const [transactionAllow, setTransactionAllow] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -132,8 +133,12 @@ export default function CheckoutComponent() {
         product_id,
         quantity: count,
         customer_data: formValue,
-        items_id: items_id,
+        items_id: Number(items_id),
+        number: "",
+        transaction_id: "",
       };
+      // console.log("finalData", finalData);
+      // return;
       setModalData({
         item_name: selectedItem?.name,
         product_name: name,
@@ -149,6 +154,8 @@ export default function CheckoutComponent() {
     onSuccess: (data: IOrderResponse) => {
       if (data.status === false) {
         showErrorAlert(data.message);
+      } else if (data.paymentUrl !== null) {
+        window.open(data.paymentUrl, "_blank");
       } else {
         setOrderData(data);
         setModal(true);
@@ -187,6 +194,9 @@ export default function CheckoutComponent() {
     if (profileData?.user?.phone === null) {
       setWarningModal(true);
     }
+    if (method?.id === 4) {
+      setTransactionAllow(false);
+    }
   }, [profile]);
 
   if (!formData || count === 0 || !product_id) {
@@ -223,7 +233,12 @@ export default function CheckoutComponent() {
         <div className="w-full h-full text-gray-200 overflow-auto scroll-hidden">
           <div className="mt-3">
             <GenericForm
-              schema={playerAddressSchema(loggedIn, wallet, phoneAllow)}
+              schema={playerAddressSchema(
+                loggedIn,
+                wallet,
+                phoneAllow,
+                transactionAllow
+              )}
               initialValues={initialValues}
               onSubmit={handleSubmit}
               ref={formRef}
@@ -326,27 +341,35 @@ export default function CheckoutComponent() {
 
                     {method?.method !== "Wallet" ? (
                       <>
-                        <p className="text-[20px] flex items-center justify-between gap-3 p-4 bg-[#20243a] rounded-xl">
-                          <span>{method?.number}</span>
-                          <span
-                            onClick={() => copy(`${method?.number}`)}
-                            className="px-3 py-1 text-sm cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
-                          >
-                            {copied ? "Copied" : "Copy"}
-                          </span>
-                        </p>
-                        {method?.method !== "Wallet" && (
-                          <PaymentForm phoneAllow={phoneAllow} />
+                        {method?.id !== 4 && (
+                          <>
+                            {" "}
+                            <p className="text-[20px] flex items-center justify-between gap-3 p-4 bg-[#20243a] rounded-xl">
+                              <span>{method?.number}</span>
+                              <span
+                                onClick={() => copy(`${method?.number}`)}
+                                className="px-3 py-1 text-sm cursor-pointer hover:text-gray-400 border border-gray-100 rounded"
+                              >
+                                {copied ? "Copied" : "Copy"}
+                              </span>
+                            </p>
+                            {method?.method !== "Wallet" && (
+                              <PaymentForm
+                                phoneAllow={phoneAllow}
+                                transactionAllow={transactionAllow}
+                              />
+                            )}
+                            <div
+                              className="game-description-content border rounded-md"
+                              dangerouslySetInnerHTML={{
+                                __html: (method?.description || "").replaceAll(
+                                  "[amount]",
+                                  (balance * count).toString()
+                                ),
+                              }}
+                            />
+                          </>
                         )}
-                        <div
-                          className="game-description-content border rounded-md"
-                          dangerouslySetInnerHTML={{
-                            __html: (method?.description || "").replaceAll(
-                              "[amount]",
-                              (balance * count).toString()
-                            ),
-                          }}
-                        />
                       </>
                     ) : (
                       <p className="text-sm font-semibold flex items-center gap-3">
@@ -374,7 +397,13 @@ export default function CheckoutComponent() {
 }
 
 /* ---------- small sub-components ---------- */
-const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
+const PaymentForm = ({
+  phoneAllow,
+  transactionAllow,
+}: {
+  phoneAllow: boolean;
+  transactionAllow: boolean;
+}) => (
   <div className="mt-4 space-y-5">
     {!phoneAllow && (
       <TextField
@@ -385,13 +414,15 @@ const PaymentForm = ({ phoneAllow }: { phoneAllow: boolean }) => (
         inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
       />
     )}
-    <TextField
-      label="Transaction Id"
-      name="transaction_id"
-      type="text"
-      placeholder="transaction id"
-      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
-    />
+    {!transactionAllow && (
+      <TextField
+        label="Transaction Id"
+        name="transaction_id"
+        type="text"
+        placeholder="transaction id"
+        inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
+      />
+    )}
   </div>
 );
 

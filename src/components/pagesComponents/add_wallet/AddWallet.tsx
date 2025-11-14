@@ -1,31 +1,31 @@
 "use client";
 
 import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { z } from "zod";
 import { TextField } from "@/components/Form/fields/TextField";
 import MainContainer from "@/components/container/MainContainer";
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/lib/axios/AxiosInstance";
-import { Order } from "@/types/orderDataType/orderDataType";
-import { AxiosError } from "axios";
+import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import { LoadingButton } from "@/components/shared/submitButton/submitButton";
 import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/components/shared/toast/ToastModal";
-import { useEffect, useRef, useState } from "react";
-import { LoadingButton } from "@/components/shared/submitButton/submitButton";
-import { cn } from "@/lib/utils";
+import axiosInstance from "@/lib/axios/AxiosInstance";
 import { useGetData } from "@/lib/fetch/useGetData";
+import { cn } from "@/lib/utils";
+import { WalletSchema } from "@/schema/addWalletSchema/addWalletSchema";
+import { Order } from "@/types/orderDataType/orderDataType";
 import {
   PaymentMethod,
   paymentMethodResponse,
 } from "@/types/paymentMethod/paymentMethod";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Image from "next/image";
-import { CopyToClipboard } from "@/components/shared/copyClipboard/copyClipboard";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { FaCopy } from "react-icons/fa";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
-import { WalletSchema } from "@/schema/addWalletSchema/addWalletSchema";
+import { z } from "zod";
 
 export default function AddWalletComponent() {
   const searchParams = useSearchParams();
@@ -45,6 +45,7 @@ export default function AddWalletComponent() {
   );
   const [method, setMethod] = useState<PaymentMethod | undefined>(undefined);
   const [phoneAllow, setPhoneAllow] = useState<boolean>(true);
+  const [transactionAllow, setTransactionAllow] = useState<boolean>(true);
   const router = useRouter();
   const initialValues: FormType = {
     amount: amountFromParams,
@@ -71,6 +72,7 @@ export default function AddWalletComponent() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
+      console.log(data)
       const response = await axiosInstance.post<Order>(`/add-money`, data);
       return response.data;
     },
@@ -114,7 +116,7 @@ export default function AddWalletComponent() {
         <div className="h-full overflow-auto max-w-3xl mx-auto w-full bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-gray-900/70 backdrop-blur-xl p-3 rounded-2xl shadow-xl border border-gray-700">
           <div className="mt-2">
             <GenericForm
-              schema={WalletSchema(phoneAllow)}
+              schema={WalletSchema(phoneAllow, transactionAllow)}
               initialValues={initialValues}
               onSubmit={handleSubmit}
               ref={formRef}
@@ -151,15 +153,15 @@ export default function AddWalletComponent() {
                 </div>
 
                 {/* Selected Method Info */}
-                {method && (
+                {method?.id !== 4 && (
                   <div className="mt-5 p- rounded-xl bg-gray-900/80 border p-3 border-gray-700 shadow-inner">
                     <p className=" text-gray-100 flex items-center justify-between gap-3">
                       <span className="font-mono tracking-wide">
-                        {method.number}
+                        {method?.number}
                       </span>
                       <span
                         className="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 cursor-pointer transition-all"
-                        onClick={() => copy(method?.number)}
+                        // onClick={() => copy(method?.number)}
                       >
                         {copied ? (
                           <IoCheckmarkDone className="text-green-400" />
@@ -182,13 +184,15 @@ export default function AddWalletComponent() {
                       inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
                     />
                   )}
-                  <TextField
-                    label="Transaction ID"
-                    name="transaction_id"
-                    type="text"
-                    placeholder="Enter your transaction id"
-                    inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
-                  />
+                  {!transactionAllow && (
+                    <TextField
+                      label="Transaction ID"
+                      name="transaction_id"
+                      type="text"
+                      placeholder="Enter your transaction id"
+                      inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
+                    />
+                  )}
                 </div>
 
                 <div className="mt-3 rounded-xl border border-gray-700 shadow-inner">

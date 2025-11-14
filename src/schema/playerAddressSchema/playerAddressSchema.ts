@@ -3,7 +3,8 @@ import { z } from "zod";
 export const playerAddressSchema = (
   loggedIn: boolean,
   wallet: boolean,
-  phoneAllow: boolean
+  phoneAllow: boolean,
+  transactionAllow: boolean
 ) =>
   z.object({
     name: loggedIn
@@ -21,7 +22,7 @@ export const playerAddressSchema = (
         ? z.string().optional()
         : z.string().regex(/^\d{11}$/, "Enter valid phone number"),
 
-    transaction_id: wallet
+    transaction_id: wallet || transactionAllow
       ? z.string().optional()
       : z.string().min(1, "Enter transaction id"),
 
