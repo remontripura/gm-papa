@@ -70,9 +70,17 @@ export default function AddWalletComponent() {
     }
   }, [filteredPaymentMethods, amountFromParams, method]);
 
+  useEffect(() => {
+    if (method && method?.id === 4) {
+      setTransactionAllow(false);
+    } else {
+      setTransactionAllow(true);
+    }
+  }, [method]);
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
-      console.log(data)
+      console.log(data);
       const response = await axiosInstance.post<Order>(`/add-money`, data);
       return response.data;
     },
@@ -161,7 +169,7 @@ export default function AddWalletComponent() {
                       </span>
                       <span
                         className="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 cursor-pointer transition-all"
-                        // onClick={() => copy(method?.number)}
+                        onClick={() => copy(String(method?.id))}
                       >
                         {copied ? (
                           <IoCheckmarkDone className="text-green-400" />
@@ -184,7 +192,7 @@ export default function AddWalletComponent() {
                       inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 text-[16px] bg-gray-50"
                     />
                   )}
-                  {!transactionAllow && (
+                  {transactionAllow && (
                     <TextField
                       label="Transaction ID"
                       name="transaction_id"

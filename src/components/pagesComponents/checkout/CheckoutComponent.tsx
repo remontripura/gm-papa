@@ -55,7 +55,6 @@ export default function CheckoutComponent() {
   const loggedIn = !!token && token !== "undefined";
   const formRef = useRef<GenericFormRef<FormType>>(null);
   const [method, setMethod] = useState<PaymentMethod>();
-  console.log(method);
   const [wallet, setWallet] = useState<boolean>(false);
   useEffect(() => {
     if (filteredPaymentMethods?.length && !method) {
@@ -120,25 +119,22 @@ export default function CheckoutComponent() {
   });
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormType) => {
-      const cleanedData = Object.fromEntries(
-        Object.entries(data).filter(([key, value]) => {
-          if ((key === "number" || key === "transaction_id") && value === "") {
-            return false;
-          }
-          return true;
-        })
-      );
+      // const cleanedData = Object.fromEntries(
+      //   Object.entries(data).filter(([key, value]) => {
+      //     if ((key === "number" || key === "transaction_id") && value === "") {
+      //       return false;
+      //     }
+      //     return true;
+      //   })
+      // );
       const finalData = {
-        ...cleanedData,
+        ...data,
         product_id,
         quantity: count,
         customer_data: formValue,
         items_id: Number(items_id),
-        number: "",
-        transaction_id: "",
       };
-      // console.log("finalData", finalData);
-      // return;
+
       setModalData({
         item_name: selectedItem?.name,
         product_name: name,
@@ -155,7 +151,7 @@ export default function CheckoutComponent() {
       if (data.status === false) {
         showErrorAlert(data.message);
       } else if (data.paymentUrl !== null) {
-        window.open(data.paymentUrl, "_blank");
+        window.location.href = data.paymentUrl;
       } else {
         setOrderData(data);
         setModal(true);
@@ -414,7 +410,7 @@ const PaymentForm = ({
         inputClass="px-3 border border-gray-300 rounded-lg text-gray-800 bg-gray-50"
       />
     )}
-    {!transactionAllow && (
+    {transactionAllow && (
       <TextField
         label="Transaction Id"
         name="transaction_id"
