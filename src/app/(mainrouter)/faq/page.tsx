@@ -1,8 +1,9 @@
 import FaqComponents from "@/components/pagesComponents/faq/FaqComponents";
+import config from "@/config";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `FAQ | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  title: `FAQ | ${config.appName}`,
 };
 
 const FaqPage = () => {

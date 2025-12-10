@@ -3,13 +3,14 @@ import Navbar from "@/components/homeComponents/NavbarAndFooter/Navbar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Profile } from "@/types/profile/profile";
+import config from "@/config";
 
 const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
   const token = (await cookies()).get("FFT")?.value;
   let profileData: Profile | null = null;
   if (token) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/my-profile`, {
+      const response = await fetch(`${config.baseUrl}/my-profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

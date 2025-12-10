@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Images } from "@/lib/store/images";
 import { IGameData } from "@/types/productsDataType/SingleProductType";
+import config from "@/config";
 
 export default function ProductHeader({
   singleProduct,
@@ -23,7 +24,7 @@ export default function ProductHeader({
           <div className="flex-shrink-0">
             <Image
               className="w-24 h-24 md:w-32 md:h-32 rounded-lg object-cover"
-              src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct.image}`}
+              src={`${config.mainBaseUrl}/${singleProduct.image}`}
               alt="Product image"
               width={300}
               height={300}

@@ -1,7 +1,8 @@
 import MyWalletHistory from "@/components/pagesComponents/walletHistory/WalletHIstory";
+import config from "@/config";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: `Wallet History | ${process.env.NEXT_PUBLIC_APP_NAME}}`,
+  title: `Wallet History | ${config.appName}}`,
 };
 
 const WalletHistory = () => {

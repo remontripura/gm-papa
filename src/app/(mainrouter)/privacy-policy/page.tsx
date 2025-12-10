@@ -1,15 +1,16 @@
+import config from "@/config";
 import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: `Privacy | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  title: `Privacy | ${config.appName}`,
 };
 const PrivacyPolicy = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 text-sm text-white">
       <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
       <p className="mb-2">
-        At <strong>{process.env.NEXT_PUBLIC_APP_NAME}</strong>, we are committed
+        At <strong>{config.appName}</strong>, we are committed
         to protecting your personal information and your right to privacy. This
         Privacy Policy explains how we collect, use, and safeguard your data
         when you use our website or services.

@@ -37,7 +37,7 @@ const ProductITemComponent = ({
                 <div className="w-full md:h-[180px] h-[120px] overflow-hidden">
                   <Image
                     className="w-full h-full rounded group-hover:scale-110 duration-300"
-                    src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${item.image}`}
+                    src={`${config.mainBaseUrl}/${item.image}`}
                     alt="img"
                     width={500}
                     height={500}
@@ -80,6 +80,7 @@ const ProductITemComponent = ({
 };
 
 import { ICategory } from "@/types/productsDataType/productsDataType";
+import config from "@/config";
 export default function ProductITemComponents({ data }: { data: ICategory[] }) {
   return (
     <>

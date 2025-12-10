@@ -1,3 +1,4 @@
+import config from "@/config";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -16,7 +17,7 @@ export type IGenericErrorResponse = {
 
 // Create axios instance
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: config.baseUrl,
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",

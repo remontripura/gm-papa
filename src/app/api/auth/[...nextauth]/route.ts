@@ -1,11 +1,12 @@
+import config from "@/config";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
+      clientId: config.googleClientId as string,
+      clientSecret: config.googleClientSecret as string,
       authorization: {
         params: {
           redirect_uri:`https://www.freefirebd.com/api/auth/callback/google`,
@@ -32,7 +33,7 @@ const handler = NextAuth({
     strategy: "jwt",
     maxAge: 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: config.nextAuthSecret,
 });
 
 export { handler as GET, handler as POST };

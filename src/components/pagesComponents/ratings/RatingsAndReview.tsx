@@ -1,29 +1,29 @@
 "use client";
 
-import RatingsLine from "./RatingLine";
-import ReviewLine from "./ReviewLine";
-import Image from "next/image";
-import { Star, User } from "lucide-react";
-import { useGetData } from "@/lib/fetch/useGetData";
-import { addReview, ReviewResponse } from "@/types/review_type/reviewType";
-import StarRating from "./StarRatings";
-import { timeAgo } from "@/lib/time_count/time_count";
-import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
-import { reviewSchema } from "@/schema/reviewSchema/reviewSchema";
-import z from "zod";
-import { useRef, useState } from "react";
-import { LoadingButton } from "@/components/shared/submitButton/submitButton";
-import { cn } from "@/lib/utils";
 import { TextareaField } from "@/components/Form/fields/TextAreaField";
-import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/lib/axios/AxiosInstance";
-import { AxiosError } from "axios";
+import { GenericForm, GenericFormRef } from "@/components/Form/GenericForm";
+import Pagination from "@/components/shared/Pagination/Pagination";
+import { LoadingButton } from "@/components/shared/submitButton/submitButton";
 import {
   showErrorAlert,
   showSuccessAlert,
 } from "@/components/shared/toast/ToastModal";
+import axiosInstance from "@/lib/axios/AxiosInstance";
+import { useGetData } from "@/lib/fetch/useGetData";
+import { timeAgo } from "@/lib/time_count/time_count";
+import { cn } from "@/lib/utils";
+import { reviewSchema } from "@/schema/reviewSchema/reviewSchema";
+import { addReview, ReviewResponse } from "@/types/review_type/reviewType";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import Cookies from "js-cookie";
-import Pagination from "@/components/shared/Pagination/Pagination";
+import { Star, User } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import z from "zod";
+import RatingsLine from "./RatingLine";
+import ReviewLine from "./ReviewLine";
+import StarRating from "./StarRatings";
 
 type FormType = z.infer<typeof reviewSchema>;
 
@@ -182,10 +182,10 @@ const RatingAndReview = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {item?.user?.image ? (
-                  <div className="size-10 p-1 border border-gray-400 rounded-full flex justify-center items-center">
+                  <div className="size-10 p-0.5 border border-gray-400 rounded-full flex justify-center items-center">
                     <Image
                       src={item?.user?.image}
-                      alt="profile"
+                      alt="img"
                       width={40}
                       height={40}
                       className="rounded-full size-full object-cover"

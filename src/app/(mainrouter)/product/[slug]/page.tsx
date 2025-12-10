@@ -9,6 +9,7 @@ import ProductDescription from "@/components/pagesComponents/checkout/ProductDes
 import CustomSkeleton from "@/components/shared/skelton/Skelton";
 import { Metadata } from "next";
 import { IGameRes } from "@/types/productsDataType/SingleProductType";
+import config from "@/config";
 
 interface PageProps {
   params: { slug: string };
@@ -37,7 +38,7 @@ export async function generateMetadata({
     title: seoTitle,
     description: seoDescription,
     alternates: {
-      canonical: `${process.env.NEXTAUTH_URL}/product/${params.slug}`,
+      canonical: `${config.nextAuthUrl}/product/${params.slug}`,
     },
     keywords: seoKeywords,
     openGraph: {
@@ -45,7 +46,7 @@ export async function generateMetadata({
       description: seoDescription,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct?.image}`,
+          url: `${config.mainBaseUrl}/${singleProduct?.image}`,
           width: 1200,
           height: 630,
           alt: `${productName} - Free Fire Diamond Top Up BD`,
@@ -57,16 +58,15 @@ export async function generateMetadata({
 }
 
 export default async function ProductSlug({ params, searchParams }: PageProps) {
-  const { data: singleProduct } = await getData<IGameRes>(
-    `/product/${params.slug}`
-  );
+  const { slug } = await params;
+  const { data: singleProduct } = await getData<IGameRes>(`/product/${slug}`);
   const { page } = (await searchParams) ?? { page: "1" };
 
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: singleProduct?.name,
-    image: `${process.env.NEXT_PUBLIC_MAIN_BASE}/${singleProduct?.image}`,
+    image: `${config.mainBaseUrl}/${singleProduct?.image}`,
     description:
       singleProduct?.seo_description ||
       `Buy ${singleProduct?.name} at the best price in Bangladesh.`,
@@ -77,7 +77,7 @@ export default async function ProductSlug({ params, searchParams }: PageProps) {
     },
     offers: {
       "@type": "Offer",
-      url: `${process.env.NEXTAUTH_URL}/product/${singleProduct?.slug}`,
+      url: `${config.nextAuthUrl}/product/${singleProduct?.slug}`,
       priceCurrency: "BDT",
       price: singleProduct?.items[0],
       availability: "https://schema.org/InStock",
@@ -147,7 +147,9 @@ export default async function ProductSlug({ params, searchParams }: PageProps) {
             />
           }
         >
-          <ProductDescription slug={params.slug} pageNumber={page} />
+          <Suspense fallback={<CustomSkeleton />}>
+            <ProductDescription slug={slug} pageNumber={page} />
+          </Suspense>{" "}
         </Suspense>
       </MainContainer>
     </>

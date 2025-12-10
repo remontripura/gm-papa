@@ -1,8 +1,9 @@
 import CheckoutComponent from "@/components/pagesComponents/checkout/CheckoutComponent";
+import config from "@/config";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `Checkout - ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  title: `Checkout - ${config.appName}`,
 };
 
 const CheckoutPage = async () => {

@@ -1,7 +1,8 @@
+import config from "@/config";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `Terms And Conditions | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  title: `Terms And Conditions | ${config.appName}`,
 };
 const TermsAndConditions = () => {
   return (
@@ -10,7 +11,7 @@ const TermsAndConditions = () => {
 
       <p className="mb-2">
         These Terms and Conditions govern your use of the{" "}
-        <strong>{process.env.NEXT_PUBLIC_APP_NAME}</strong> platform and its
+        <strong>{config.appName}</strong> platform and its
         services. By accessing or using our services, you agree to be bound by
         these terms.
       </p>
@@ -19,7 +20,7 @@ const TermsAndConditions = () => {
         1. Service Description
       </h2>
       <p className="mb-2">
-        {process.env.NEXT_PUBLIC_APP_NAME} provides digital gaming and social
+        {config.appName} provides digital gaming and social
         packages such as internet offers for Emo, YouTube, PUBG, FreeFireBD, and
         other platforms.
       </p>

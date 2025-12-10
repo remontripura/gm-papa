@@ -6,6 +6,7 @@ import { AuthProvider } from "@/components/provider/MainProvider";
 import { getData } from "@/lib/fetch/getData";
 import type { Metadata, Viewport } from "next";
 import { SocialLinkResponse } from "@/types/helpline/helpline";
+import config from "@/config";
 
 export const metadata: Metadata = {
   title:
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   keywords:
     "Free Fire Diamond Top Up BD, Free Fire Top Up Bangladesh, cheap Free Fire diamond, FreeFireBD, UID recharge",
   alternates: {
-    canonical: `${process.env.NEXTAUTH_URL}`,
+    canonical: `${config.nextAuthUrl}`,
   },
   icons: {
     icon: "/icon_favicon.png",

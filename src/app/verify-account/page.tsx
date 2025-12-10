@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import VarifyAccountCompo from "./VerifyAccount";
+import config from "@/config";
 
 export const metadata: Metadata = {
-  title: `verify account | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  title: `verify account | ${config.appName}`,
 };
 
 const VarifyAccount = () => {

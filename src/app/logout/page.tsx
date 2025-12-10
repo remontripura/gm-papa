@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import LogoutComponent from "./Logout";
+import config from "@/config";
 
 export const metadata: Metadata = {
-  title: `logout | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+  title: `logout | ${config.appName}`,
   description: "logout",
 };
 const LogoutPage = () => {

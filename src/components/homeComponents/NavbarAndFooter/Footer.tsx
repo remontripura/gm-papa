@@ -1,4 +1,5 @@
 import MainContainer from "@/components/container/MainContainer";
+import config from "@/config";
 import { Images } from "@/lib/store/images";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -40,7 +41,7 @@ export default function Footer() {
         </div>
         {/* Bottom - Copyright */}
         <p className="text-xs opacity-70 border-t border-gray-700 pt-4 w-full">
-          © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME}. All
+          © {new Date().getFullYear()} {config.appName}. All
           rights reserved.
         </p>
       </MainContainer>

@@ -6,6 +6,7 @@ import { IoIosCheckmark } from "react-icons/io";
 import Link from "next/link";
 import { SocialLink } from "@/types/helpline/helpline";
 import Image from "next/image";
+import config from "@/config";
 
 const ConactComponents = ({ helpline }: { helpline: SocialLink[] }) => {
   return (
@@ -32,7 +33,7 @@ const ConactComponents = ({ helpline }: { helpline: SocialLink[] }) => {
                   >
                     <Image
                       className="size-full rounded"
-                      src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${item.image}`}
+                      src={`${config.mainBaseUrl}/${item.image}`}
                       alt={item.name}
                       width={200}
                       height={200}

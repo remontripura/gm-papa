@@ -14,6 +14,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { IProduct } from "@/types/productsDataType/productsDataType";
 import { usePathname } from "next/navigation";
+import config from "@/config";
 
 const Search = ({
   className,
@@ -99,7 +100,7 @@ const Search = ({
                         className="p-2 text-sm rounded cursor-pointer flex items-center gap-3 hover:text-primary"
                       >
                         <Image
-                          src={`${process.env.NEXT_PUBLIC_MAIN_BASE}/${product.image}`}
+                          src={`${config.mainBaseUrl}/${product.image}`}
                           className="size-12 rounded"
                           alt="img"
                           width={500}
